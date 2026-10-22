@@ -9,6 +9,8 @@
 
 零依赖 · 单文件 · 静态部署 · 菜单与营养数据取自麦当劳中国 MCP 的真实返回
 
+**在线体验**：<https://tom123223.github.io/maimen-xinshi/> ｜ **一键跑完五步**：<https://tom123223.github.io/maimen-xinshi/?demo=1>
+
 ![麦门心事首页](docs/images/hero.png)
 
 ---
