@@ -1,0 +1,3899 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#DA291C">
+<title>麦门心事 · 把今天的心事读成一份餐</title>
+<style>
+:root{
+  --red:#DA291C;
+  --red-deep:#A81C13;
+  --yellow:#FFC72C;
+  --yellow-soft:#FFE08A;
+  --cream:#FFF6E8;
+  --paper:#FFFDF8;
+  --ink:#2A1612;
+  --ink-soft:#6B4A40;
+  --pink:#FF8FA3;
+  --pink-soft:#FFD9E0;
+  --mint:#7BE0C4;
+  --mint-soft:#D6F5EC;
+  --sky:#8FC7FF;
+  --sky-soft:#DCEBFF;
+  --line:3px solid var(--ink);
+  --shadow:5px 5px 0 var(--ink);
+  --shadow-sm:3px 3px 0 var(--ink);
+  --r:18px;
+  --r-sm:12px;
+  --font:"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Source Han Sans SC",system-ui,-apple-system,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  font-family:var(--font);
+  background:var(--cream);
+  color:var(--ink);
+  line-height:1.7;
+  overflow-x:hidden;
+  background-image:
+    radial-gradient(circle at 1px 1px, rgba(42,22,18,.07) 1px, transparent 0);
+  background-size:22px 22px;
+}
+img,svg{display:block;max-width:100%}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--yellow);color:var(--ink)}
+
+.wrap{width:100%;max-width:1160px;margin:0 auto;padding:0 20px}
+
+/* ---------- 顶部导航 ---------- */
+.nav{
+  position:sticky;top:0;z-index:90;
+  background:var(--red);
+  border-bottom:var(--line);
+}
+.nav-inner{
+  max-width:1160px;margin:0 auto;padding:10px 20px;
+  display:flex;align-items:center;gap:16px;
+}
+.brand{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.brand-mark{width:42px;height:34px;flex-shrink:0}
+.brand-text{display:flex;flex-direction:column;line-height:1.15}
+.brand-cn{font-size:17px;font-weight:800;color:#fff;letter-spacing:.06em}
+.brand-en{font-size:9px;color:var(--yellow);letter-spacing:.22em;font-weight:700;text-transform:uppercase}
+.nav-links{
+  display:flex;gap:6px;margin-left:auto;
+  overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none;
+  mask-image:linear-gradient(90deg,transparent,#000 12px,#000 calc(100% - 12px),transparent);
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 12px,#000 calc(100% - 12px),transparent);
+  padding:2px 4px;
+}
+.nav-links::-webkit-scrollbar{display:none}
+.nav-links a{
+  white-space:nowrap;font-size:12.5px;font-weight:700;color:#fff;
+  padding:5px 11px;border-radius:999px;border:2px solid transparent;
+  transition:background .18s,border-color .18s,color .18s;
+}
+.nav-links a:hover{background:var(--yellow);color:var(--ink);border-color:var(--ink)}
+.nav-links a.active{background:var(--yellow);color:var(--ink);border-color:var(--ink)}
+.nav-cta{
+  flex-shrink:0;background:var(--yellow);color:var(--ink);
+  font-weight:800;font-size:12.5px;padding:7px 15px;border-radius:999px;
+  border:2px solid var(--ink);box-shadow:2px 2px 0 var(--ink);
+  transition:transform .12s,box-shadow .12s;white-space:nowrap;
+}
+.nav-cta:hover{transform:translate(1px,1px);box-shadow:1px 1px 0 var(--ink)}
+.nav-cta:active{transform:translate(2px,2px);box-shadow:0 0 0 var(--ink)}
+
+/* ---------- 英雄区 ---------- */
+.hero{position:relative;overflow:hidden;padding:52px 0 46px;border-bottom:var(--line)}
+.hero::before{
+  content:"";position:absolute;inset:0;z-index:0;
+  background:
+    radial-gradient(circle at 78% 22%, rgba(255,199,44,.55) 0 180px, transparent 181px),
+    radial-gradient(circle at 12% 78%, rgba(255,143,163,.32) 0 150px, transparent 151px);
+}
+.hero-rays{
+  position:absolute;top:-30%;right:-8%;width:620px;height:620px;z-index:0;
+  opacity:.16;pointer-events:none;
+}
+.hero-grid{
+  position:relative;z-index:1;
+  display:grid;grid-template-columns:1.15fr .85fr;gap:40px;align-items:center;
+}
+.hero-tag{
+  display:inline-flex;align-items:center;gap:7px;
+  background:var(--ink);color:var(--yellow);
+  font-size:11.5px;font-weight:800;letter-spacing:.14em;
+  padding:5px 13px;border-radius:999px;margin-bottom:16px;
+}
+.hero-tag .dot{width:6px;height:6px;border-radius:50%;background:var(--yellow)}
+/* 实时数据状态条 */
+.live-bar{
+  display:flex;align-items:center;gap:8px;flex-wrap:wrap;
+  font-size:12px;font-weight:700;color:var(--ink-soft);
+  background:var(--paper);border:1px solid rgba(42,22,18,.16);
+  border-radius:999px;padding:5px 12px;margin-bottom:14px;width:fit-content;
+}
+.live-bar .pulse{
+  width:7px;height:7px;border-radius:50%;background:var(--mint,#7BE0C4);
+  box-shadow:0 0 0 0 rgba(123,224,196,.7);animation:livePulse 2.2s infinite;
+}
+.live-bar.off .pulse{background:#C9C2B4;animation:none;box-shadow:none}
+.live-bar.err .pulse{background:var(--red);animation:none;box-shadow:none}
+.live-bar b{color:var(--ink);font-weight:800}
+.live-bar button{
+  background:none;border:none;font:inherit;font-weight:800;color:var(--red);
+  cursor:pointer;padding:0 2px;text-decoration:underline;text-underline-offset:2px;
+}
+.live-bar button[disabled]{color:#B9B1A2;cursor:default;text-decoration:none}
+@keyframes livePulse{
+  0%{box-shadow:0 0 0 0 rgba(123,224,196,.7)}
+  70%{box-shadow:0 0 0 7px rgba(123,224,196,0)}
+  100%{box-shadow:0 0 0 0 rgba(123,224,196,0)}
+}
+@media (prefers-reduced-motion:reduce){ .live-bar .pulse{animation:none} }
+.hero h1{
+  font-size:clamp(32px,5.4vw,54px);font-weight:900;line-height:1.18;
+  letter-spacing:-.01em;margin-bottom:14px;
+}
+.hero h1 em{
+  font-style:normal;color:var(--red);
+  background:linear-gradient(180deg,transparent 62%,var(--yellow) 62%);
+  padding:0 4px;
+}
+.hero-sub{font-size:15px;color:var(--ink-soft);max-width:430px;margin-bottom:22px;font-weight:500}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  font-weight:800;font-size:14px;padding:12px 24px;border-radius:999px;
+  border:var(--line);box-shadow:var(--shadow-sm);
+  transition:transform .12s,box-shadow .12s;
+}
+.btn:hover{transform:translate(1px,1px);box-shadow:1px 1px 0 var(--ink)}
+.btn:active{transform:translate(3px,3px);box-shadow:0 0 0 var(--ink)}
+.btn-red{background:var(--red);color:#fff}
+.btn-yellow{background:var(--yellow);color:var(--ink)}
+.btn-ghost{background:var(--paper);color:var(--ink)}
+
+/* 英雄区右侧：贴纸卡片 */
+.hero-art{position:relative}
+.sticker{
+  background:var(--paper);border:var(--line);border-radius:26px;
+  box-shadow:8px 8px 0 var(--red);
+  padding:24px 22px;position:relative;
+  max-width:376px;margin-left:auto;margin-right:78px;
+}
+.sticker::after{
+  content:"";position:absolute;top:14px;right:14px;width:52px;height:52px;
+  border-radius:50%;background:var(--yellow);border:2.5px solid var(--ink);
+  opacity:.9;
+}
+.sticker-label{font-size:11px;font-weight:800;letter-spacing:.16em;color:var(--red);margin-bottom:12px}
+.sticker-quote{
+  font-size:19px;font-weight:800;line-height:1.5;margin-bottom:16px;
+  position:relative;z-index:1;
+}
+.sticker-quote span{color:var(--red)}
+.sticker-meal{
+  display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+  padding-top:14px;border-top:2px dashed rgba(42,22,18,.25);
+}
+.meal-pill{
+  background:var(--cream);border:2px solid var(--ink);border-radius:999px;
+  font-size:12.5px;font-weight:700;padding:4px 12px;
+}
+.sticker-foot{
+  margin-top:16px;display:flex;justify-content:space-between;align-items:center;
+  font-size:11.5px;font-weight:700;color:var(--ink-soft);
+}
+.mini-arch{width:28px;height:23px;opacity:.85}
+
+/* ---------- 通用区块 ---------- */
+.section{padding:56px 0;position:relative}
+.section-alt{background:var(--paper);border-top:var(--line);border-bottom:var(--line)}
+.sec-head{margin-bottom:30px;max-width:660px}
+.sec-kicker{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:11px;font-weight:800;letter-spacing:.18em;color:var(--red);
+  margin-bottom:10px;
+}
+.sec-kicker::before{content:"";width:22px;height:3px;background:var(--red);border-radius:2px}
+.sec-head h2{font-size:clamp(23px,3.4vw,32px);font-weight:900;line-height:1.3;margin-bottom:8px}
+.sec-head p{font-size:14px;color:var(--ink-soft);font-weight:500}
+
+.card{
+  background:var(--paper);border:var(--line);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:24px;
+}
+.card-flat{background:var(--paper);border:var(--line);border-radius:var(--r);padding:24px}
+
+/* ---------- 工作台 ---------- */
+.bench{display:grid;grid-template-columns:400px 1fr;gap:24px;align-items:start}
+.input-card{position:sticky;top:78px}
+.input-label{
+  display:flex;align-items:center;gap:8px;
+  font-size:12px;font-weight:800;letter-spacing:.1em;color:var(--ink-soft);
+  margin-bottom:10px;
+}
+.input-label .num{
+  width:20px;height:20px;border-radius:50%;background:var(--red);color:#fff;
+  font-size:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+textarea{
+  width:100%;min-height:112px;resize:vertical;
+  font-family:inherit;font-size:14px;line-height:1.7;color:var(--ink);
+  background:var(--cream);border:2.5px solid var(--ink);border-radius:var(--r-sm);
+  padding:12px 14px;font-weight:500;
+}
+textarea:focus{outline:none;border-color:var(--red);background:#fff}
+textarea::placeholder{color:#A98C82}
+.chips{display:flex;flex-wrap:wrap;gap:7px;margin:14px 0 6px}
+.chip{
+  font-size:12.5px;font-weight:700;padding:6px 13px;border-radius:999px;
+  background:var(--cream);border:2px solid var(--ink);
+  transition:background .16s,transform .12s,box-shadow .12s;
+  box-shadow:1.5px 1.5px 0 var(--ink);
+}
+.chip:hover{transform:translate(-1px,-1px);box-shadow:2.5px 2.5px 0 var(--ink)}
+.chip[aria-pressed="true"]{background:var(--yellow);box-shadow:2px 2px 0 var(--red)}
+.bench-note{
+  font-size:11.5px;color:var(--ink-soft);line-height:1.6;
+  margin-top:14px;padding-top:12px;border-top:2px dashed rgba(42,22,18,.2);
+  display:flex;gap:6px;align-items:flex-start;
+}
+.bench-note b{color:var(--red);font-weight:800;flex-shrink:0}
+.btn-block{width:100%;margin-top:16px}
+/* 禁用态要看得出来，否则"必须填理由"这条规则在视觉上是隐形的 */
+.btn[disabled]{opacity:.42;cursor:not-allowed;transform:none!important;box-shadow:2px 2px 0 rgba(42,22,18,.5)}
+
+/* ---------- 结果区 ---------- */
+.result{min-height:420px;display:flex;flex-direction:column;gap:16px}
+.empty{
+  border:3px dashed rgba(42,22,18,.28);border-radius:var(--r);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:10px;padding:60px 24px;text-align:center;background:rgba(255,253,248,.6);
+}
+.empty-arch{width:70px;height:58px;opacity:.28}
+.empty p{font-size:13.5px;color:var(--ink-soft);font-weight:600;max-width:300px}
+
+.step-bar{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:2px}
+.step-dot{
+  display:flex;align-items:center;gap:6px;
+  font-size:11.5px;font-weight:700;color:var(--ink-soft);
+  background:var(--cream);border:2px solid rgba(42,22,18,.25);
+  border-radius:999px;padding:3px 11px;transition:all .25s;
+}
+.step-dot .n{width:15px;height:15px;border-radius:50%;background:rgba(42,22,18,.25);color:#fff;
+  font-size:9px;display:flex;align-items:center;justify-content:center;font-weight:800;transition:all .25s}
+.step-dot.done{background:var(--mint-soft);border-color:var(--ink);color:var(--ink)}
+.step-dot.done .n{background:var(--mint);color:var(--ink)}
+.step-dot.active{background:var(--yellow);border-color:var(--ink);color:var(--ink)}
+.step-dot.active .n{background:var(--red)}
+
+.panel{border:var(--line);border-radius:var(--r);background:var(--paper);overflow:hidden;
+  box-shadow:var(--shadow-sm);animation:pop .3s cubic-bezier(.2,1.2,.4,1) both}
+/* 只做位移，不用透明度：动画被暂停或禁用时内容依然完整可见 */
+@keyframes pop{from{transform:translateY(10px) scale(.985)}to{transform:none}}
+.panel-head{
+  display:flex;align-items:center;gap:10px;
+  padding:12px 18px;background:var(--ink);color:#fff;
+}
+.panel-head .ttl{font-size:13px;font-weight:800;letter-spacing:.06em}
+.panel-head .badge{
+  margin-left:auto;font-size:10px;font-weight:700;letter-spacing:.1em;
+  background:rgba(255,255,255,.16);padding:3px 9px;border-radius:999px;
+}
+.panel-head .badge.y{background:var(--yellow);color:var(--ink)}
+.panel-body{padding:18px}
+
+.emo-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.emo-tag{
+  font-size:13px;font-weight:800;padding:5px 14px;border-radius:999px;
+  background:var(--pink-soft);border:2px solid var(--ink);
+}
+.emo-tag.k{background:var(--sky-soft)}
+.emo-tag.g{background:var(--mint-soft)}
+.emo-sentence{
+  font-size:15px;font-weight:700;line-height:1.65;
+  padding:14px 16px;background:var(--cream);border-radius:var(--r-sm);
+  border-left:5px solid var(--red);
+}
+.emo-meta{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px;
+}
+.meta-box{background:var(--cream);border-radius:var(--r-sm);padding:9px 11px;border:2px solid rgba(42,22,18,.14)}
+.meta-box .k{font-size:10.5px;font-weight:700;color:var(--ink-soft);letter-spacing:.06em}
+.meta-box .v{font-size:13.5px;font-weight:800;margin-top:2px}
+
+.meal-list{display:flex;flex-direction:column;gap:10px}
+.meal-item{
+  display:flex;align-items:center;gap:13px;
+  background:var(--cream);border:2.5px solid var(--ink);border-radius:var(--r-sm);
+  padding:11px 14px;
+}
+.meal-ico{
+  width:42px;height:42px;border-radius:11px;background:var(--yellow);
+  border:2px solid var(--ink);display:flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:900;flex-shrink:0;
+}
+.meal-main{flex:1;min-width:0}
+.meal-name{font-size:14px;font-weight:800;line-height:1.3}
+.meal-desc{font-size:11.5px;color:var(--ink-soft);font-weight:600;margin-top:1px}
+.meal-price{font-size:15px;font-weight:900;color:var(--red);flex-shrink:0}
+.meal-why{
+  margin-top:12px;padding:12px 15px;background:var(--yellow-soft);
+  border-radius:var(--r-sm);border:2px dashed var(--ink);
+  font-size:13px;font-weight:700;line-height:1.6;
+}
+
+.report-tabs{display:flex;gap:7px;margin-bottom:14px}
+.rtab{
+  font-size:12.5px;font-weight:800;padding:6px 15px;border-radius:999px;
+  border:2px solid var(--ink);background:var(--cream);
+}
+.rtab[aria-selected="true"]{background:var(--ink);color:var(--yellow)}
+
+.score-row{display:flex;align-items:center;gap:12px;margin-bottom:11px}
+.score-name{font-size:12.5px;font-weight:700;width:86px;flex-shrink:0;color:var(--ink-soft)}
+.score-track{flex:1;height:13px;background:rgba(42,22,18,.1);border-radius:999px;overflow:hidden;border:1.5px solid rgba(42,22,18,.2)}
+.score-fill{height:100%;border-radius:999px;transition:width .7s cubic-bezier(.2,1,.3,1)}
+.score-val{font-size:13px;font-weight:900;width:34px;text-align:right;flex-shrink:0}
+
+.nutri-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-bottom:14px}
+.nutri-box{background:var(--cream);border:2px solid rgba(42,22,18,.16);border-radius:11px;padding:9px 10px;text-align:center}
+.nutri-box .k{font-size:10px;font-weight:700;color:var(--ink-soft);letter-spacing:.04em}
+.nutri-box .v{font-size:16px;font-weight:900;margin-top:1px}
+.nutri-box .u{font-size:9.5px;color:var(--ink-soft);font-weight:700}
+.nutri-total{
+  display:flex;align-items:baseline;gap:8px;padding:13px 16px;
+  background:var(--red);color:#fff;border-radius:var(--r-sm);margin-bottom:12px;
+}
+.nutri-total .n{font-size:29px;font-weight:900;line-height:1;letter-spacing:-.02em}
+.nutri-total .u{font-size:13px;font-weight:800;opacity:.9}
+.nutri-total .note{margin-left:auto;font-size:11px;font-weight:700;opacity:.9;text-align:right;line-height:1.4}
+.caution{
+  font-size:12.5px;font-weight:700;line-height:1.6;padding:10px 14px;
+  background:var(--mint-soft);border-radius:var(--r-sm);border-left:4px solid var(--mint);
+}
+.caution.warn{background:var(--pink-soft);border-left-color:var(--red)}
+.missing-note{font-size:11px;color:var(--ink-soft);margin-top:8px;font-weight:600}
+
+.mayou-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.mayou{background:var(--cream);border:2.5px solid var(--ink);border-radius:var(--r-sm);padding:13px;display:flex;flex-direction:column;gap:9px}
+.mayou-top{display:flex;align-items:center;gap:9px}
+.avatar{
+  width:38px;height:38px;border-radius:50%;border:2px solid var(--ink);
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;font-weight:900;flex-shrink:0;
+}
+.mayou-name{font-size:12.5px;font-weight:800;line-height:1.2}
+.mayou-role{font-size:10px;font-weight:700;color:var(--ink-soft);margin-top:1px}
+.mayou-say{font-size:12.5px;font-weight:600;line-height:1.65;flex:1}
+.verdict{
+  display:flex;align-items:center;gap:11px;margin-top:14px;padding:13px 16px;
+  background:var(--yellow);border:var(--line);border-radius:var(--r-sm);
+  box-shadow:var(--shadow-sm);
+}
+.verdict-ico{width:34px;height:34px;border-radius:50%;background:var(--ink);color:var(--yellow);
+  display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:900;flex-shrink:0}
+.verdict-txt{font-size:14px;font-weight:900;line-height:1.4}
+.verdict-sub{font-size:11.5px;font-weight:700;color:var(--ink-soft);margin-top:1px}
+
+.card-out{
+  background:var(--ink);color:#fff;border-radius:var(--r-sm);
+  padding:20px 22px;font-family:"Courier New",ui-monospace,monospace;
+  font-size:12.5px;line-height:1.85;white-space:pre;overflow-x:auto;
+  letter-spacing:.02em;
+}
+.card-out .hl{color:var(--yellow);font-weight:700}
+.card-actions{display:flex;gap:9px;margin-top:12px;flex-wrap:wrap}
+.btn-sm{
+  font-size:12px;font-weight:800;padding:8px 16px;border-radius:999px;
+  border:2px solid var(--ink);background:var(--cream);
+  box-shadow:2px 2px 0 var(--ink);transition:transform .12s,box-shadow .12s;
+}
+.btn-sm:hover{transform:translate(1px,1px);box-shadow:1px 1px 0 var(--ink)}
+.btn-sm.red{background:var(--red);color:#fff}
+
+.btn-loading{opacity:.75;pointer-events:none}
+.spinner{
+  width:15px;height:15px;border:2.5px solid rgba(255,255,255,.35);
+  border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ---------- 趣味区 ---------- */
+.fun-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:20px;align-items:start}
+.fun-card{background:var(--paper);border:var(--line);border-radius:var(--r);box-shadow:var(--shadow-sm);overflow:hidden}
+.fun-head{display:flex;align-items:center;gap:9px;padding:13px 18px;border-bottom:2.5px solid var(--ink)}
+.fun-head .t{font-size:13.5px;font-weight:900;letter-spacing:.04em}
+.fun-head .sub{font-size:10px;font-weight:700;color:var(--ink-soft);margin-left:auto;letter-spacing:.08em}
+.fun-body{padding:18px}
+
+.zodiac-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:7px;margin-bottom:16px}
+.zbtn{
+  aspect-ratio:1;border:2px solid rgba(42,22,18,.2);border-radius:10px;
+  background:var(--cream);font-size:10.5px;font-weight:800;line-height:1.15;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;
+  transition:all .16s;padding:2px;
+}
+.zbtn .sg{font-size:15px}
+.zbtn:hover{background:var(--yellow-soft);border-color:var(--ink)}
+.zbtn[aria-pressed="true"]{background:var(--yellow);border-color:var(--ink);box-shadow:2px 2px 0 var(--ink)}
+.zodiac-result{background:var(--cream);border-radius:var(--r-sm);padding:14px 16px;border:2px dashed var(--ink)}
+.zr-top{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.zr-sign{font-size:15px;font-weight:900}
+.zr-score{
+  margin-left:auto;background:var(--red);color:#fff;font-size:12px;font-weight:900;
+  padding:3px 12px;border-radius:999px;letter-spacing:.04em;
+}
+.zr-stars{display:flex;gap:2px;margin-bottom:9px}
+.star{width:13px;height:13px;fill:var(--yellow);stroke:var(--ink);stroke-width:1.2}
+.star.off{fill:rgba(42,22,18,.12)}
+.zr-text{font-size:12.5px;font-weight:600;line-height:1.7}
+.zr-line{display:flex;gap:7px;font-size:11.5px;font-weight:700;margin-top:7px;padding-top:7px;border-top:1px dashed rgba(42,22,18,.22)}
+.zr-line .k{color:var(--ink-soft);flex-shrink:0}
+.zr-line .v{color:var(--red)}
+
+.weather-now{display:flex;align-items:center;gap:16px;margin-bottom:14px}
+.weather-icon{width:64px;height:64px;flex-shrink:0}
+.weather-temp{font-size:38px;font-weight:900;line-height:1;letter-spacing:-.02em}
+.weather-desc{font-size:12.5px;font-weight:700;color:var(--ink-soft);margin-top:3px}
+.weather-city{
+  margin-left:auto;font-size:11.5px;font-weight:800;padding:5px 12px;border-radius:999px;
+  background:var(--cream);border:2px solid var(--ink);align-self:flex-start;
+}
+.weather-tip{
+  font-size:12.5px;font-weight:700;line-height:1.65;padding:12px 15px;
+  background:var(--sky-soft);border-radius:var(--r-sm);border-left:4px solid var(--sky);
+}
+.weather-meta{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:12px}
+.wm{background:var(--cream);border-radius:9px;padding:8px;text-align:center;border:1.5px solid rgba(42,22,18,.14)}
+.wm .k{font-size:10px;color:var(--ink-soft);font-weight:700}
+.wm .v{font-size:13px;font-weight:900}
+
+.lucky-slips{display:flex;flex-direction:column;gap:10px}
+.slip{
+  display:flex;gap:12px;align-items:flex-start;
+  background:var(--cream);border:2.5px solid var(--ink);border-radius:var(--r-sm);
+  padding:12px 14px;
+}
+.slip-num{
+  width:26px;height:26px;border-radius:8px;background:var(--red);color:#fff;
+  font-size:12px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.slip-txt{font-size:12.5px;font-weight:700;line-height:1.6}
+.slip-txt b{color:var(--red)}
+
+/* ---------- MCP 面板 ---------- */
+.mcp-note{
+  display:flex;gap:10px;align-items:flex-start;
+  background:var(--pink-soft);border:2.5px solid var(--ink);border-radius:var(--r-sm);
+  padding:12px 16px;margin-bottom:18px;font-size:12.5px;font-weight:700;line-height:1.65;
+}
+.mcp-note .ico{
+  width:22px;height:22px;border-radius:50%;background:var(--red);color:#fff;
+  font-size:13px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.mcp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(215px,1fr));gap:10px}
+.mcp-tool{
+  text-align:left;background:var(--cream);border:2.5px solid var(--ink);border-radius:var(--r-sm);
+  padding:11px 13px;transition:all .16s;display:flex;flex-direction:column;gap:4px;
+  box-shadow:2px 2px 0 rgba(42,22,18,.85);
+}
+.mcp-tool:hover{background:var(--yellow-soft);transform:translate(-1px,-1px);box-shadow:3px 3px 0 var(--ink)}
+.mcp-tool[aria-pressed="true"]{background:var(--yellow);box-shadow:2px 2px 0 var(--red)}
+.mcp-code{font-family:"Courier New",monospace;font-size:11.5px;font-weight:800;color:var(--red);letter-spacing:-.01em}
+.mcp-cn{font-size:12px;font-weight:700}
+.mcp-tagline{font-size:10px;font-weight:700;color:var(--ink-soft);letter-spacing:.03em}
+.mcp-console{
+  margin-top:16px;background:var(--ink);border-radius:var(--r-sm);padding:16px 18px;
+  min-height:150px;overflow-x:auto;
+}
+.mcp-console pre{
+  font-family:"Courier New",ui-monospace,monospace;font-size:11.5px;line-height:1.75;
+  color:#E8E0D6;white-space:pre;margin:0;
+}
+.mcp-console .k{color:var(--yellow)}
+.mcp-console .s{color:var(--mint)}
+.mcp-console .c{color:#8A7A72}
+
+/* ---------- 页脚 ---------- */
+.footer{background:var(--ink);color:#C9BDB5;border-top:var(--line);padding:40px 0 24px}
+.foot-top{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:34px;margin-bottom:30px}
+.foot-brand{display:flex;align-items:center;gap:11px;margin-bottom:12px}
+.foot-brand .brand-cn{color:#fff;font-size:16px}
+.foot-desc{font-size:12px;line-height:1.75;max-width:320px}
+.foot-col h4{font-size:11.5px;font-weight:800;letter-spacing:.14em;color:var(--yellow);margin-bottom:11px}
+.foot-col ul{list-style:none;display:flex;flex-direction:column;gap:7px}
+.foot-col a{font-size:12.5px;font-weight:600;transition:color .16s}
+.foot-col a:hover{color:var(--yellow)}
+.foot-bottom{
+  border-top:1px solid rgba(255,255,255,.14);padding-top:18px;
+  display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;
+  font-size:11px;line-height:1.7;
+}
+.foot-bottom .disclaim{max-width:640px;opacity:.72}
+
+.toast{
+  position:fixed;left:50%;bottom:26px;transform:translate(-50%,80px);
+  background:var(--ink);color:#fff;font-size:12.5px;font-weight:700;
+  padding:11px 22px;border-radius:999px;border:2.5px solid var(--yellow);
+  z-index:200;opacity:0;transition:transform .3s cubic-bezier(.2,1.3,.4,1),opacity .3s;
+  pointer-events:none;max-width:90vw;text-align:center;
+}
+.toast.on{transform:translate(-50%,0);opacity:1}
+
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
+  clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+/* ---------- 响应式 ---------- */
+@media(max-width:980px){
+  .hero-grid{grid-template-columns:1fr;gap:30px}
+  .hero-art{max-width:440px}
+  .bench{grid-template-columns:1fr}
+  .input-card{position:static}
+  .fun-grid{grid-template-columns:1fr}
+  .foot-top{grid-template-columns:1fr 1fr}
+  .foot-col:first-child{grid-column:1/-1}
+}
+@media(max-width:640px){
+  .wrap{padding:0 15px}
+  .nav-inner{padding:9px 15px;gap:10px}
+  .brand-mark{width:34px;height:28px}
+  .brand-cn{font-size:15px}
+  .nav-cta{display:none}
+  .nav-links{mask-image:none;-webkit-mask-image:none}
+  .hero{padding:34px 0 32px}
+  .hero-sub{font-size:14px}
+  .section{padding:38px 0}
+  .sec-head{margin-bottom:22px}
+  .card,.card-flat{padding:17px}
+  .panel-body{padding:14px}
+  .panel-head{padding:10px 14px}
+  .emo-meta{grid-template-columns:1fr 1fr;gap:8px}
+  .nutri-grid{grid-template-columns:repeat(2,1fr)}
+  .mayou-grid{grid-template-columns:1fr}
+  .zodiac-grid{grid-template-columns:repeat(4,1fr)}
+  .nutri-total{flex-wrap:wrap}
+  .nutri-total .note{margin-left:0;width:100%;text-align:left;font-size:10.5px}
+  .weather-now{gap:12px}
+  .weather-temp{font-size:31px}
+  .weather-icon{width:52px;height:52px}
+  .foot-top{grid-template-columns:1fr;gap:24px}
+  .card-out{font-size:10.5px;padding:15px}
+  .mcp-grid{grid-template-columns:repeat(2,1fr)}
+  .mcp-tool{padding:9px 10px}
+  .mcp-cn{font-size:11px}
+  .mcp-tagline{font-size:9.5px}
+  .score-name{width:70px;font-size:11.5px}
+  .meal-item{gap:10px;padding:10px 11px}
+  .meal-ico{width:36px;height:36px;font-size:10px}
+  .meal-name{font-size:13px}
+  .meal-price{font-size:14px}
+}
+@media(max-width:380px){
+  .zodiac-grid{grid-template-columns:repeat(3,1fr)}
+  .nutri-grid{grid-template-columns:1fr 1fr}
+}
+@media(prefers-reduced-motion:reduce){
+  *{animation-duration:.01ms!important;transition-duration:.01ms!important}
+  html{scroll-behavior:auto}
+}
+
+/* ============================================================
+   手绘拼贴层
+   ------------------------------------------------------------
+   目标：让它像一张手工印的传单——纸有颗粒、线是抖的、贴纸是歪的、
+   边是撕开的。尽量不用渐变、不用玻璃感、不用完美对称。
+   ============================================================ */
+
+/* 纸张肌理：细颗粒 + 网点 + 极淡横线，三层叠在 body 上，不盖内容 */
+body{
+  background-color:var(--cream);
+  background-image:
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='g'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='160' height='160' filter='url(%23g)' opacity='0.2'/></svg>"),
+    radial-gradient(circle at 1px 1px, rgba(42,22,18,.08) 1px, transparent 0),
+    repeating-linear-gradient(0deg, rgba(42,22,18,.02) 0 1px, transparent 1px 26px);
+  background-size:160px 160px, 22px 22px, auto;
+}
+
+/* 英雄区：撕边收尾，去掉原来的实线边框 */
+.hero{border-bottom:none;padding-bottom:66px}
+.torn{
+  position:absolute;left:0;right:0;bottom:-1px;width:100%;height:22px;
+  display:block;z-index:3;pointer-events:none;
+}
+
+/* 拼贴容器 */
+.hero-collage{position:absolute;inset:0;z-index:0;pointer-events:none}
+.hero-clown{
+  position:absolute;right:-96px;bottom:-62px;
+  width:clamp(200px,20vw,260px);height:auto;
+  opacity:.97;pointer-events:none;z-index:0;
+  filter:drop-shadow(7px 9px 0 rgba(42,22,18,.09));
+}
+/* 产品涂鸦：单色线稿，压在正文下面，很淡 */
+.doodle{position:absolute;fill:none;stroke:currentColor;stroke-width:2.6;
+  stroke-linecap:round;stroke-linejoin:round;color:var(--ink);opacity:.15}
+.d-fries{width:76px;left:2.5%;top:15%;transform:rotate(-13deg)}
+.d-cup{width:54px;left:46%;top:6%;transform:rotate(9deg);opacity:.13}
+.d-burger{width:86px;left:5%;bottom:9%;transform:rotate(5deg);opacity:.12}
+.d-cone{width:46px;left:33%;bottom:24%;transform:rotate(-8deg);opacity:.13}
+.d-pie{width:58px;right:34%;top:57%;transform:rotate(-6deg);opacity:.11}
+.d-sauce{width:50px;left:20%;top:64%;transform:rotate(14deg);opacity:.1}
+
+/* 贴纸：歪着贴、四角有胶带 */
+.sticker{transform:rotate(1.2deg);z-index:2}
+.sticker::before{
+  content:"";position:absolute;top:-11px;left:16px;width:78px;height:21px;
+  background:rgba(255,199,44,.52);border:1px solid rgba(42,22,18,.16);
+  transform:rotate(-7deg);z-index:3;
+}
+.sticker .tape{
+  position:absolute;top:-10px;right:14px;width:70px;height:20px;
+  background:rgba(255,199,44,.44);border:1px solid rgba(42,22,18,.14);
+  transform:rotate(6deg);z-index:3;
+}
+
+/* 手写批注 */
+.hand-note{
+  display:inline-block;font-size:12.5px;font-weight:800;color:var(--red);
+  transform:rotate(-3deg);letter-spacing:.01em;margin-left:10px;
+  text-decoration:underline;text-decoration-style:wavy;
+  text-decoration-thickness:1.5px;text-underline-offset:4px;
+}
+.hero-tag{transform:rotate(-1.2deg);box-shadow:3px 3px 0 rgba(42,22,18,.16)}
+.hero h1{text-shadow:3px 3px 0 rgba(218,41,28,.16)}
+.sec-head h2{text-shadow:2px 2px 0 rgba(218,41,28,.1)}
+
+/* 章节：略歪的标题、靠边的小涂鸦 */
+.sec-kicker{transform:rotate(-1.6deg)}
+.sec-head{position:relative}
+.sec-doodle{
+  position:absolute;right:24px;top:30px;width:78px;height:auto;
+  fill:none;stroke:var(--ink);stroke-width:2.4;stroke-linecap:round;
+  stroke-linejoin:round;opacity:.14;transform:rotate(9deg);pointer-events:none;
+}
+/* 手绘验收章 */
+.stamp{
+  display:inline-flex;flex-direction:column;align-items:center;justify-content:center;
+  border:2.5px double var(--red);color:var(--red);border-radius:7px;
+  padding:5px 11px;transform:rotate(-7deg);opacity:.85;
+  font-size:10px;font-weight:900;letter-spacing:.14em;line-height:1.3;text-align:center;
+  vertical-align:middle;margin-left:12px;
+}
+.stamp small{font-size:8px;letter-spacing:.2em;font-weight:800}
+
+/* 手绘圈：编号不再是标准圆 */
+.input-label .num{border-radius:52% 48% 55% 45% / 48% 55% 45% 52%}
+/* 手剪的圆角：四角不等，避免"模板感" */
+.card{border-radius:22px 15px 24px 14px;transform:rotate(-.25deg)}
+.fun-card{transform:rotate(.2deg)}
+.sticker{border-radius:28px 20px 30px 22px}
+.meal-ico{border-radius:48% 52% 46% 54% / 52% 46% 54% 48%}
+
+/* 印刷套准十字（专色印刷的小细节） */
+.reg{position:absolute;width:16px;height:16px;opacity:.22;color:var(--ink);pointer-events:none}
+.reg::before,.reg::after{content:"";position:absolute;background:currentColor}
+.reg::before{left:50%;top:0;width:1.5px;height:100%;transform:translateX(-50%)}
+.reg::after{top:50%;left:0;height:1.5px;width:100%;transform:translateY(-50%)}
+.reg.tl{left:16px;top:16px}
+.reg.br{right:16px;bottom:34px}
+
+/* 页脚：小丑鞋与气球落在角落 */
+.foot-doodle{position:absolute;right:4%;top:-34px;width:128px;height:auto;
+  fill:none;stroke:var(--yellow);stroke-width:2.6;stroke-linecap:round;
+  stroke-linejoin:round;opacity:.5}
+.footer{position:relative}
+
+/* 窄屏没有右边距放全身像，换成贴在卡片角上的小丑头贴纸 */
+.clown-head{
+  position:absolute;top:-62px;right:2px;width:98px;height:auto;display:none;
+  transform:rotate(-11deg);z-index:4;
+  filter:drop-shadow(3px 4px 0 rgba(42,22,18,.12));
+}
+
+@media(max-width:980px){
+  .d-cup,.d-pie,.d-sauce{display:none}
+  .d-fries{left:auto;right:6%;top:6%;width:58px}
+  .d-burger{width:64px;left:auto;right:8%;bottom:6%}
+  .d-cone{width:38px;left:4%;bottom:12%}
+  .hand-note{display:none}
+  .sec-doodle{width:58px;top:-2px}
+}
+@media(max-width:1220px){
+  .hero-clown{display:none}
+  .clown-head{display:block}
+  .sticker{margin-right:0}
+  .sticker::after{display:none}   /* 避开小丑头贴纸 */
+}
+@media(max-width:640px){
+  .d-fries,.d-burger,.d-cone{opacity:.1}
+  .stamp{transform:rotate(-5deg) scale(.9);margin-left:8px}
+  .foot-doodle{width:96px;top:-26px}
+  .clown-head{width:82px;top:-54px;right:-4px}
+}
+
+/* ============================================================
+   心事卡片 · 3D
+   ------------------------------------------------------------
+   纯 CSS 3D：perspective + preserve-3d + 指针驱动的 rotateX/Y，
+   用背后偏移的暗板做出厚度，贴纸/标签挂在不同的 Z 轴上做视差。
+   没有 WebGL、没有外部库，离线也能转。
+   ============================================================ */
+.c3-stage{
+  perspective:1100px;perspective-origin:50% 42%;
+  display:flex;align-items:center;justify-content:center;
+  padding:24px 10px 32px;margin:-2px 0 4px;
+  background:radial-gradient(circle at 50% 36%, rgba(255,199,44,.26), transparent 62%);
+  border-radius:var(--r-sm);
+  touch-action:pan-y;
+}
+.c3-tilt{
+  transform-style:preserve-3d;will-change:transform;
+  transform:rotateX(7deg) rotateY(-9deg);
+  transition:transform .22s cubic-bezier(.2,.8,.3,1);
+}
+.c3-card{position:relative;width:min(76vw,318px);aspect-ratio:1/1.24;transform-style:preserve-3d}
+
+/* 厚度：背后错位的暗板，转动时露出来像一块有厚度的卡 */
+.c3-card::before{
+  content:"";position:absolute;inset:7px -3px -14px 10px;
+  background:var(--ink);border-radius:18px;
+  transform:translateZ(-16px);opacity:.78;
+}
+.c3-face{
+  position:absolute;inset:0;border-radius:18px;background:var(--paper);
+  border:2.5px solid var(--ink);display:flex;flex-direction:column;
+  overflow:hidden;
+}
+/* 反光跟着指针走 */
+.c3-face::after{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(circle at var(--gx,50%) var(--gy,26%), rgba(255,255,255,.85), transparent 58%);
+  mix-blend-mode:soft-light;opacity:.75;
+}
+.c3-band{
+  display:flex;justify-content:space-between;align-items:center;gap:8px;
+  background:var(--red);color:#fff;padding:8px 12px 8px 48px;
+  font-size:10.5px;font-weight:900;letter-spacing:.16em;
+  border-bottom:2.5px solid var(--ink);
+}
+.c3-band span:last-child{letter-spacing:.04em;opacity:.92}
+.c3-quote{
+  font-size:17px;font-weight:900;line-height:1.42;padding:14px 14px 4px;
+  letter-spacing:-.01em;position:relative;z-index:1;
+}
+/* 小票式清单：名称 + 点线 + 价格 */
+.c3-list{display:flex;flex-direction:column;gap:5px;padding:10px 14px 0;position:relative;z-index:1}
+.c3-row{display:flex;align-items:baseline;gap:6px;font-size:12px;font-weight:800}
+.c3-row i{flex:1;border-bottom:2px dotted rgba(42,22,18,.32);height:1px;transform:translateY(-3px)}
+.c3-row b{font-variant-numeric:tabular-nums;font-size:12px}
+.c3-row em{font-size:9px;font-weight:800;color:var(--ink-soft);font-style:normal;letter-spacing:.02em}
+.c3-total{
+  display:flex;justify-content:space-between;align-items:baseline;
+  margin:8px 14px 0;padding-top:7px;border-top:2px solid var(--ink);
+  font-size:11px;font-weight:900;letter-spacing:.06em;
+}
+.c3-total b{font-size:15px;color:var(--red);font-variant-numeric:tabular-nums}
+.c3-nums{display:flex;gap:8px;padding:10px 14px 0;margin-top:auto}
+.c3-nums>div{
+  flex:1;background:var(--yellow-soft);border:2px solid var(--ink);border-radius:10px;
+  padding:6px 8px;display:flex;align-items:baseline;gap:4px;
+}
+.c3-nums b{font-size:21px;font-weight:900;line-height:1;letter-spacing:-.02em}
+.c3-nums span{font-size:9px;font-weight:800;color:var(--ink-soft);letter-spacing:.06em}
+.c3-verdict{
+  margin:10px 14px 0;padding:7px 8px;border:2px dashed var(--red);border-radius:8px;
+  color:var(--red);background:rgba(218,41,28,.05);
+  font-size:12.5px;font-weight:900;letter-spacing:.02em;text-align:center;
+}
+.c3-foot{
+  display:flex;justify-content:space-between;gap:6px;
+  padding:10px 14px 12px;font-size:9px;font-weight:800;
+  color:var(--ink-soft);letter-spacing:.05em;
+}
+/* 挂在 Z 轴上的贴纸，转动时有视差：贴在卡片左上角 */
+.c3-sticker{
+  position:absolute;left:-26px;top:-26px;width:68px;
+  transform:translateZ(62px) rotate(-9deg);
+  filter:drop-shadow(2px 3px 0 rgba(42,22,18,.2));
+}
+.c3-sticker svg{width:100%;height:auto;display:block}
+.c3-hint{
+  text-align:center;font-size:10.5px;color:var(--ink-soft);
+  font-weight:700;letter-spacing:.02em;margin:0 0 10px;
+}
+.is-hidden{display:none!important}
+@media(max-width:640px){
+  .c3-card{width:min(84vw,286px)}
+  .c3-quote{font-size:15.5px;padding:12px 12px 2px}
+  .c3-sticker{width:58px;left:-20px;top:-22px}
+  .c3-band{padding-left:40px}
+}
+
+/* ============================================================
+   想吃点什么 · 先过三个陌生人
+   ------------------------------------------------------------
+   五步读成一顿饭：
+     ① 写下心事 → ② 点菜（只能点麦当劳）→ ③ 交给三个陌生人
+     → ④ 三个人各自给出加点 / 扣点 / 不批 → ⑤ 菜单定稿
+
+   三样东西：一张菜单审议单（含三个陌生人席位）、一个待审池、一堵理由墙。
+   裁决全部由 trJudge() 这一条纯函数产出，界面只负责呈现，
+   所以「什么情况定稿、什么情况这顿没有」在代码里只有一处定义。
+   ============================================================ */
+
+.tr-grid{display:grid;grid-template-columns:minmax(280px,352px) 1fr;gap:22px;align-items:start}
+
+/* ---------- 五步条 ---------- */
+.tr-steps{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:18px}
+.tr-step{
+  display:flex;align-items:center;gap:6px;padding:5px 11px 5px 6px;
+  border:2px solid rgba(42,22,18,.2);border-radius:999px;background:var(--paper);
+  font-size:10.5px;font-weight:800;color:var(--ink-soft);letter-spacing:.02em;
+  transition:transform .14s,box-shadow .14s;
+}
+.tr-step .n{
+  width:17px;height:17px;border-radius:50%;border:2px solid currentColor;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;font-size:9.5px;font-weight:900;
+}
+.tr-step.done{border-color:#1E7A63;color:#1E7A63;background:var(--mint-soft)}
+.tr-step.on{border-color:var(--ink);color:var(--ink);background:var(--yellow);box-shadow:2px 2px 0 var(--ink)}
+.tr-step i{font-style:normal;font-weight:900;font-variant-numeric:tabular-nums;opacity:.85}
+
+/* ---------- 表单 ---------- */
+.tr-form{position:sticky;top:76px;padding:20px}
+.tr-form h3{font-size:15px;font-weight:900;letter-spacing:.03em;margin-bottom:3px}
+.tr-sub{font-size:11.5px;color:var(--ink-soft);font-weight:600;margin-bottom:15px;line-height:1.55}
+
+.tr-field{margin-bottom:12px}
+.tr-field>label{
+  display:flex;align-items:baseline;gap:6px;justify-content:space-between;
+  font-size:11px;font-weight:800;color:var(--ink-soft);letter-spacing:.08em;margin-bottom:5px;
+}
+.tr-field>label em{font-style:normal;color:var(--ink);font-size:11.5px;letter-spacing:.02em}
+.tr-field>label i{font-style:normal;font-weight:700;color:#A2937F;font-size:10.5px;font-variant-numeric:tabular-nums}
+.tr-field input,.tr-field textarea{
+  width:100%;border:2.5px solid var(--ink);border-radius:9px;background:var(--cream);
+  padding:8px 10px;font:inherit;font-size:13px;font-weight:600;color:var(--ink);
+  line-height:1.5;transition:box-shadow .14s,background .14s,border-color .14s;
+}
+.tr-field textarea{resize:vertical;min-height:64px}
+.tr-field input::placeholder,.tr-field textarea::placeholder{color:#A2937F;font-weight:500}
+.tr-field input:focus,.tr-field textarea:focus{outline:none;background:var(--paper);box-shadow:3px 3px 0 var(--ink)}
+.tr-field.bad input,.tr-field.bad textarea{border-color:var(--red);background:#FFF1EF}
+.tr-field.bad .tr-pick{border-color:var(--red);background:#FFF1EF}
+.tr-field .tr-err{display:none;font-size:10.5px;font-weight:800;color:var(--red);margin-top:4px;line-height:1.4}
+.tr-field.bad .tr-err{display:block}
+
+/* 菜单选择器 */
+.tr-tabs{display:flex;gap:5px;margin-bottom:7px;flex-wrap:wrap}
+.tr-tab{
+  font-size:10.5px;font-weight:900;padding:3px 10px;border-radius:999px;
+  border:2px solid rgba(42,22,18,.22);background:var(--cream);color:var(--ink-soft);
+}
+.tr-tab.on{background:var(--ink);border-color:var(--ink);color:var(--yellow)}
+.tr-pick{
+  display:flex;flex-wrap:wrap;gap:6px;max-height:176px;overflow:auto;padding:9px;
+  border:2.5px solid var(--ink);border-radius:9px;background:var(--cream);
+  transition:background .14s,border-color .14s;
+}
+.tr-mchip{
+  display:flex;align-items:center;gap:5px;font-size:11px;font-weight:800;line-height:1.2;
+  padding:4px 8px;border-radius:999px;border:2px solid rgba(42,22,18,.24);
+  background:var(--paper);color:var(--ink);transition:transform .1s,border-color .1s,background .1s;
+}
+.tr-mchip small{font-size:9.5px;font-weight:800;color:var(--ink-soft);font-variant-numeric:tabular-nums}
+.tr-mchip:hover{border-color:var(--ink);transform:translateY(-1px)}
+.tr-mchip[aria-pressed="true"]{background:var(--mint);border-color:#1E7A63;color:#14543F}
+.tr-mchip[aria-pressed="true"] small{color:#1E7A63}
+.tr-mchip:disabled{opacity:.34;cursor:not-allowed;transform:none}
+.tr-sel{margin-top:7px;display:grid;gap:3px}
+.tr-sel-row{display:flex;align-items:center;gap:6px;font-size:11.5px;font-weight:700;color:var(--ink)}
+.tr-sel-row span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tr-sel-row b{font-variant-numeric:tabular-nums;font-size:10.5px;color:var(--ink-soft);margin-left:auto}
+.tr-sel-row button{font-size:13px;font-weight:900;color:var(--red);line-height:1;padding:0 2px;flex-shrink:0}
+.tr-sum{margin-top:7px;font-size:10.5px;font-weight:800;color:var(--ink-soft);font-variant-numeric:tabular-nums}
+.tr-sum b{color:var(--red)}
+.tr-lock{
+  display:flex;align-items:center;gap:5px;font-size:10px;font-weight:800;color:#8A7A6A;
+  margin-top:6px;letter-spacing:.02em;
+}
+
+.tr-switch{
+  display:flex;align-items:center;gap:8px;font-size:11px;font-weight:700;color:var(--ink-soft);
+  padding:8px 10px;border:2px dashed rgba(42,22,18,.24);border-radius:9px;cursor:pointer;margin-top:4px;
+}
+.tr-switch input{width:15px;height:15px;accent-color:var(--red);cursor:pointer;flex-shrink:0}
+.tr-switch b{color:var(--red)}
+.tr-note{font-size:10.5px;line-height:1.65;color:var(--ink-soft);font-weight:600;margin-top:10px;
+  padding-top:9px;border-top:2px dashed rgba(42,22,18,.18)}
+.tr-note b{color:var(--red)}
+
+/* ---------- 审议单 ---------- */
+.tr-case{background:var(--paper);border:var(--line);border-radius:var(--r);box-shadow:var(--shadow-sm);overflow:hidden;margin-bottom:14px}
+.tr-case.done{box-shadow:3px 3px 0 rgba(42,22,18,.5)}
+.tr-case-top{
+  display:flex;align-items:center;gap:8px;padding:8px 13px;
+  background:var(--ink);color:var(--yellow);font-size:10px;font-weight:900;letter-spacing:.16em;
+}
+.tr-case-top .no{margin-left:auto;color:#fff;letter-spacing:.06em;opacity:.86;font-variant-numeric:tabular-nums}
+.tr-case-body{padding:13px 14px 14px;position:relative}
+
+.tr-story{
+  padding:9px 11px;border-left:3px solid var(--ink);background:var(--cream);
+  border-radius:0 8px 8px 0;font-size:12px;font-weight:600;line-height:1.65;color:var(--ink);
+  padding-right:64px;
+}
+.tr-story b{display:block;font-size:9px;letter-spacing:.14em;color:var(--ink-soft);margin-bottom:3px;font-weight:900}
+
+.tr-menu{margin-top:9px;border:2px dashed rgba(42,22,18,.28);border-radius:10px;padding:8px 10px;background:var(--paper)}
+.tr-menu-row{display:flex;align-items:baseline;gap:6px;font-size:12px;font-weight:700;line-height:1.95}
+.tr-menu-row .nm{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tr-menu-row .lead{flex:1;min-width:8px;border-bottom:1.5px dotted rgba(42,22,18,.32);transform:translateY(-3px)}
+.tr-menu-row .pr{font-variant-numeric:tabular-nums;font-weight:900;flex-shrink:0}
+.tr-menu-row.cut .nm,.tr-menu-row.cut .pr{text-decoration:line-through;opacity:.4}
+.tr-menu-row .flag{
+  font-size:8.5px;font-weight:900;letter-spacing:.06em;padding:1px 5px;border-radius:999px;
+  border:1.5px solid currentColor;flex-shrink:0;
+}
+.tr-menu-row .flag.add{color:#1E7A63}
+.tr-menu-row .flag.cut{color:var(--red)}
+.tr-menu-total{display:flex;align-items:baseline;gap:8px;margin-top:6px;padding-top:6px;
+  border-top:1.5px dashed rgba(42,22,18,.28);font-size:10.5px;font-weight:800;color:var(--ink-soft)}
+.tr-menu-total b{margin-left:auto;font-size:14px;font-weight:900;color:var(--red);font-variant-numeric:tabular-nums}
+
+/* 三个陌生人席位 */
+.tr-seats{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:10px}
+.tr-seat{
+  border:2px dashed rgba(42,22,18,.26);border-radius:10px;padding:7px 8px;
+  min-height:70px;background:var(--cream);
+}
+.tr-seat.filled{border-style:solid;border-color:var(--ink);background:var(--paper)}
+.tr-seat .who{font-size:9.5px;font-weight:900;letter-spacing:.06em;color:var(--ink-soft)}
+.tr-seat.filled .who{color:var(--ink)}
+.tr-seat .none{font-size:10px;font-weight:700;color:#A2937F;margin-top:11px;line-height:1.4}
+.tr-seat .act{
+  display:inline-block;font-size:9px;font-weight:900;padding:1px 7px;border-radius:999px;
+  margin-top:4px;border:1.5px solid currentColor;
+}
+.tr-seat .act.add{color:#1E7A63;background:var(--mint-soft)}
+.tr-seat .act.cut{color:#8A5200;background:#FFEFD2}
+.tr-seat .act.no{color:var(--red);background:#FFE3DF}
+.tr-seat .pi{font-size:9.5px;font-weight:800;color:#1E7A63;margin-top:3px;line-height:1.4}
+.tr-seat .pi.cut{color:var(--red)}
+.tr-seat .why{font-size:10px;font-weight:600;line-height:1.5;margin-top:4px;color:var(--ink);
+  display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+
+/* 印章 */
+.tr-seal{
+  position:absolute;top:12px;right:10px;width:56px;height:56px;border-radius:50%;
+  border:2.5px double currentColor;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;text-align:center;
+  font-size:9px;font-weight:900;letter-spacing:.06em;line-height:1.2;
+  transform:rotate(-13deg);opacity:.9;
+}
+.tr-seal small{font-size:7px;letter-spacing:.1em;font-weight:800;opacity:.8}
+.tr-seal.wait{color:var(--ink-soft);border-style:dashed;transform:rotate(-7deg)}
+.tr-seal.pass{color:#1E7A63}
+.tr-seal.reject{color:var(--red)}
+.tr-seal.gray{color:#8A7A6A}
+
+/* 倒计时 + 票型 */
+.tr-foot{margin-top:11px;padding-top:10px;border-top:2px dashed rgba(42,22,18,.2)}
+.tr-clock-row{display:flex;align-items:baseline;gap:8px;font-size:10.5px;font-weight:800;color:var(--ink-soft);letter-spacing:.06em}
+.tr-clock{margin-left:auto;font-size:14px;font-weight:900;color:var(--ink);font-variant-numeric:tabular-nums;letter-spacing:.04em}
+.tr-clock.warn{color:var(--red)}
+.tr-bars{display:flex;height:9px;border:2px solid var(--ink);border-radius:999px;overflow:hidden;background:var(--cream);margin-top:6px}
+.tr-bars span{display:block;height:100%;transition:width .35s ease}
+.tr-bars .a{background:var(--mint)}
+.tr-bars .c{background:#F0A82C}
+.tr-bars .n{background:var(--red)}
+.tr-tally{display:flex;gap:9px;flex-wrap:wrap;font-size:10.5px;font-weight:800;margin-top:5px;color:var(--ink-soft);letter-spacing:.02em}
+.tr-tally i{font-style:normal;font-weight:900}
+.tr-tally .a{color:#1E7A63}
+.tr-tally .c{color:#8A5200}
+.tr-tally .n{color:var(--red)}
+.tr-tally .need{margin-left:auto;font-weight:700;color:#A2937F}
+
+/* 结果条 */
+.tr-verdict{margin-top:11px;border-radius:10px;padding:9px 11px;font-size:12px;font-weight:800;line-height:1.6}
+.tr-verdict.pass{background:var(--mint-soft);border:2px solid #1E7A63;color:#14543F}
+.tr-verdict.reject{background:#FFE3DF;border:2px solid var(--red);color:#8E150E}
+.tr-verdict.wait{background:var(--yellow-soft);border:2px solid var(--ink);color:var(--ink)}
+.tr-verdict b{font-weight:900}
+.tr-acts{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}
+
+/* ---------- 待审池 ---------- */
+.tr-pool-head{display:flex;align-items:center;gap:8px;margin:2px 0 10px;font-size:11px;font-weight:800;color:var(--ink-soft);letter-spacing:.1em}
+.tr-pool-head .line{flex:1;height:2px;background:repeating-linear-gradient(90deg,rgba(42,22,18,.22) 0 5px,transparent 5px 10px)}
+.tr-pool{display:grid;gap:11px}
+.tr-pool-item{
+  background:var(--paper);border:2.5px solid var(--ink);border-radius:14px;
+  padding:11px 13px;display:flex;gap:11px;align-items:flex-start;
+  transition:transform .14s,box-shadow .14s;
+}
+.tr-pool-item:hover{transform:translate(-1px,-1px);box-shadow:3px 3px 0 var(--ink)}
+.tr-pool-item.voted{opacity:.66;box-shadow:none}
+.tr-pool-item.voted:hover{transform:none;box-shadow:none}
+.tr-ava{
+  width:34px;height:34px;border-radius:50%;border:2.5px solid var(--ink);
+  display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;flex-shrink:0;
+}
+.tr-pool-main{flex:1;min-width:0}
+.tr-pool-item .t{font-size:13.5px;font-weight:900;line-height:1.35;word-break:break-word}
+.tr-pool-item .m{font-size:11px;font-weight:700;color:var(--ink-soft);margin-top:2px;font-variant-numeric:tabular-nums}
+.tr-pool-item .why{font-size:11.5px;font-weight:600;color:var(--ink);margin-top:5px;line-height:1.5;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.tr-pool-item .who{font-size:10px;font-weight:800;color:#A2937F;letter-spacing:.06em;margin-top:5px}
+.tr-pool-right{display:flex;flex-direction:column;align-items:flex-end;gap:5px;flex-shrink:0}
+.tr-mini{font-size:9.5px;font-weight:900;color:var(--ink-soft);letter-spacing:.06em;font-variant-numeric:tabular-nums}
+.tr-pips{display:flex;gap:3px}
+.tr-pips span{width:9px;height:9px;border-radius:50%;border:1.5px solid var(--ink);background:transparent}
+.tr-pips span.on{background:var(--ink)}
+.tr-btn{
+  font-size:11.5px;font-weight:900;padding:6px 13px;border-radius:999px;
+  border:2.5px solid var(--ink);background:var(--yellow);color:var(--ink);
+  box-shadow:2px 2px 0 var(--ink);transition:transform .1s,box-shadow .1s;white-space:nowrap;
+}
+.tr-btn:hover{transform:translate(1px,1px);box-shadow:1px 1px 0 var(--ink)}
+.tr-btn:active{transform:translate(2px,2px);box-shadow:0 0 0 var(--ink)}
+.tr-btn.ghost{background:var(--paper)}
+.tr-btn.sm{font-size:10.5px;padding:4px 10px;border-width:2px;box-shadow:1.5px 1.5px 0 var(--ink)}
+.tr-btn[disabled]{opacity:.45;cursor:not-allowed;transform:none;box-shadow:2px 2px 0 var(--ink)}
+
+/* ---------- 审议弹层 ---------- */
+.tr-modal{position:fixed;inset:0;z-index:200;display:none;align-items:center;justify-content:center;padding:18px}
+.tr-modal.on{display:flex}
+.tr-modal-mask{position:absolute;inset:0;background:rgba(42,22,18,.55);backdrop-filter:blur(2px)}
+.tr-dialog{
+  position:relative;width:100%;max-width:560px;max-height:88vh;overflow:auto;
+  background:var(--paper);border:var(--line);border-radius:20px;box-shadow:8px 8px 0 rgba(42,22,18,.35);
+  animation:trPop .22s cubic-bezier(.2,.9,.3,1.2);
+}
+@keyframes trPop{from{transform:translateY(14px) scale(.97);opacity:0}to{transform:none;opacity:1}}
+.tr-dialog-head{display:flex;align-items:center;gap:8px;padding:11px 16px;background:var(--ink);color:var(--yellow);
+  font-size:11px;font-weight:900;letter-spacing:.14em;position:sticky;top:0;z-index:2}
+.tr-dialog-head button{margin-left:auto;color:#fff;font-size:19px;line-height:1;padding:0 4px;opacity:.8}
+.tr-dialog-body{padding:16px}
+.tr-dialog-case{border:2.5px solid var(--ink);border-radius:12px;padding:11px 12px;background:var(--cream);margin-bottom:13px}
+.tr-dialog-case .st{font-size:11.5px;font-weight:600;line-height:1.65}
+.tr-dialog-case .st b{display:block;font-size:9px;letter-spacing:.12em;color:var(--ink-soft);margin-bottom:2px}
+.tr-dialog-case .mn{display:flex;flex-wrap:wrap;gap:4px;margin-top:7px}
+.tr-dialog-case .mn span{font-size:10.5px;font-weight:800;padding:1px 7px;border-radius:999px;
+  border:1.5px solid rgba(42,22,18,.24);background:var(--paper)}
+.tr-dialog-case .sm{font-size:10px;font-weight:800;color:var(--ink-soft);margin-top:6px;font-variant-numeric:tabular-nums}
+
+.tr-choice{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-bottom:13px}
+.tr-opt{
+  border:2.5px solid var(--ink);border-radius:12px;padding:10px 6px;text-align:center;
+  font-size:12.5px;font-weight:900;letter-spacing:.02em;background:var(--paper);
+  transition:transform .12s,box-shadow .12s,background .12s;
+}
+.tr-opt .s{display:block;font-size:9px;font-weight:800;letter-spacing:.04em;color:var(--ink-soft);margin-top:3px;line-height:1.3}
+.tr-opt:hover{transform:translate(1px,1px)}
+.tr-opt[aria-pressed="true"][data-side="add"]{background:var(--mint);box-shadow:3px 3px 0 #1E7A63;border-color:#1E7A63}
+.tr-opt[aria-pressed="true"][data-side="cut"]{background:#FFE3B0;box-shadow:3px 3px 0 #B26A00;border-color:#B26A00}
+.tr-opt[aria-pressed="true"][data-side="no"]{background:#FFC9C2;box-shadow:3px 3px 0 var(--red);border-color:var(--red)}
+
+.tr-pickbox{margin-bottom:12px}
+.tr-pickbox>div.h{font-size:10.5px;font-weight:900;color:var(--ink-soft);letter-spacing:.04em;margin-bottom:6px}
+.tr-pickbox .none{font-size:11px;font-weight:600;color:#A2937F;line-height:1.5}
+
+.tr-quick{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:7px}
+.tr-quick span.tip{font-size:11px;font-weight:700;color:#A2937F}
+.tr-quick button{
+  font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;
+  border:2px solid rgba(42,22,18,.28);background:var(--cream);color:var(--ink-soft);
+}
+.tr-quick button:hover{border-color:var(--ink);color:var(--ink);background:var(--yellow-soft)}
+.tr-quick button.on{background:var(--yellow);border-color:var(--ink);color:var(--ink);font-weight:800}
+
+/* ---------- 理由墙 ---------- */
+.tr-wall{margin-top:18px}
+.tr-wall-head{display:flex;align-items:center;gap:8px;font-size:11px;font-weight:800;color:var(--ink-soft);letter-spacing:.1em;margin-bottom:10px}
+.tr-wall-head .line{flex:1;height:2px;background:repeating-linear-gradient(90deg,rgba(42,22,18,.22) 0 5px,transparent 5px 10px)}
+.tr-notes{display:grid;grid-template-columns:repeat(auto-fill,minmax(196px,1fr));gap:11px}
+.tr-note-card{
+  padding:11px 12px;border:2px solid var(--ink);border-radius:5px 13px 5px 13px;
+  font-size:11.5px;font-weight:600;line-height:1.6;
+  box-shadow:2.5px 2.5px 0 rgba(42,22,18,.16);
+}
+.tr-note-card .q{font-size:11.5px}
+.tr-note-card .meta{display:flex;align-items:center;gap:6px;margin-top:8px;font-size:9.5px;font-weight:800;letter-spacing:.06em;color:rgba(42,22,18,.6)}
+.tr-note-card .meta span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tr-note-card .tag{margin-left:auto;flex-shrink:0;font-size:9px;font-weight:900;padding:1px 7px;border-radius:999px;border:1.5px solid currentColor}
+.tr-note-card.pass{background:var(--mint-soft)}
+.tr-note-card.cut{background:#FFEFD2}
+.tr-note-card.reject{background:#FFE3DF}
+.tr-note-card.mine{background:var(--yellow-soft)}
+.tr-empty{font-size:12px;font-weight:600;color:var(--ink-soft);padding:16px;text-align:center;
+  border:2px dashed rgba(42,22,18,.24);border-radius:12px}
+
+/* ---------- 战绩 ---------- */
+.tr-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(122px,1fr));gap:11px;margin-top:22px}
+.tr-footnote{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:12px;
+  font-size:10.5px;font-weight:600;color:var(--ink-soft);line-height:1.6}
+.tr-footnote span{flex:1;min-width:200px}
+.tr-stat{background:var(--paper);border:2.5px solid var(--ink);border-radius:13px;padding:11px 13px;box-shadow:3px 3px 0 rgba(42,22,18,.14)}
+.tr-stat .k{font-size:9.5px;font-weight:900;letter-spacing:.12em;color:var(--ink-soft)}
+.tr-stat .v{font-size:23px;font-weight:900;line-height:1.2;margin-top:3px;font-variant-numeric:tabular-nums}
+.tr-stat .v small{font-size:11px;font-weight:800;color:var(--ink-soft);margin-left:2px}
+.tr-stat.hl .v{color:var(--red)}
+
+@media(max-width:980px){
+  .tr-grid{grid-template-columns:1fr;gap:20px}
+  .tr-form{position:static}
+}
+@media(max-width:640px){
+  .tr-choice{gap:7px}
+  .tr-opt{padding:9px 4px;font-size:11.5px}
+  .tr-opt .s{font-size:8.5px}
+  .tr-notes{grid-template-columns:1fr 1fr;gap:9px}
+  .tr-seats{grid-template-columns:1fr 1fr;gap:6px}
+  .tr-seat{min-height:64px}
+  .tr-story{padding-right:11px}
+  .tr-seal{width:46px;height:46px;font-size:8px;top:8px;right:6px;opacity:.72}
+  .tr-dialog{border-radius:16px}
+  .tr-modal{padding:10px;align-items:flex-end}
+}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="arch" viewBox="0 0 100 80">
+    <path d="M9 78 L9 38 A21 21 0 0 1 51 38 L51 78" fill="none" stroke="currentColor" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M49 78 L49 38 A21 21 0 0 1 91 38 L91 78" fill="none" stroke="currentColor" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="starIco" viewBox="0 0 24 24">
+    <path d="M12 2.6l2.8 5.9 6.4.9-4.7 4.5 1.2 6.4-5.7-3.1-5.7 3.1 1.2-6.4L2.8 9.4l6.4-.9z"/>
+  </symbol>
+
+  <!-- 产品线稿：只用线条，方便铺成背景 -->
+  <symbol id="dFries" viewBox="0 0 60 84">
+    <path d="M13 32 L47 32 L43 78 Q30 81 17 78 Z"/>
+    <path d="M18 31 L15 10 M24 31 L22 5 M30 31 L30 2 M36 31 L38 6 M42 31 L45 12" stroke-width="2.2"/>
+    <path d="M22 44 L38 44" stroke-width="1.8" opacity=".6"/>
+  </symbol>
+  <symbol id="dCup" viewBox="0 0 52 88">
+    <path d="M13 28 L39 28 L35 80 Q26 83 17 80 Z"/>
+    <path d="M10 28 L42 28 L42 19 L10 19 Z"/>
+    <path d="M31 19 L36 3"/>
+    <path d="M20 50 Q20 42 24 42 Q28 42 28 50 M28 50 Q28 42 32 42 Q36 42 36 50" stroke-width="2.2"/>
+  </symbol>
+  <symbol id="dCone" viewBox="0 0 46 88">
+    <path d="M9 38 L37 38 L23 82 Z"/>
+    <path d="M13 50 L31 48 M15 62 L29 60" stroke-width="1.8" opacity=".65"/>
+    <path d="M10 36 Q12 22 23 22 Q34 22 36 36 M15 30 Q17 17 23 17 Q29 17 31 30" stroke-width="2.2"/>
+  </symbol>
+  <symbol id="dBurger" viewBox="0 0 86 62">
+    <path d="M6 30 Q43 0 80 30"/>
+    <path d="M30 18 Q31 16 32.5 18 M42 13 Q43 11 44.5 13 M54 18 Q55 16 56.5 18" stroke-width="1.8"/>
+    <path d="M6 34 Q16 40 26 34 Q36 40 46 34 Q56 40 66 34 Q74 40 80 34" stroke-width="2.2"/>
+    <path d="M9 41 L77 41 L77 48 L9 48 Z"/>
+    <path d="M8 48 Q43 60 78 48"/>
+  </symbol>
+  <symbol id="dPie" viewBox="0 0 62 58">
+    <path d="M8 20 L54 20 L58 52 L4 52 Z"/>
+    <path d="M8 20 L54 20 L46 10 L16 10 Z"/>
+    <path d="M22 40 Q22 31 27 31 Q32 31 32 40 M32 40 Q32 31 37 31 Q42 31 42 40" stroke-width="2.2"/>
+  </symbol>
+  <symbol id="dSauce" viewBox="0 0 56 36">
+    <path d="M6 9 L50 9 L50 28 L6 28 Z"/>
+    <path d="M44 9 L48 4"/>
+    <path d="M12 19 Q18 13 24 19 Q30 25 36 19" stroke-width="2.2"/>
+    <circle cx="15" cy="14" r="2" stroke-width="1.6"/>
+  </symbol>
+  <symbol id="dShoes" viewBox="0 0 130 60">
+    <path d="M8 44 Q3 26 26 25 L44 25 Q57 25 54 40 Q51 52 33 52 L19 52 Q10 52 8 44 Z"/>
+    <path d="M24 33 L41 29 M24 38 L41 35" stroke-width="1.8"/>
+    <path d="M72 44 Q67 26 90 25 L108 25 Q121 25 118 40 Q115 52 97 52 L83 52 Q74 52 72 44 Z"/>
+    <path d="M88 33 L105 29 M88 38 L105 35" stroke-width="1.8"/>
+  </symbol>
+  <symbol id="dBag" viewBox="0 0 70 84">
+    <path d="M10 26 L60 26 L64 78 L6 78 Z"/>
+    <path d="M22 26 Q22 8 35 8 Q48 8 48 26" stroke-width="2.2"/>
+    <path d="M10 34 L60 34" stroke-width="1.6" opacity=".6"/>
+    <path d="M26 52 Q30 46 34 52 Q38 58 42 52" stroke-width="2"/>
+  </symbol>
+  <symbol id="dMealBox" viewBox="0 0 80 70">
+    <path d="M8 24 L72 24 L72 64 L8 64 Z"/>
+    <path d="M28 24 L36 8 L44 8 L52 24" stroke-width="2.2"/>
+    <path d="M22 44 Q30 54 40 44" stroke-width="2"/>
+    <path d="M50 40 L58 40" stroke-width="2"/>
+  </symbol>
+  <symbol id="dCoupon" viewBox="0 0 80 46">
+    <path d="M6 10 L74 10 L74 36 L6 36 Z"/>
+    <path d="M8 23 L72 23" stroke-width="1.6" stroke-dasharray="4 5"/>
+    <path d="M14 17 L34 17 M14 29 L30 29" stroke-width="1.8" opacity=".7"/>
+    <circle cx="62" cy="23" r="5" stroke-width="1.8"/>
+  </symbol>
+
+  <!-- 小丑头：窄屏时替代全身像，当作贴在卡片角上的 die-cut 贴纸 -->
+    <symbol id="clownHead" viewBox="88 16 224 232">
+
+      <!-- 红头发：一团包住脸的轮廓 -->
+      <circle cx="200" cy="136" r="98" fill="#DA291C" stroke="#2A1612" stroke-width="4"/>
+      <!-- 脸 -->
+      <ellipse cx="200" cy="158" rx="78" ry="82" fill="#FFFDF8" stroke="#2A1612" stroke-width="4"/>
+      <!-- 嘴：大白牙笑 -->
+      <path d="M152 174 Q200 190 248 172 Q200 250 152 174 Z" fill="#A81C13" stroke="#2A1612" stroke-width="3.6" stroke-linejoin="round"/>
+      <path d="M166 181 Q200 196 234 179 L232 190 Q200 205 168 193 Z" fill="#FFFDF8"/>
+      <!-- 红鼻头 -->
+      <circle cx="200" cy="160" r="18.5" fill="#DA291C" stroke="#2A1612" stroke-width="3.6"/>
+      <ellipse cx="194" cy="153" rx="5.5" ry="4" fill="#FFFDF8" opacity=".55"/>
+      <!-- 眼睛 -->
+      <path d="M152 118 Q168 106 184 114" stroke="#2A1612" stroke-width="5.5" fill="none" stroke-linecap="round"/>
+      <path d="M216 113 Q232 105 248 116" stroke="#2A1612" stroke-width="5.5" fill="none" stroke-linecap="round"/>
+      <ellipse cx="172" cy="142" rx="7" ry="8.6" fill="#2A1612"/>
+      <ellipse cx="228" cy="140" rx="7" ry="8.6" fill="#2A1612"/>
+      <circle cx="174.5" cy="138.5" r="2.3" fill="#FFFDF8"/>
+      <circle cx="230.5" cy="136.5" r="2.3" fill="#FFFDF8"/>
+      <!-- 腮红 -->
+      <ellipse cx="140" cy="196" rx="15" ry="10" fill="#FF8FA3" opacity=".38"/>
+      <ellipse cx="260" cy="194" rx="15" ry="10" fill="#FF8FA3" opacity=".38"/>
+    </symbol>
+</svg>
+
+<h2 class="sr-only">麦门心事产品演示页：写下今日心事，生成麦当劳餐食搭配、快乐报告与热量报告，由三位虚拟麦友审批，并附星座、天气等趣味模块。</h2>
+
+<!-- 导航 -->
+<header class="nav">
+  <div class="nav-inner">
+    <a href="#top" class="brand">
+      <svg class="brand-mark" style="color:var(--yellow)" aria-hidden="true"><use href="#arch"/></svg>
+      <span class="brand-text">
+        <span class="brand-cn">麦门心事</span>
+        <span class="brand-en">Maimen Xinshi</span>
+      </span>
+    </a>
+    <nav class="nav-links" aria-label="主导航">
+      <a href="#bench">心事配餐</a>
+      <a href="#report">双报告</a>
+      <a href="#mayou">麦友审批</a>
+      <a href="#trial">三个陌生人</a>
+      <a href="#fun">今日运势</a>
+      <a href="#mcp">MCP 接口</a>
+    </nav>
+    <a href="#bench" class="nav-cta">写一句心事</a>
+  </div>
+</header>
+
+<!-- 英雄区 -->
+<section class="hero" id="top">
+  <svg class="hero-rays" viewBox="0 0 200 200" aria-hidden="true">
+    <g stroke="#DA291C" stroke-width="1.1">
+      <path d="M100 100 L100 0 M100 100 L200 0 M100 100 L200 100 M100 100 L200 200 M100 100 L100 200 M100 100 L0 200 M100 100 L0 100 M100 100 L0 0"/>
+      <path d="M100 100 L141 0 M100 100 L200 41 M100 100 L200 159 M100 100 L141 200 M100 100 L59 200 M100 100 L0 159 M100 100 L0 41 M100 100 L59 0"/>
+    </g>
+  </svg>
+
+  <!-- 拼贴背景：小丑 + 产品涂鸦 -->
+  <span class="reg tl" aria-hidden="true"></span>
+  <span class="reg br" aria-hidden="true"></span>
+  <div class="hero-collage" aria-hidden="true">
+    <svg class="doodle d-fries" viewBox="0 0 60 84"><use href="#dFries"/></svg>
+    <svg class="doodle d-cup" viewBox="0 0 52 88"><use href="#dCup"/></svg>
+    <svg class="doodle d-burger" viewBox="0 0 86 62"><use href="#dBurger"/></svg>
+    <svg class="doodle d-cone" viewBox="0 0 46 88"><use href="#dCone"/></svg>
+    <svg class="doodle d-pie" viewBox="0 0 62 58"><use href="#dPie"/></svg>
+    <svg class="doodle d-sauce" viewBox="0 0 56 36"><use href="#dSauce"/></svg>
+
+    
+  </div>
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <span class="hero-tag"><span class="dot"></span>麦当劳 MCP 创意开发大赛作品</span>
+        <div class="live-bar" id="liveBar" role="status" aria-live="polite">
+          <span class="pulse" aria-hidden="true"></span>
+          <span id="liveText">正在连接门店实时菜单…</span>
+          <button id="liveRefresh" type="button" disabled>重新抓取</button>
+        </div>
+        <h1>把今天的<em>心事</em><br>读成一份餐</h1>
+        <p class="hero-sub">写下今天发生了什么。麦门心事会读懂你的情绪，配一份刚好的餐，算出快乐与热量，再叫三位麦友陪你决定这顿吃不吃。</p>
+        <div class="hero-actions">
+          <a href="#bench" class="btn btn-red">开始写心事</a>
+          <a href="#fun" class="btn btn-yellow">看今日运势</a>
+          <span class="hand-note">写一句就行，别憋着</span>
+        </div>
+      </div>
+      <div class="hero-art">
+        <!-- 小丑（手绘 SVG，按官方造型语言画：黄连体衣、红白条纹袖与袜、大红包鞋、白手套、红头发、举薯条；不使用官方图片素材） -->
+    <svg class="hero-clown" aria-hidden="true" viewBox="0 0 400 520" aria-label="小丑插画">
+      <ellipse cx="200" cy="500" rx="126" ry="12" fill="#2A1612" opacity=".07"/>
+
+      <!-- 裤腿 -->
+      <g fill="none">
+        <path d="M180 358 L168 424" stroke="#2A1612" stroke-width="34"/>
+        <path d="M220 358 L232 424" stroke="#2A1612" stroke-width="34"/>
+        <path d="M180 358 L168 424" stroke="#FFC72C" stroke-width="26"/>
+        <path d="M220 358 L232 424" stroke="#FFC72C" stroke-width="26"/>
+      </g>
+
+      <!-- 条纹袜（butt 线帽，虚线才不会连成实线） -->
+      <g fill="none" stroke-linecap="butt">
+        <path d="M168 420 L166 448" stroke="#2A1612" stroke-width="28"/>
+        <path d="M232 420 L234 448" stroke="#2A1612" stroke-width="28"/>
+        <path d="M168 420 L166 448" stroke="#FFFDF8" stroke-width="21"/>
+        <path d="M232 420 L234 448" stroke="#FFFDF8" stroke-width="21"/>
+        <path d="M168 420 L166 448" stroke="#DA291C" stroke-width="21" stroke-dasharray="8 9"/>
+        <path d="M232 420 L234 448" stroke="#DA291C" stroke-width="21" stroke-dasharray="8 9"/>
+      </g>
+
+      <!-- 大红包鞋 -->
+      <path d="M116 452 Q102 458 102 474 Q102 490 124 492 L182 492 Q194 484 190 466 Q186 450 166 448 Z" fill="#DA291C" stroke="#2A1612" stroke-width="3.8" stroke-linejoin="round"/>
+      <path d="M284 452 Q298 458 298 474 Q298 490 276 492 L218 492 Q206 484 210 466 Q214 450 234 448 Z" fill="#DA291C" stroke="#2A1612" stroke-width="3.8" stroke-linejoin="round"/>
+      <path d="M107 477 Q146 487 187 477" fill="none" stroke="#FFC72C" stroke-width="7" stroke-linecap="round"/>
+      <path d="M293 477 Q254 487 213 477" fill="none" stroke="#FFC72C" stroke-width="7" stroke-linecap="round"/>
+
+      <!-- 连体衣 -->
+      <path d="M158 246 Q152 300 156 330 Q160 352 176 360 L224 360 Q240 352 244 330 Q248 300 242 246 Z" fill="#FFC72C" stroke="#2A1612" stroke-width="4"/>
+      <path d="M200 268 L200 352" stroke="#DA291C" stroke-width="4" opacity=".35"/>
+      <circle cx="200" cy="296" r="4.5" fill="#DA291C"/>
+      <circle cx="200" cy="326" r="4.5" fill="#DA291C"/>
+
+      <!-- 红白条纹袖（butt 线帽，条纹才看得见） -->
+      <g fill="none" stroke-linecap="butt">
+        <path d="M160 272 Q118 262 96 222 Q88 206 86 192" stroke="#2A1612" stroke-width="34"/>
+        <path d="M240 272 Q282 292 288 326" stroke="#2A1612" stroke-width="34"/>
+        <path d="M160 272 Q118 262 96 222 Q88 206 86 192" stroke="#FFFDF8" stroke-width="26"/>
+        <path d="M240 272 Q282 292 288 326" stroke="#FFFDF8" stroke-width="26"/>
+        <path d="M160 272 Q118 262 96 222 Q88 206 86 192" stroke="#DA291C" stroke-width="26" stroke-dasharray="13 13"/>
+        <path d="M240 272 Q282 292 288 326" stroke="#DA291C" stroke-width="26" stroke-dasharray="13 13"/>
+      </g>
+
+      <!-- 左手：挥手 -->
+      <path d="M88 162 Q68 172 66 190 Q64 208 82 218 Q100 226 110 210 Q118 196 110 178 Q102 160 88 162 Z" fill="#FFFDF8" stroke="#2A1612" stroke-width="3.6"/>
+      <path d="M104 176 Q112 170 116 178 Q120 188 110 190" fill="#FFFDF8" stroke="#2A1612" stroke-width="3.6" stroke-linejoin="round"/>
+
+      <!-- 右手：薯条 + 手套（手套压住盒底，像握着的） -->
+      <g>
+        <path d="M276 296 L272 280 M286 296 L284 278 M296 296 L296 278 M306 296 L308 280" stroke="#FFC72C" stroke-width="7" stroke-linecap="round"/>
+        <path d="M268 296 L312 296 L308 342 Q290 346 272 342 Z" fill="#DA291C" stroke="#2A1612" stroke-width="3.4"/>
+        <path d="M273 310 L307 310" stroke="#FFC72C" stroke-width="4.5" opacity=".85"/>
+      </g>
+      <path d="M286 330 Q304 330 308 344 Q312 360 298 366 Q282 370 274 358 Q268 346 276 337 Q280 331 286 330 Z" fill="#FFFDF8" stroke="#2A1612" stroke-width="3.6"/>
+      <path d="M280 340 Q272 336 270 344 Q268 354 278 354" fill="#FFFDF8" stroke="#2A1612" stroke-width="3.4" stroke-linejoin="round"/>
+
+      <!-- 红白领口 -->
+      <path d="M156 244 L172 268 L186 244 L200 270 L214 244 L228 268 L244 244" fill="none" stroke="#FFFDF8" stroke-width="12" stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M156 244 L172 268 L186 244 L200 270 L214 244 L228 268 L244 244" fill="none" stroke="#DA291C" stroke-width="5.5" stroke-linejoin="round" stroke-linecap="round"/>
+
+      <!-- 红头发：一团包住脸的轮廓 -->
+      <circle cx="200" cy="136" r="98" fill="#DA291C" stroke="#2A1612" stroke-width="4"/>
+      <!-- 脸 -->
+      <ellipse cx="200" cy="158" rx="78" ry="82" fill="#FFFDF8" stroke="#2A1612" stroke-width="4"/>
+      <!-- 嘴：大白牙笑 -->
+      <path d="M152 174 Q200 190 248 172 Q200 250 152 174 Z" fill="#A81C13" stroke="#2A1612" stroke-width="3.6" stroke-linejoin="round"/>
+      <path d="M166 181 Q200 196 234 179 L232 190 Q200 205 168 193 Z" fill="#FFFDF8"/>
+      <!-- 红鼻头 -->
+      <circle cx="200" cy="160" r="18.5" fill="#DA291C" stroke="#2A1612" stroke-width="3.6"/>
+      <ellipse cx="194" cy="153" rx="5.5" ry="4" fill="#FFFDF8" opacity=".55"/>
+      <!-- 眼睛 -->
+      <path d="M152 118 Q168 106 184 114" stroke="#2A1612" stroke-width="5.5" fill="none" stroke-linecap="round"/>
+      <path d="M216 113 Q232 105 248 116" stroke="#2A1612" stroke-width="5.5" fill="none" stroke-linecap="round"/>
+      <ellipse cx="172" cy="142" rx="7" ry="8.6" fill="#2A1612"/>
+      <ellipse cx="228" cy="140" rx="7" ry="8.6" fill="#2A1612"/>
+      <circle cx="174.5" cy="138.5" r="2.3" fill="#FFFDF8"/>
+      <circle cx="230.5" cy="136.5" r="2.3" fill="#FFFDF8"/>
+      <!-- 腮红 -->
+      <ellipse cx="140" cy="196" rx="15" ry="10" fill="#FF8FA3" opacity=".38"/>
+      <ellipse cx="260" cy="194" rx="15" ry="10" fill="#FF8FA3" opacity=".38"/>
+    </svg>
+        <svg class="clown-head" viewBox="0 0 224 232" aria-hidden="true"><use href="#clownHead" width="224" height="232"/></svg>
+        <div class="sticker">
+          <span class="tape" aria-hidden="true"></span>
+          <div class="sticker-label">今日示例 · TODAY</div>
+          <p class="sticker-quote">"方案被退回第三次。<br>想吃点<span>脆</span>的。"</p>
+          <div class="sticker-meal">
+            <span class="meal-pill">板烧鸡腿堡</span>
+            <span class="meal-pill">中薯条</span>
+            <span class="meal-pill">锡兰红茶</span>
+          </div>
+          <div class="sticker-foot">
+            <span>682 kcal · ¥48.5</span>
+            <svg class="mini-arch" style="color:var(--red)" aria-hidden="true"><use href="#arch"/></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- 撕纸边：把英雄区和下面的工作台接起来 -->
+  <svg class="torn" viewBox="0 0 1200 22" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0 22 L0 10 L50 15 L100 7 L150 13 L200 9 L250 16 L300 8 L350 12 L400 6 L450 14 L500 10 L550 15 L600 8 L650 13 L700 7 L750 15 L800 10 L850 14 L900 6 L950 12 L1000 9 L1050 15 L1100 8 L1150 13 L1200 9 L1200 22 Z" fill="#FFF6E8"/>
+    <path d="M0 10 L50 15 L100 7 L150 13 L200 9 L250 16 L300 8 L350 12 L400 6 L450 14 L500 10 L550 15 L600 8 L650 13 L700 7 L750 15 L800 10 L850 14 L900 6 L950 12 L1000 9 L1050 15 L1100 8 L1150 13 L1200 9" fill="none" stroke="#2A1612" stroke-width="3" vector-effect="non-scaling-stroke"/>
+  </svg>
+</section>
+
+<!-- 工作台 -->
+<section class="section" id="bench">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-kicker">核心功能</span>
+      <h2>写下心事，五步读成一顿饭<span class="stamp">麦友已阅<small>3 SIGNED</small></span></h2>
+      <p>读心事 → 配一餐 → 快乐报告 → 热量报告 → 麦友审批。每一步调用哪个 MCP 工具，都在最后的面板里可查。</p>
+    </div>
+    <svg class="sec-doodle" viewBox="0 0 70 84" aria-hidden="true" style="transform:rotate(7deg)"><use href="#dBag"/></svg>
+
+    <div class="bench">
+      <!-- 输入 -->
+      <div class="card input-card">
+        <div class="input-label"><span class="num">1</span>今天发生了什么</div>
+        <label class="sr-only" for="story">心事输入框</label>
+        <textarea id="story" placeholder="例如：今天加班到十点半，方案被客户打回来第三次。走在路上看到麦当劳的灯还亮着，突然特别想吃点脆的。"></textarea>
+
+        <div class="input-label" style="margin-top:16px"><span class="num">2</span>或者直接选心情</div>
+        <div class="chips" id="chips" role="group" aria-label="选择心情标签">
+          <button class="chip" data-emo="疲惫" aria-pressed="false">疲惫</button>
+          <button class="chip" data-emo="挫败" aria-pressed="false">挫败</button>
+          <button class="chip" data-emo="焦虑" aria-pressed="false">焦虑</button>
+          <button class="chip" data-emo="孤独" aria-pressed="false">孤独</button>
+          <button class="chip" data-emo="委屈" aria-pressed="false">委屈</button>
+          <button class="chip" data-emo="兴奋" aria-pressed="false">兴奋</button>
+          <button class="chip" data-emo="平静" aria-pressed="false">平静</button>
+          <button class="chip" data-emo="奖励自己" aria-pressed="false">奖励自己</button>
+        </div>
+
+        <div class="input-label" style="margin-top:16px"><span class="num">3</span>门店（可选）</div>
+        <div class="chips" id="storeChips" role="group" aria-label="选择门店">
+          <button class="chip" data-store="南京仙林金鹰店" aria-pressed="true">仙林金鹰店</button>
+          <button class="chip" data-store="南京仙林亚东城得来速店" aria-pressed="false">亚东城得来速店</button>
+          <button class="chip" data-store="南京中医药大学仙林校区店" aria-pressed="false">中医药大学店</button>
+        </div>
+
+        <button class="btn btn-red btn-block" id="goBtn">
+          <span>生成我的心事餐</span>
+        </button>
+
+        <div class="bench-note">
+          <b>数据</b>
+          <span id="dataNote">菜品、价格、营养均取自麦当劳 MCP 真实返回（2026-10-21 14:42，门店 1990102）。价格与供应随门店和时段变化，实际下单以官方渠道为准。</span>
+        </div>
+      </div>
+
+      <!-- 结果 -->
+      <div class="result" id="result">
+        <div class="empty" id="empty">
+          <svg class="empty-arch" style="color:var(--red)" aria-hidden="true"><use href="#arch"/></svg>
+          <p>还没有心事。左边写一句，或者点一个心情标签，我就开工。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 想吃点什么 · 先过三个陌生人 -->
+<section class="section" id="trial">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-kicker">新功能 · 三个陌生人审菜单</span>
+      <h2>想吃点什么，先过三个陌生人<span class="stamp">五步一顿饭</span></h2>
+      <p>先写下今天发生了什么，再点自己想吃的——只能点麦当劳菜单里的东西，自填的入口一个都没有。三位陌生人会看你的心事和菜单：给你加点、帮你扣点，或者干脆不批。三个人审完，菜单才定稿；被扣空、或者两人以上不批，这顿就没有。</p>
+    </div>
+    <svg class="sec-doodle" viewBox="0 0 62 58" aria-hidden="true" style="transform:rotate(-7deg)"><use href="#dCoupon"/></svg>
+
+    <div class="tr-steps" id="trSteps"></div>
+
+    <div class="tr-grid">
+      <!-- 左：写下心事 + 点菜 -->
+      <div class="card tr-form">
+        <h3>第一步 · 心事，然后点菜</h3>
+        <p class="tr-sub">先写事，再点菜。顺序反过来的话，点出来的全是情绪。</p>
+
+        <div class="tr-field" id="fStory">
+          <label for="trStory"><em>今天发生了什么</em><i id="cStory">0/12</i></label>
+          <textarea id="trStory" maxlength="120" placeholder="被谁气到了、什么事没做成、几点才吃上饭——写具体的，陌生人才判断得了。"></textarea>
+          <div class="tr-err">至少 12 个字。写不清今天，就说不清为什么想吃</div>
+        </div>
+
+        <div class="tr-field" id="fMenu">
+          <label><em>想吃的（只能点麦当劳）</em><i id="cMenu">0/5</i></label>
+          <div class="tr-tabs" id="trTabs" role="tablist" aria-label="菜单分类"></div>
+          <div class="tr-pick" id="trPick" role="group" aria-label="选择麦当劳产品"></div>
+          <div class="tr-sel" id="trSel"></div>
+          <div class="tr-sum" id="trSum">已选 <b>0</b> 样</div>
+          <div class="tr-err">至少 1 样、最多 5 样；菜单外的商品这里点不了</div>
+          <div class="tr-lock">菜单取自门店 1990102 实时挂牌价 · 非麦当劳商品无法提交</div>
+        </div>
+
+        <label class="tr-switch" for="trFast">
+          <input id="trFast" type="checkbox">
+          <span>演示加速：<b>24 小时 → 24 秒</b>，一次看完整个流程</span>
+        </label>
+
+        <button class="btn btn-red btn-block" id="trSubmit"><span>把菜单交给三个陌生人</span></button>
+
+        <div class="tr-note">
+          <b>规则</b>：三个陌生人各自只能做一件事——加点、扣点、不批，理由必填。
+          三个人审完即定稿；两人以上不批、或者菜单被扣到一样不剩，这顿就没有。
+          24 小时内没凑够三个人，同样不算过，沉默不是默许。
+        </div>
+      </div>
+
+      <!-- 右：我的审议单 / 待审池 / 理由墙 -->
+      <div>
+        <div id="trMine"></div>
+
+        <div class="tr-pool-head"><span>待我审的菜单</span><span class="line"></span><span id="trPoolCount">0 份</span></div>
+        <div class="tr-pool" id="trPool"></div>
+
+        <div class="tr-wall" id="trJudgedWrap" style="display:none">
+          <div class="tr-wall-head"><span>我审过的菜单</span><span class="line"></span><span id="trJudgedCount"></span></div>
+          <div class="tr-pool" id="trJudged"></div>
+        </div>
+
+        <div class="tr-wall">
+          <div class="tr-wall-head"><span>陌生人都说了什么</span><span class="line"></span><span id="trWallCount"></span></div>
+          <div class="tr-notes" id="trWall"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tr-stats" id="trStats"></div>
+    <div class="tr-footnote">
+      <span id="trNote"></span>
+      <button type="button" class="tr-btn ghost sm" data-reset="1">重置演示数据</button>
+    </div>
+  </div>
+</section>
+
+<!-- 审议弹层 -->
+<div class="tr-modal" id="trModal" role="dialog" aria-modal="true" aria-labelledby="trModalTitle">
+  <div class="tr-modal-mask" data-close="1"></div>
+  <div class="tr-dialog">
+    <div class="tr-dialog-head"><span id="trModalTitle">审这份菜单 · 必须给个理由</span><button type="button" data-close="1" aria-label="关闭">×</button></div>
+    <div class="tr-dialog-body" id="trDialogBody"></div>
+  </div>
+</div>
+
+<!-- 趣味区 -->
+<section class="section section-alt" id="fun">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-kicker">今日趣味</span>
+      <h2>星座、天气、还有一张麦门签</h2>
+      <p>这些是给年轻人的小机关：先看看今天顺不顺，再决定这顿该不该对自己好一点。占卜内容为娱乐向，不作任何人生建议。</p>
+    </div>
+    <svg class="sec-doodle" viewBox="0 0 80 70" aria-hidden="true" style="transform:rotate(-8deg)"><use href="#dMealBox"/></svg>
+
+    <div class="fun-grid">
+      <!-- 星座 -->
+      <div class="fun-card">
+        <div class="fun-head">
+          <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><use href="#starIco" fill="var(--yellow)" stroke="var(--ink)" stroke-width="1.4"/></svg>
+          <span class="t">星座今日食运</span>
+          <span class="sub">娱乐向</span>
+        </div>
+        <div class="fun-body">
+          <div class="zodiac-grid" id="zodiacGrid" role="group" aria-label="选择星座"></div>
+          <div class="zodiac-result" id="zodiacResult">
+            <div class="zr-top">
+              <span class="zr-sign">请选一个星座</span>
+            </div>
+            <div class="zr-text" style="color:var(--ink-soft)">选完之后，这里会出现今天的食运指数和一句建议。</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 天气 + 幸运签 -->
+      <div style="display:flex;flex-direction:column;gap:20px">
+        <div class="fun-card">
+          <div class="fun-head">
+            <span class="t">此刻天气 · 影响吃法</span>
+            <span class="sub" id="wxTime">--:--</span>
+          </div>
+          <div class="fun-body">
+            <div class="weather-now">
+              <div class="weather-icon" id="wxIcon"></div>
+              <div>
+                <div class="weather-temp" id="wxTemp">--°</div>
+                <div class="weather-desc" id="wxDesc">正在读取</div>
+              </div>
+              <button class="weather-city" id="wxCity">南京</button>
+            </div>
+            <div class="weather-tip" id="wxTip">天气会改变推荐：下雨天推热的，闷热天推冰的。</div>
+            <div class="weather-meta">
+              <div class="wm"><div class="k">体感</div><div class="v" id="wxFeel">--°</div></div>
+              <div class="wm"><div class="k">湿度</div><div class="v" id="wxHum">--%</div></div>
+              <div class="wm"><div class="k">风力</div><div class="v" id="wxWind">--级</div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="fun-card">
+          <div class="fun-head">
+            <span class="t">麦门签</span>
+            <span class="sub">每日一签</span>
+          </div>
+          <div class="fun-body">
+            <div class="lucky-slips" id="slips"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MCP 面板 -->
+<section class="section" id="mcp">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-kicker">接口可见</span>
+      <h2>每个功能背后调了哪个工具</h2>
+      <p>点任一工具，可查看本页面的真实请求与返回结构。工具名与参数取自麦当劳 MCP 实时 <code>tools/list</code> 返回。</p>
+    </div>
+    <svg class="sec-doodle" viewBox="0 0 80 46" aria-hidden="true" style="transform:rotate(6deg);width:88px"><use href="#dCoupon"/></svg>
+
+    <div class="mcp-note">
+      <span class="ico">i</span>
+      <div>麦当劳 MCP 实际开放 <strong>35 个工具</strong>，此处展示本产品用到的 8 个。下方请求与返回为<strong>2026-10-21 真实调用结果</strong>（令牌已脱敏、长数组已截断），不是编造字段。完整调用链见项目 <code>MCP_INTEGRATION.md</code>。</div>
+    </div>
+
+    <div class="mcp-grid" id="mcpGrid" role="group" aria-label="MCP 工具列表"></div>
+
+    <div class="mcp-console">
+      <pre id="mcpOut"><span class="c">// 点击上方任一工具，查看真实请求与返回</span></pre>
+    </div>
+  </div>
+</section>
+
+<!-- 页脚 -->
+<footer class="footer">
+  <svg class="foot-doodle" viewBox="0 0 130 60" aria-hidden="true"><use href="#dShoes"/></svg>
+  <div class="wrap">
+    <div class="foot-top">
+      <div>
+        <div class="foot-brand">
+          <svg style="width:38px;height:30px;color:var(--yellow)" aria-hidden="true"><use href="#arch"/></svg>
+          <span class="brand-cn">麦门心事</span>
+        </div>
+        <p class="foot-desc">把一句心情日记变成一份餐、两份报告和三个麦友的意见。基于麦当劳中国 MCP 构建，只做点餐决策辅助，不代下单。</p>
+      </div>
+      <div class="foot-col">
+        <h4>页面导航</h4>
+        <ul>
+          <li><a href="#bench">心事配餐</a></li>
+          <li><a href="#report">双报告</a></li>
+          <li><a href="#mayou">麦友审批</a></li>
+          <li><a href="#fun">今日运势</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>相关资源</h4>
+        <ul>
+          <li><a href="https://open.mcd.cn/mcp" target="_blank" rel="noopener noreferrer">麦当劳 MCP 开放平台</a></li>
+          <li><a href="https://github.com/M-China/mcd-mcp-server" target="_blank" rel="noopener noreferrer">MCP Server 使用指南</a></li>
+          <li><a href="https://github.com/M-China/mcd-developer-innovation-challenge" target="_blank" rel="noopener noreferrer">创意开发大赛</a></li>
+          <li><a href="https://www.workbuddy.cn" target="_blank" rel="noopener noreferrer">WorkBuddy</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>麦门心事 · Maimen Xinshi</span>
+      <span class="disclaim">本页面为麦当劳程序员节创意开发大赛参赛作品，由参赛者独立开发，非麦当劳官方产品。菜单、价格、营养取自麦当劳 MCP 2026-10-21 14:42 真实返回（门店 1990102 南京仙林金鹰店），价格与供应随门店和时段变化；天气与运势为演示内容。不构成营养、医疗或任何专业建议，实际下单以麦当劳官方渠道为准。</span>
+    </div>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function(){
+"use strict";
+
+/* ==================== 菜品数据集 ==================== */
+/* 数据来源：麦当劳中国 MCP 实时快照（2026-10-21 14:42，门店 1990102 南京仙林金鹰店）
+   价格 ← calculate-price；营养 ← list-nutrition-foods（按菜名完全一致匹配）
+   菜名与编码 ← query-meals + query-meal-detail
+   共 22 个单点品项，非套餐。价格与供应随门店和时段变化，实际以官方渠道为准。 */
+
+var MEALS = [
+  {code:"1450", name:"麦香鸡", cat:"主食", price:16.5, kcal:369, p:15, f:17, c:39, na:731,
+   tags:["炸","汉堡","清淡"], desc:"不辣，适合不想被刺激的晚上"},
+  {code:"1406", name:"板烧鸡腿堡", cat:"主食", price:23.5, kcal:391, p:23, f:17, c:35, na:1041,
+   tags:["汉堡","软","清淡"], desc:"不炸的，胃会舒服一点"},
+  {code:"1600", name:"麦香鱼", cat:"主食", price:22.0, kcal:325, p:16, f:13, c:35, na:556,
+   tags:["炸","汉堡","鱼","软"], desc:"软的，嚼起来不费劲"},
+  {code:"1120", name:"双层吉士汉堡", cat:"主食", price:23.0, kcal:429, p:27, f:22, c:31, na:1017,
+   tags:["汉堡","咸香","经典"], desc:"芝士化开的那个瞬间很治愈"},
+  {code:"1106", name:"培根蔬萃双层牛堡", cat:"主食", price:25.0, kcal:442, p:24, f:23, c:34, na:728,
+   tags:["汉堡","牛"], desc:"肉和菜都有，心理负担小一点"},
+  {code:"1440", name:"麦辣鸡腿汉堡", cat:"主食", price:22.5, kcal:485, p:24, f:24, c:42, na:1208,
+   tags:["辣","炸","汉堡"], desc:"辣一下，比忍着好"},
+  {code:"4648", name:"不素之霸双层牛堡", cat:"主食", price:26.5, kcal:493, p:28, f:27, c:34, na:1012,
+   tags:["汉堡","牛","厚"], desc:"两层牛肉，吃到一半就饱了"},
+  {code:"1100", name:"巨无霸", cat:"主食", price:26.5, kcal:513, p:27, f:26, c:42, na:961,
+   tags:["汉堡","经典"], desc:"最不费脑子的选择"},
+
+  {code:"6102", name:"苹果片", cat:"配餐", price:7.0, kcal:32, p:0, f:0, c:7, na:0,
+   tags:["清淡","甜","苹果片"], desc:"唯一能说我在吃水果的东西"},
+  {code:"515837", name:"圆筒冰淇淋", cat:"配餐", price:5.0, kcal:93, p:2, f:3, c:14, na:36,
+   tags:["甜","冰","冰淇淋"], desc:"五块钱的甜，最便宜的好心情"},
+  {code:"520445", name:"薄皮焦香V翅", cat:"配餐", price:15.5, kcal:192, p:17, f:11, c:6, na:594,
+   tags:["炸","鸡翅"], desc:"带骨的，适合慢慢啃"},
+  {code:"1401", name:"麦乐鸡5块", cat:"配餐", price:14.0, kcal:213, p:12, f:12, c:13, na:422,
+   tags:["炸","脆","鸡块"], desc:"一块一块吃，节奏会慢下来"},
+  {code:"514782", name:"脆脆薯条", cat:"配餐", price:16.0, kcal:279, p:4, f:14, c:32, na:540,
+   tags:["炸","脆","薯条"], desc:"比中薯条脆一点，也更贵"},
+  {code:"4810", name:"中薯条", cat:"配餐", price:14.5, kcal:289, p:4, f:12, c:38, na:165,
+   tags:["炸","脆","薯条"], desc:"今晚的关键词就是它"},
+  {code:"521156", name:"那么大鸡排（椒盐风味）", cat:"配餐", price:14.0, kcal:385, p:24, f:21, c:24, na:996,
+   tags:["炸","脆","鸡排"], desc:"一整块，咬下去很实在"},
+
+  {code:"3757", name:"纯悦", cat:"饮品", price:7.5, kcal:0, p:0, f:0, c:0, na:0,
+   tags:["无糖","冰","冷饮"], desc:"零热量，纯粹为了有瓶东西拿"},
+  {code:"3505", name:"锡兰红茶", cat:"饮品", price:10.5, kcal:2, p:0, f:0, c:0, na:0,
+   tags:["无糖","热饮","茶"], desc:"热的，捧在手里比喝下去更重要"},
+  {code:"507389", name:"浓缩咖啡", cat:"饮品", price:15.0, kcal:13, p:1, f:0, c:2, na:0,
+   tags:["无糖","热饮","咖啡"], desc:"一口的量，让你再撑两小时"},
+  {code:"515946", name:"冰浓浓黑巧中杯", cat:"饮品", price:13.9, kcal:135, p:8, f:6, c:12, na:77,
+   tags:["甜","冰","冷饮"], desc:"甜的、冰的，像给自己发了个奖"},
+  {code:"507394", name:"热牛奶中杯", cat:"饮品", price:19.0, kcal:176, p:10, f:8, c:15, na:101,
+   tags:["热饮","奶"], desc:"温的，睡前喝不难受"},
+  {code:"3755", name:"纯牛奶(盒装)", cat:"饮品", price:11.0, kcal:129, p:7, f:7, c:10, na:73,
+   tags:["奶","甜"], desc:"最简单的安慰，不会太甜"},
+  {code:"507387", name:"卡布奇诺中杯", cat:"饮品", price:21.0, kcal:167, p:9, f:7, c:15, na:88,
+   tags:["热饮","咖啡","奶"], desc:"奶泡撑着，能把人从夜里捞回来"}
+];
+
+/* 门店清单（真实返回，query-nearby-stores: beType=1, searchType=2, city=南京, keyword=仙林） */
+var STORES = [
+  {code:"1990102", name:"南京仙林金鹰店", distance:"515m", hours:"08:00-22:00"},
+  {code:"1990068", name:"南京仙林亚东城得来速店", distance:"1452m", hours:"00:00-23:59"},
+  {code:"1990693", name:"南京中医药大学仙林校区店", distance:"1458m", hours:"06:30-22:00"}
+];
+
+var EMO_RULES = {
+  "疲惫":{energy:"低", motive:"想被安慰，不是饿了", want:["炸","热饮","脆","汉堡"], ban:["清淡","无糖"], kw:"脆"},
+  "挫败":{energy:"低", motive:"需要补偿", want:["炸","甜","脆","薯条"], ban:["清淡"], kw:"脆"},
+  "焦虑":{energy:"中", motive:"想让自己停下来", want:["热饮","软","清淡","茶"], ban:["咖啡","冷饮"], kw:"烫"},
+  "孤独":{energy:"低", motive:"想陪自己坐一会儿", want:["热饮","甜","派","软"], ban:[], kw:"烫"},
+  "委屈":{energy:"低", motive:"想被哄", want:["炸","甜","派","薯条"], ban:["清淡"], kw:"甜"},
+  "兴奋":{energy:"高", motive:"真的饿了", want:["炸","汉堡","冰","冷饮"], ban:[], kw:"辣"},
+  "平静":{energy:"中", motive:"正常吃饭", want:["汉堡","清淡","玉米杯"], ban:[], kw:"软"},
+  "奖励自己":{energy:"中", motive:"想奖励自己", want:["甜","派","汉堡","经典"], ban:[], kw:"甜"}
+};
+
+var TEXT_HINTS = [
+  {words:["加班","熬夜","通宵","十点","深夜","累","困"], emo:"疲惫"},
+  {words:["打回来","退回","改稿","被骂","批评","失败","搞砸","方案","客户"], emo:"挫败"},
+  {words:["面试","考试","汇报","deadline","紧张","担心","焦虑","来不及"], emo:"焦虑"},
+  {words:["一个人","没人","空","孤独","自己吃","异地"], emo:"孤独"},
+  {words:["委屈","不公平","凭什么","冤枉","针对"], emo:"委屈"},
+  {words:["开心","通过","offer","涨薪","赢了","兴奋","终于"], emo:"兴奋"},
+  {words:["还好","一般","普通","平常","没事"], emo:"平静"},
+  {words:["奖励","值得","犒劳","庆祝","发工资"], emo:"奖励自己"},
+  {words:["分手","失恋","删了","不回消息"], emo:"委屈"},
+  {words:["下雨","降温","冷","淋雨"], emo:"疲惫"},
+  {words:["热","闷","晒","三十度"], emo:"兴奋"}
+];
+
+var TEXTURE = {
+  "脆":["脆","薯条","炸"],
+  "烫":["热饮","热","茶"],
+  "甜":["甜","派","玉米杯"],
+  "辣":["辣"],
+  "软":["软","清淡","玉米杯"],
+  "冰":["冰","冷饮"]
+};
+
+/* 阿宽按情绪分支，避免出现与当下处境无关的台词 */
+var AKUA_LINES = {
+  "疲惫":"这么晚了还硬扛，先吃！我请客的那种吃。",
+  "挫败":"改三次还改？先炫口热的，方案明天再说。",
+  "焦虑":"别想了，点个餐这件事你总还会吧？",
+  "孤独":"一个人也得点全套，我坐这儿陪你吃。",
+  "委屈":"不怪你，真不怪你。先吃，吃完咱再聊。",
+  "兴奋":"开心更得吃啊，直接上大份的！",
+  "平静":"行吧，那就正常吃一顿，不折腾。",
+  "奖励自己":"该点就点，省这顿也发不了财。"
+};
+
+var NIANNIAN_CLOSINGS = ["吃完记得喝口水。", "别一边吃一边回消息啦。", "明天这事真不算事。"];
+var MAYOU = {
+  akua:{name:"阿宽", role:"直球吃就完事", init:"宽", color:"#FFC72C"},
+  xiaoman:{name:"小满", role:"养生但不扫兴", init:"满", color:"#7BE0C4"},
+  laochen:{name:"年年", role:"情绪树洞", init:"年", color:"#8FC7FF"}
+};
+
+var INSIGHTS = {
+  "疲惫":"你不是饿，是想手里有个热的东西",
+  "挫败":"你不是想吃，是想赢一次",
+  "焦虑":"你不是饿，是想找件能自己说了算的小事",
+  "孤独":"你不是饿，是不想一个人待着",
+  "委屈":"你不是饿，是想有人站你这边",
+  "兴奋":"你是真饿了，别装了",
+  "平静":"没啥大事，就是到饭点了",
+  "奖励自己":"你等这顿等很久了，别将就"
+};
+
+/* ==================== 工具函数 ==================== */
+function $(s, r){ return (r||document).querySelector(s); }
+function $$(s, r){ return Array.prototype.slice.call((r||document).querySelectorAll(s)); }
+function clamp(v, a, b){ return Math.max(a, Math.min(b, v)); }
+function hash(str){ var h=0,i; for(i=0;i<str.length;i++){ h=(h*31+str.charCodeAt(i))>>>0; } return h; }
+function todayKey(){ var d=new Date(); return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0"); }
+function nowHM(){ var d=new Date(); return String(d.getHours()).padStart(2,"0")+":"+String(d.getMinutes()).padStart(2,"0"); }
+function fmt1(n){ return (Math.round(n*10)/10).toFixed(1); }
+
+var toastTimer=null;
+function toast(msg){
+  var t=$("#toast"); t.textContent=msg; t.classList.add("on");
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(function(){ t.classList.remove("on"); },2200);
+}
+
+/* ==================== 时段判定 ==================== */
+function getSlot(){
+  var h=new Date().getHours();
+  if(h>=5 && h<10.5) return {name:"早餐", ceiling:650, share:0.25};
+  if(h>=10.5 && h<14) return {name:"午市", ceiling:1100, share:0.40};
+  if(h>=14 && h<17) return {name:"下午茶", ceiling:600, share:0.12};
+  if(h>=17 && h<22) return {name:"晚市", ceiling:1050, share:0.35};
+  return {name:"深夜", ceiling:850, share:0.20};
+}
+
+/* ==================== 情绪抽取 ==================== */
+function analyze(text, selected){
+  var emotions=[], hits=[], i, j, hint;
+  var lower=(text||"").toLowerCase();
+
+  for(i=0;i<TEXT_HINTS.length;i++){
+    hint=TEXT_HINTS[i];
+    for(j=0;j<hint.words.length;j++){
+      if(lower.indexOf(hint.words[j].toLowerCase())>=0){
+        if(emotions.indexOf(hint.emo)<0) emotions.push(hint.emo);
+        hits.push(hint.words[j]);
+        break;
+      }
+    }
+  }
+  for(i=0;i<selected.length;i++){
+    if(emotions.indexOf(selected[i])<0) emotions.push(selected[i]);
+  }
+  if(!emotions.length) emotions=["平静"];
+
+  var primary=emotions[0];
+  var rule=EMO_RULES[primary] || EMO_RULES["平静"];
+
+  return {
+    emotions:emotions,
+    primary:primary,
+    energy:rule.energy,
+    motive:rule.motive,
+    keyword:rule.kw,
+    hits:hits
+  };
+}
+
+/* ==================== 配餐引擎 ==================== */
+function pickMeals(analysis, weather){
+  var rule=EMO_RULES[analysis.primary] || EMO_RULES["平静"];
+  var slot=getSlot();
+  var want=rule.want.slice();
+  var ban=rule.ban.slice();
+
+  /* 天气修正 */
+  if(weather){
+    if(weather.type==="rain" || weather.type==="cold"){ want.push("热饮","烫"); }
+    if(weather.type==="hot"){ want.push("冰","冷饮"); }
+  }
+
+  function score(m){
+    var s=0, i;
+    for(i=0;i<want.length;i++){ if(m.tags.indexOf(want[i])>=0) s+=3; }
+    for(i=0;i<ban.length;i++){ if(m.tags.indexOf(ban[i])>=0) s-=5; }
+    var tex=TEXTURE[analysis.keyword]||[];
+    for(i=0;i<tex.length;i++){ if(m.tags.indexOf(tex[i])>=0) s+=2; }
+    if(m.kcal>600) s-=1;
+    /* 主食按热量做轻微偏好：轻一点的更容易进榜，避免下午茶时段推大套餐 */
+    if(m.cat==="主食") s+=(700-m.kcal)/120;
+    return s;
+  }
+
+  function best(cat){
+    var pool=MEALS.filter(function(m){ return m.cat===cat; });
+    pool.sort(function(a,b){ return score(b)-score(a); });
+    return pool[0];
+  }
+
+  var main=best("主食");
+  var side=best("配餐");
+  var drink=best("饮品");
+
+  /* 热量修正：先换小份，再换低热量饮品；
+     换饮品时必须保留用户想要的"热/冰"属性，否则会和推荐理由打架 */
+  var total=main.kcal+side.kcal+drink.kcal;
+
+  if(total>slot.ceiling && side.code==="514782"){
+    side=MEALS.filter(function(m){ return m.code==="4810"; })[0];
+    total=main.kcal+side.kcal+drink.kcal;
+  }
+
+  if(total>slot.ceiling && drink.tags.indexOf("无糖")<0){
+    var preferHot = drink.tags.indexOf("热饮")>=0;
+    var preferCold = drink.tags.indexOf("冷饮")>=0;
+    var pool=MEALS.filter(function(m){
+      if(m.cat!=="饮品" || m.tags.indexOf("无糖")<0 || m.code===drink.code) return false;
+      if(preferHot && m.tags.indexOf("热饮")<0) return false;
+      if(preferCold && m.tags.indexOf("冷饮")<0) return false;
+      return m.kcal < drink.kcal;
+    });
+    pool.sort(function(a,b){ return a.kcal-b.kcal; });
+    if(pool[0]){ drink=pool[0]; total=main.kcal+side.kcal+drink.kcal; }
+  }
+
+  return {
+    items:[main, side, drink],
+    main:main, side:side, drink:drink,
+    total:total,
+    slot:slot,
+    reason:buildReason(analysis, main, side, drink, total, slot)
+  };
+}
+
+function buildReason(a, main, side, drink, total, slot){
+  var kw=a.keyword;
+  var map={
+    "脆":"咬下去要有声音，这是今晚最重要的事",
+    "烫":"要热的。凉的只是填，热的才叫吃",
+    "甜":"甜是今天唯一不用解释的东西",
+    "辣":"辣一下，比忍着好",
+    "软":"今天嚼不动，软的就行",
+    "冰":"冰的东西能让脑子停两秒"
+  };
+  var base=map[kw] || "这顿不用想太多，顺口就行";
+  var hasFried = (main.tags.indexOf("炸")>=0) || (side.tags.indexOf("炸")>=0);
+  var hasSugarFree = drink.tags.indexOf("无糖")>=0;
+  var extra="";
+
+  if(total>slot.ceiling){
+    extra=" 这一餐热量偏高，今天另一顿清淡一点。";
+  } else if(hasSugarFree && !hasFried){
+    extra=" 顺手避开了炸的，胃会谢谢你。";
+  } else if(hasSugarFree && hasFried){
+    extra=" 饮品走了无糖，算是给自己留了点余地。";
+  } else {
+    extra=" 份量刚好，不会吃撑。";
+  }
+  return base+"。"+extra;
+}
+
+/* ==================== 报告计算 ==================== */
+function happinessReport(a, meal){
+  var tex=TEXTURE[a.keyword]||[];
+  var match=0, i;
+  meal.items.forEach(function(m){
+    for(i=0;i<tex.length;i++){ if(m.tags.indexOf(tex[i])>=0){ match++; break; } }
+  });
+
+  var comfort=clamp(58+match*11+(a.primary==="疲惫"||a.primary==="委屈"?8:0), 40, 98);
+  var hasSweet=meal.items.some(function(m){ return m.tags.indexOf("甜")>=0; });
+  var sat=clamp(56+match*8+(hasSweet?7:0)+(meal.total>700?6:0), 40, 97);
+  var guilt=clamp(28+Math.round((meal.total-600)/22)+(meal.items.some(function(m){return m.tags.indexOf("炸")>=0;})?12:0), 8, 88);
+
+  var conclusion;
+  if(guilt>60){ conclusion="吃完别称体重，明天中午清淡点就行。"; }
+  else if(comfort>80){ conclusion="这顿解决不了问题，但你有力气面对它了。"; }
+  else if(sat>80){ conclusion="值了。这种时候该对自己好一点。"; }
+  else { conclusion="不算完美，但够了。"; }
+
+  return {comfort:comfort, sat:sat, guilt:guilt, conclusion:conclusion, match:match};
+}
+
+function nutritionReport(meal){
+  var t={kcal:0,p:0,f:0,c:0,na:0, missing:[]};
+  meal.items.forEach(function(m){
+    if(typeof m.kcal!=="number" || m.kcal<0){ t.missing.push(m.name); return; }
+    t.kcal+=m.kcal; t.p+=m.p; t.f+=m.f; t.c+=m.c; t.na+=m.na;
+  });
+  var REF={kcal:2000,p:60,f:65,c:300,na:2000};
+  var slot=meal.slot;
+  return {
+    kcal:Math.round(t.kcal),
+    p:fmt1(t.p), f:fmt1(t.f), c:fmt1(t.c), na:Math.round(t.na),
+    dailyPct:Math.round(t.kcal/REF.kcal*100),
+    slotPct:Math.round(t.kcal/(REF.kcal*slot.share)*100),
+    over:t.kcal>slot.ceiling,
+    overBy:Math.round(Math.max(0,t.kcal-slot.ceiling)),
+    missing:t.missing
+  };
+}
+
+function cautionText(nr, slot){
+  if(nr.over) return "超出"+slot.name+"参考上限 "+slot.ceiling+" kcal 约 "+nr.overBy+" kcal。今天另一顿建议清蒸或少油。";
+  if(nr.dailyPct>50) return "约占全天参考摄入一半，剩下的两顿控制一下油和糖。";
+  if(nr.dailyPct<25) return "偏轻。如果这顿是正餐，可能会在两小时后饿。";
+  return "在合理区间内。喝点水，别马上躺下。";
+}
+
+/* ==================== 麦友 ==================== */
+function mayouSay(a, meal){
+  var seed=hash(a.primary+todayKey());
+  var insight=INSIGHTS[a.primary] || INSIGHTS["平静"];
+  var hasApple = meal.items.some(function(m){ return m.code==="6102"; });
+  var hasDessert = meal.items.some(function(m){ return m.tags.indexOf("甜")>=0; });
+  var hasHotDrink = meal.drink.tags.indexOf("热饮")>=0;
+
+  /* 小满的改动建议：只推荐餐里没有的东西，且与改动对象严格对应
+     swapType 取值 drink / side / main / none */
+  var swapType, swapLabel;
+  if(meal.drink.tags.indexOf("无糖")<0 && (meal.drink.kcal>=100 || meal.drink.tags.indexOf("甜")>=0)){
+    swapType="drink"; swapLabel="饮品换锡兰红茶";
+  } else if(meal.side.kcal>280 && meal.side.code!=="6102"){
+    swapType="side"; swapLabel="配餐换苹果片";
+  } else if(meal.main.tags.indexOf("炸")>=0 && meal.main.kcal>=450){
+    swapType="main"; swapLabel="主食换板烧";
+  } else {
+    swapType="none"; swapLabel="";
+  }
+
+  var akuaSay=AKUA_LINES[a.primary] || AKUA_LINES["平静"];
+
+  var xmSay;
+  if(swapType==="drink"){
+    xmSay="可以吃呀，但饮品换锡兰红茶吧～那杯糖水留给明天。";
+  } else if(swapType==="side"){
+    xmSay="汉堡留着，配餐换苹果片好不好？半夜不难受。";
+  } else if(swapType==="main"){
+    xmSay="主食换板烧嘛，不炸的，胃会谢谢你。";
+  } else if(hasApple){
+    xmSay="这份配得挺稳咯，别再往上加啦。";
+  } else {
+    xmSay="已经够稳啦。想加就加份苹果片，别加薯条哦。";
+  }
+
+  var dessert = hasDessert ? "甜的已经安排上了，慢慢吃"
+    : (hasHotDrink ? "热的有了，顺手加个圆筒？" : "加个圆筒冰淇淋吧，五块钱的甜最顶");
+  var closing = NIANNIAN_CLOSINGS[seed % NIANNIAN_CLOSINGS.length];
+
+  var verdict, verdictSub;
+  if(swapType==="drink"){
+    verdict="吃！饮品换一下"; verdictSub="三个人都点头，饮品换锡兰红茶，再加份甜的。";
+  } else if(swapType==="side"){
+    verdict="吃！配餐换一下"; verdictSub="都点头，配餐按小满说的换一下。";
+  } else if(swapType==="main"){
+    verdict="吃！主食换一下"; verdictSub="都点头，主食按小满说的换一下。";
+  } else if(meal.total>meal.slot.ceiling){
+    verdict="吃！份量收一点"; verdictSub="都点头，就是份量收一点。";
+  } else {
+    verdict="吃！现在就点"; verdictSub="三个人都点头，现在就点。";
+  }
+
+  return {
+    akua:{name:"阿宽", role:"直球吃就完事", init:"宽", color:"#FFC72C", say:akuaSay},
+    xiaoman:{name:"小满", role:"养生但不扫兴", init:"满", color:"#7BE0C4", say:xmSay},
+    laochen:{name:"年年", role:"情绪树洞", init:"年", color:"#8FC7FF", say:insight+"。"+dessert+"，"+closing},
+    verdict:verdict, sub:verdictSub
+  };
+}
+
+/* ==================== 渲染 ==================== */
+var state={selected:[], store:"南京仙林金鹰店", weather:null, result:null};
+
+function renderSteps(active){
+  var steps=["读心事","配一餐","双报告","麦友审批","心事卡片"];
+  var h='<div class="step-bar" id="stepBar">';
+  steps.forEach(function(s,i){
+    var cls = i<active ? "done" : (i===active ? "active" : "");
+    h+='<span class="step-dot '+cls+'"><span class="n">'+(i<active?"✓":(i+1))+'</span>'+s+'</span>';
+  });
+  h+='</div>';
+  return h;
+}
+
+/* 仅更新进度条，不重建结果区 */
+function setSteps(active){
+  var el=document.getElementById("stepBar");
+  if(el){ el.outerHTML=renderSteps(active); }
+}
+
+function buildResultHTML(r, activeStep){
+  var h=renderSteps(activeStep);
+
+  /* 心事解读 */
+  h+='<div class="panel"><div class="panel-head"><span class="ttl">心事解读</span><span class="badge">STEP 1</span></div><div class="panel-body">';
+  h+='<div class="emo-row">';
+  r.analysis.emotions.forEach(function(e,i){
+    h+='<span class="emo-tag'+(i===0?'':' k')+'">'+e+'</span>';
+  });
+  h+='<span class="emo-tag g">关键词 '+r.analysis.keyword+'</span>';
+  h+='</div>';
+  h+='<div class="emo-sentence">'+r.sentence+'</div>';
+  h+='<div class="emo-meta">';
+  h+='<div class="meta-box"><div class="k">能量</div><div class="v">'+r.analysis.energy+'</div></div>';
+  h+='<div class="meta-box"><div class="k">进食动机</div><div class="v" style="font-size:12px">'+r.analysis.motive+'</div></div>';
+  h+='<div class="meta-box"><div class="k">时段</div><div class="v">'+r.meal.slot.name+'</div></div>';
+  h+='</div></div></div>';
+
+  /* 餐食搭配 */
+  h+='<div class="panel"><div class="panel-head"><span class="ttl">餐食搭配</span><span class="badge">'+r.store+'</span></div><div class="panel-body">';
+  h+='<div class="meal-list">';
+  r.meal.items.forEach(function(m){
+    h+='<div class="meal-item"><div class="meal-ico">'+m.cat+'</div><div class="meal-main">'
+      +'<div class="meal-name">'+m.name+'</div><div class="meal-desc">'+m.desc+' · '+m.code+'</div></div>'
+      +'<div class="meal-price">¥'+fmt1(m.price)+'</div></div>';
+  });
+  h+='</div>';
+  h+='<div class="meal-why">'+r.meal.reason+'</div>';
+  var sum=r.meal.items.reduce(function(a,m){ return a+m.price; },0);
+  h+='<div style="display:flex;justify-content:space-between;align-items:center;margin-top:13px;padding-top:11px;border-top:2px dashed rgba(42,22,18,.2)">'
+    +'<span style="font-size:11.5px;font-weight:700;color:var(--ink-soft)">应付合计（calculate-price）</span>'
+    +'<span style="font-size:20px;font-weight:900;color:var(--red)">¥'+fmt1(sum)+'</span></div>';
+  h+='</div></div>';
+  return h;
+}
+
+function buildReportHTML(r){
+  var hp=r.happy, nr=r.nutri;
+  var h='<div class="panel" id="report"><div class="panel-head"><span class="ttl">双报告</span><span class="badge y">STEP 3</span></div><div class="panel-body">';
+  h+='<div class="report-tabs" role="tablist">';
+  h+='<button class="rtab" role="tab" aria-selected="true" data-tab="happy">快乐报告</button>';
+  h+='<button class="rtab" role="tab" aria-selected="false" data-tab="nutri">热量报告</button>';
+  h+='</div>';
+
+  /* 快乐 */
+  h+='<div data-pane="happy">';
+  h+='<div class="score-row"><span class="score-name">情绪安抚度</span><div class="score-track"><div class="score-fill" style="width:0%;background:var(--pink)"></div></div><span class="score-val">'+hp.comfort+'</span></div>';
+  h+='<div class="score-row"><span class="score-name">满足感预期</span><div class="score-track"><div class="score-fill" style="width:0%;background:var(--yellow)"></div></div><span class="score-val">'+hp.sat+'</span></div>';
+  h+='<div class="score-row"><span class="score-name">心理热量</span><div class="score-track"><div class="score-fill" style="width:0%;background:var(--sky)"></div></div><span class="score-val">'+hp.guilt+'</span></div>';
+  h+='<div class="caution" style="margin-top:6px">'+hp.conclusion+'</div>';
+  h+='<div class="missing-note">心理热量指这顿让你产生的愧疚念头强度，越低越好，不是真实营养学指标。</div>';
+  h+='</div>';
+
+  /* 热量 */
+  h+='<div data-pane="nutri" style="display:none">';
+  h+='<div class="nutri-total"><span class="n">'+nr.kcal+'</span><span class="u">kcal</span>'
+    +'<span class="note">约占每日参考摄入 '+nr.dailyPct+'%<br>'
+    +(nr.slotPct>120 ? '已超出'+r.meal.slot.name+'参考量' : '约为'+r.meal.slot.name+'参考量的 '+nr.slotPct+'%')
+    +'</span></div>';
+  h+='<div class="nutri-grid">';
+  h+='<div class="nutri-box"><div class="k">蛋白质</div><div class="v">'+nr.p+'<span class="u">g</span></div></div>';
+  h+='<div class="nutri-box"><div class="k">脂肪</div><div class="v">'+nr.f+'<span class="u">g</span></div></div>';
+  h+='<div class="nutri-box"><div class="k">碳水</div><div class="v">'+nr.c+'<span class="u">g</span></div></div>';
+  h+='<div class="nutri-box"><div class="k">钠</div><div class="v">'+nr.na+'<span class="u">mg</span></div></div>';
+  h+='</div>';
+  h+='<div class="caution'+(nr.over?' warn':'')+'">'+cautionText(nr, r.meal.slot)+'</div>';
+  if(nr.missing.length){
+    h+='<div class="missing-note">注：'+nr.missing.join("、")+' 营养数据暂未获取，合计为已获取品项之和（未做估算填充）。</div>';
+  }
+  h+='<div class="missing-note">数据来源：list-nutrition-foods（2026-10-21 门店 1990102 快照）。每日参考摄入取 2000 kcal 通用值。</div>';
+  h+='</div>';
+  h+='</div></div>';
+  return h;
+}
+
+function buildMayouHTML(r){
+  var m=r.mayou;
+  var h='<div class="panel" id="mayou"><div class="panel-head"><span class="ttl">麦友审批</span><span class="badge">STEP 4</span></div><div class="panel-body">';
+  h+='<div class="mayou-grid">';
+  [m.akua, m.xiaoman, m.laochen].forEach(function(p){
+    h+='<div class="mayou"><div class="mayou-top">'
+      +'<div class="avatar" style="background:'+p.color+'">'+p.init+'</div>'
+      +'<div><div class="mayou-name">'+p.name+'</div><div class="mayou-role">'+p.role+'</div></div></div>'
+      +'<div class="mayou-say">'+p.say+'</div></div>';
+  });
+  h+='</div>';
+  h+='<div class="verdict"><div class="verdict-ico">✓</div><div><div class="verdict-txt">综合意见：'+m.verdict+'</div><div class="verdict-sub">'+m.sub+'</div></div></div>';
+  h+='</div></div>';
+  return h;
+}
+
+/* 显示宽度：CJK/全角按 2 计，保证等宽字体下卡片边框对齐 */
+function dw(s){
+  var w=0,i,c;
+  for(i=0;i<s.length;i++){
+    c=s.charCodeAt(i);
+    if(c>=0x1100 && (
+      (c<=0x115F) || (c>=0x2E80 && c<=0xA4CF) || (c>=0xAC00 && c<=0xD7A3) ||
+      (c>=0xF900 && c<=0xFAFF) || (c>=0xFE30 && c<=0xFE6F) ||
+      (c>=0xFF00 && c<=0xFF60) || (c>=0xFFE0 && c<=0xFFE6)
+    )){ w+=2; } else { w+=1; }
+  }
+  return w;
+}
+function rep(ch,n){ var s=""; for(var i=0;i<n;i++){ s+=ch; } return s; }
+function truncW(s,limit){
+  if(dw(s)<=limit) return s;
+  var out="",w=0,i,c;
+  for(i=0;i<s.length;i++){
+    c=s.charCodeAt(i);
+    var cw = (c>=0x1100 && ((c<=0x115F)||(c>=0x2E80&&c<=0xA4CF)||(c>=0xAC00&&c<=0xD7A3)||(c>=0xF900&&c<=0xFAFF)||(c>=0xFE30&&c<=0xFE6F)||(c>=0xFF00&&c<=0xFF60)||(c>=0xFFE0&&c<=0xFFE6)))?2:1;
+    if(w+cw>limit-1) break;
+    out+=s.charAt(i); w+=cw;
+  }
+  return out+".";
+}
+function padEndW(s,target){
+  if(dw(s)>target) s=truncW(s,target);
+  return s + rep(" ", Math.max(0, target-dw(s)));
+}
+
+function cardLines(r){
+  var d=new Date();
+  var dateStr=d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+  var exp=new Date(d.getTime()+20*60000);
+  var expStr=String(exp.getHours()).padStart(2,"0")+":"+String(exp.getMinutes()).padStart(2,"0");
+
+  var TOTAL=42, INNER=TOTAL-2;
+  var title=" 麦门心事 · "+dateStr+" ";
+  var lines=[];
+
+  lines.push("┌─"+title+rep("─", Math.max(1, TOTAL-3-dw(title)))+"┐");
+
+  function rowLine(label,val){
+    var prefix=" "+label+"：";
+    var body=prefix+padEndW(val, INNER-dw(prefix));
+    return "│"+padEndW(body, INNER)+"│";
+  }
+
+  /* 品项过多时按可用宽度折行，续行缩进对齐到取值起始位 */
+  function pushWrapped(label, parts){
+    var prefix=" "+label+"：";
+    var avail=INNER-dw(prefix);
+    var contPrefix=" "+rep(" ", dw(label))+"　";
+    var cur="";
+    parts.forEach(function(p){
+      var trial = cur ? cur+" + "+p : p;
+      if(dw(trial)<=avail){ cur=trial; return; }
+      if(cur){
+        lines.push("│"+padEndW(prefix+cur, INNER)+"│");
+        prefix=contPrefix;
+        avail=INNER-dw(contPrefix);
+      }
+      cur = dw(p)>avail ? truncW(p,avail) : p;
+    });
+    if(cur){ lines.push("│"+padEndW(prefix+cur, INNER)+"│"); }
+    else { lines.push(rowLine(label,"—")); }
+  }
+
+  lines.push(rowLine("今天", r.short));
+  pushWrapped("这一餐", r.meal.items.map(function(m){ return m.name; }));
+  lines.push(rowLine("热量", r.nutri.kcal+" kcal"));
+  lines.push(rowLine("快乐", r.happy.comfort+" / 100"));
+  lines.push(rowLine("麦友", r.mayou.verdict));
+  lines.push(rowLine("可见", "20 分钟（"+expStr+" 归档）"));
+  lines.push("└"+rep("─", INNER)+"┘");
+  lines.push("");
+  lines.push("20 分钟后，这顿吃完了。想补一句吗？");
+  return lines.join("\n");
+}
+
+/* ---------- 3D 卡片 ---------- */
+function buildCard3D(r){
+  var d=new Date();
+  var exp=new Date(d.getTime()+20*60000);
+  var dateStr=(d.getMonth()+1)+"."+d.getDate();
+  var expStr=pad2(exp.getHours())+":"+pad2(exp.getMinutes());
+  var total=0;
+  var rows=r.meal.items.map(function(m){
+    total+=m.price;
+    return '<div class="c3-row"><span>'+escapeHTML(m.name)+'</span><em>'+escapeHTML(m.cat)+'</em>'
+      +'<i></i><b>¥'+fmt1(m.price)+'</b></div>';
+  }).join("");
+
+  var h='<div class="c3-stage" id="c3Stage">';
+  h+='<div class="c3-tilt" id="c3Tilt"><div class="c3-card">';
+  h+='<div class="c3-face">';
+  h+='<div class="c3-band"><span>麦门心事</span><span>'+dateStr+'</span></div>';
+  h+='<p class="c3-quote">“'+escapeHTML(r.short)+'”</p>';
+  h+='<div class="c3-list">'+rows+'</div>';
+  h+='<div class="c3-total"><span>合计 '+r.meal.items.length+' 件</span><b>¥'+fmt1(total)+'</b></div>';
+  h+='<div class="c3-nums"><div><b>'+r.nutri.kcal+'</b><span>KCAL</span></div>'+
+     '<div><b>'+r.happy.comfort+'</b><span>快乐指数</span></div></div>';
+  h+='<div class="c3-verdict">'+escapeHTML(r.mayou.verdict)+'</div>';
+  h+='<div class="c3-foot"><span>'+dateStr+' 这顿先记着</span><span>'+expStr+' 前有效</span></div>';
+  h+='</div>';
+  h+='<div class="c3-sticker" aria-hidden="true"><svg viewBox="0 0 224 232"><use href="#clownHead" width="224" height="232"/></svg></div>';
+  h+='</div></div></div>';
+  return h;
+}
+
+function bindCard3D(){
+  var stage=document.getElementById("c3Stage");
+  var tilt=document.getElementById("c3Tilt");
+  if(!stage||!tilt) return;
+  var rest="rotateX(7deg) rotateY(-9deg)";
+  var reduce=window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  tilt.style.transform=rest;
+  if(reduce) return;
+
+  function apply(e){
+    var b=stage.getBoundingClientRect();
+    var px=clamp((e.clientX-b.left)/b.width-0.5, -0.5, 0.5);
+    var py=clamp((e.clientY-b.top)/b.height-0.5, -0.5, 0.5);
+    tilt.style.transform="rotateX("+(-py*16).toFixed(2)+"deg) rotateY("+(px*18).toFixed(2)+"deg) translateZ(8px)";
+    tilt.style.setProperty("--gx",((px+0.5)*100).toFixed(1)+"%");
+    tilt.style.setProperty("--gy",((py+0.5)*100).toFixed(1)+"%");
+  }
+  stage.addEventListener("pointermove",apply,{passive:true});
+  stage.addEventListener("pointerdown",apply,{passive:true});
+  stage.addEventListener("pointerleave",function(){ tilt.style.transform=rest; });
+  stage.addEventListener("pointercancel",function(){ tilt.style.transform=rest; });
+}
+
+function buildCardHTML(r){
+  var h='<div class="panel"><div class="panel-head"><span class="ttl">心事卡片</span><span class="badge y">STEP 5</span></div><div class="panel-body">';
+  h+=buildCard3D(r);
+  h+='<div class="c3-hint">鼠标移上去会跟着转，手机上左右滑一下</div>';
+  h+='<pre class="card-out is-hidden" id="cardText">'+escapeHTML(cardLines(r))+'</pre>';
+  h+='<div class="card-actions">';
+  h+='<button class="btn-sm red" id="copyCard">复制卡片文案</button>';
+  h+='<button class="btn-sm" id="c3Toggle">看纯文本版</button>';
+  h+='<button class="btn-sm" id="shareCard">生成分享链接</button>';
+  h+='<button class="btn-sm" id="againBtn">换一个心情</button>';
+  h+='</div>';
+  h+='</div></div>';
+  return h;
+}
+
+function escapeHTML(s){
+  return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+}
+
+/* ==================== 主流程 ==================== */
+var running=false;
+
+function run(){
+  if(running) return;
+  var text=$("#story").value.trim();
+  if(!text && state.selected.length===0){
+    toast("先写一句心事，或者点一个心情标签");
+    $("#story").focus();
+    return;
+  }
+  running=true;
+  var btn=$("#goBtn");
+  btn.classList.add("btn-loading");
+  btn.innerHTML='<span class="spinner"></span><span>正在读你的心事…</span>';
+
+  var analysis=analyze(text, state.selected);
+  var slot=getSlot();
+
+  /* 心事一句话 */
+  var sentenceMap={
+    "疲惫":"今天已经很满了。这顿不用有道理，能撑住你就行。",
+    "挫败":"被否掉的东西不代表你不行。先吃点有声音的，明天再说。",
+    "焦虑":"心里转个不停的时候，先让身体停下来吃口热的。",
+    "孤独":"一个人吃饭也算好好吃饭。这顿我陪你。",
+    "委屈":"这事确实不公道。今晚不用懂事。",
+    "兴奋":"好事发生了，这顿值得点得丰盛一点。",
+    "平静":"没什么大事，就是到饭点了。选个顺口的。",
+    "奖励自己":"你等这顿很久了。别在这儿省钱。"
+  };
+
+  var meal=pickMeals(analysis, state.weather);
+  var happy=happinessReport(analysis, meal);
+  var nutri=nutritionReport(meal);
+  var mayou=mayouSay(analysis, meal);
+
+  var rawShort = text ? text.replace(/[\n\r]+/g," ").trim() : "";
+  var short = rawShort
+    ? (rawShort.length>15 ? rawShort.slice(0,15)+"…" : rawShort)
+    : "今天"+analysis.primary;
+
+  var r={
+    analysis:analysis,
+    sentence:sentenceMap[analysis.primary] || sentenceMap["平静"],
+    meal:meal,
+    happy:happy,
+    nutri:nutri,
+    mayou:mayou,
+    store:state.store,
+    short:short
+  };
+  state.result=r;
+
+  var result=$("#result");
+  /* 增量渲染：第一段整体替换空态，后续逐段追加，进度条单独更新 */
+  var seq=[
+    {t:340, step:2, html:function(){ return buildResultHTML(r,2); }},
+    {t:640, step:3, html:function(){ return buildReportHTML(r); }},
+    {t:640, step:4, html:function(){ return buildMayouHTML(r); }},
+    {t:520, step:5, html:function(){ return buildCardHTML(r); }}
+  ];
+
+  var idx=0;
+  function nextStep(){
+    if(idx>=seq.length){
+      btn.classList.remove("btn-loading");
+      btn.innerHTML='<span>重新生成</span>';
+      running=false;
+      bindResultEvents();
+      toast("心事餐已生成，往下看麦友怎么说");
+      return;
+    }
+    var step=seq[idx];
+    var first=(idx===0);
+    idx++;
+    setTimeout(function(){
+      if(first){ result.innerHTML=step.html(); }
+      else { result.insertAdjacentHTML("beforeend", step.html()); }
+      setSteps(step.step);
+      animateBars();
+      nextStep();
+    }, step.t);
+  }
+  nextStep();
+}
+
+function animateBars(){
+  setTimeout(function(){
+    $$(".score-fill").forEach(function(el,i){
+      var vals=$$(".score-val");
+      if(vals[i]){
+        var w=parseInt(vals[i].textContent,10)||0;
+        el.style.width=w+"%";
+      }
+    });
+  },40);
+}
+
+function bindResultEvents(){
+  /* tabs */
+  $$(".rtab").forEach(function(tab){
+    tab.addEventListener("click",function(){
+      var target=tab.getAttribute("data-tab");
+      $$(".rtab").forEach(function(t){ t.setAttribute("aria-selected", t===tab ? "true":"false"); });
+      $$("[data-pane]").forEach(function(p){
+        p.style.display = p.getAttribute("data-pane")===target ? "" : "none";
+      });
+      if(target==="happy") animateBars();
+    });
+  });
+
+  /* 3D 卡片：指针联动 + 纯文本切换 */
+  bindCard3D();
+  var c3Toggle=$("#c3Toggle");
+  if(c3Toggle){
+    c3Toggle.addEventListener("click",function(){
+      var pre=$("#cardText");
+      var nowHidden=pre.classList.toggle("is-hidden");
+      c3Toggle.textContent = nowHidden ? "看纯文本版" : "收起纯文本";
+    });
+  }
+
+  /* copy */
+  var copyBtn=$("#copyCard");
+  if(copyBtn){
+    copyBtn.addEventListener("click",function(){
+      var txt=$("#cardText").textContent;
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(txt).then(function(){ toast("卡片文案已复制"); },
+          function(){ toast("复制失败，请手动选中复制"); });
+      } else {
+        toast("当前浏览器不支持自动复制，请手动选中");
+      }
+    });
+  }
+
+  var shareBtn=$("#shareCard");
+  if(shareBtn){
+    shareBtn.addEventListener("click",function(){
+      toast("演示版不生成真实链接；v2.0 将支持 24 小时可加注的分享页");
+    });
+  }
+
+  var again=$("#againBtn");
+  if(again){
+    again.addEventListener("click",function(){
+      $("#story").value="";
+      state.selected=[];
+      $$("#chips .chip").forEach(function(c){ c.setAttribute("aria-pressed","false"); });
+      $("#result").innerHTML='<div class="empty" id="empty"><svg class="empty-arch" style="color:var(--red)" aria-hidden="true"><use href="#arch"/></svg><p>清空了。再写一句吧。</p></div>';
+      $("#story").focus();
+      window.scrollTo({top:$("#bench").offsetTop-70,behavior:"smooth"});
+    });
+  }
+}
+
+/* ==================== 输入交互 ==================== */
+$$("#chips .chip").forEach(function(chip){
+  chip.addEventListener("click",function(){
+    var emo=chip.getAttribute("data-emo");
+    var on=chip.getAttribute("aria-pressed")==="true";
+    chip.setAttribute("aria-pressed", on?"false":"true");
+    if(on){
+      state.selected=state.selected.filter(function(x){ return x!==emo; });
+    } else {
+      state.selected.push(emo);
+      if(state.selected.length>2) state.selected=state.selected.slice(-2), syncChips();
+    }
+  });
+});
+
+function syncChips(){
+  $$("#chips .chip").forEach(function(c){
+    c.setAttribute("aria-pressed", state.selected.indexOf(c.getAttribute("data-emo"))>=0 ? "true":"false");
+  });
+}
+
+$$("#storeChips .chip").forEach(function(chip){
+  chip.addEventListener("click",function(){
+    $$("#storeChips .chip").forEach(function(c){ c.setAttribute("aria-pressed","false"); });
+    chip.setAttribute("aria-pressed","true");
+    state.store=chip.getAttribute("data-store");
+  });
+});
+
+$("#goBtn").addEventListener("click", run);
+
+/* ==================== 星座 ==================== */
+var SIGNS=[
+  {name:"白羊",full:"白羊座",range:"3.21-4.19"},
+  {name:"金牛",full:"金牛座",range:"4.20-5.20"},
+  {name:"双子",full:"双子座",range:"5.21-6.21"},
+  {name:"巨蟹",full:"巨蟹座",range:"6.22-7.22"},
+  {name:"狮子",full:"狮子座",range:"7.23-8.22"},
+  {name:"处女",full:"处女座",range:"8.23-9.22"},
+  {name:"天秤",full:"天秤座",range:"9.23-10.23"},
+  {name:"天蝎",full:"天蝎座",range:"10.24-11.22"},
+  {name:"射手",full:"射手座",range:"11.23-12.21"},
+  {name:"摩羯",full:"摩羯座",range:"12.22-1.19"},
+  {name:"水瓶",full:"水瓶座",range:"1.20-2.18"},
+  {name:"双鱼",full:"双鱼座",range:"2.19-3.20"}
+];
+
+var SIGN_TIPS=[
+  "今天适合点一份你没吃过的。新口味破新局。",
+  "别纠结点哪个，先点薯条。手上有东西，心里就不慌。",
+  "适合吃热的。冰的今天容易让你更燥。",
+  "今天钱包别太紧。该吃就吃，这顿算投资自己。",
+  "有人会请你吃饭，或者你该请别人。反正别一个人吃。",
+  "今天适合把套餐换掉一样，小改变会带来好心情。",
+  "犹豫超过三分钟就选第一个想到的。今天直觉比分析准。",
+  "适合点大份。今天你消耗得比你以为的多。",
+  "今天不适合在吃上省钱。省下来的钱买不回这顿的开心。",
+  "适合吃完走一段路。今天动一动，事情会顺。",
+  "今天宜尝鲜，忌重复。换个汉堡试试。",
+  "今天情绪比胃口重要。想吃什么就吃什么，别问热量。"
+];
+
+var starSvg='<svg class="star" viewBox="0 0 24 24"><use href="#starIco"/></svg>';
+var starOff='<svg class="star off" viewBox="0 0 24 24"><use href="#starIco"/></svg>';
+
+function renderZodiac(){
+  var g=$("#zodiacGrid");
+  var h="";
+  SIGNS.forEach(function(s,i){
+    h+='<button class="zbtn" data-i="'+i+'" aria-pressed="false"><span class="sg">✦</span><span>'+s.name+'</span></button>';
+  });
+  g.innerHTML=h;
+
+  $$(".zbtn").forEach(function(btn){
+    btn.addEventListener("click",function(){
+      $$(".zbtn").forEach(function(b){ b.setAttribute("aria-pressed","false"); });
+      btn.setAttribute("aria-pressed","true");
+      showZodiac(parseInt(btn.getAttribute("data-i"),10));
+    });
+  });
+}
+
+function showZodiac(i){
+  var s=SIGNS[i];
+  var seed=hash(s.name+todayKey());
+  var score=60+(seed%38);
+  var stars=Math.round(score/20);
+  var tip=SIGN_TIPS[seed % SIGN_TIPS.length];
+  var lucky=["中薯条","香芋派","板烧鸡腿堡","玉米杯","热红茶","麦乐鸡"][seed%6];
+  var avoid=["大份套餐","冰可乐","双层吉士","热美式","巨无霸","麦旋风"][seed%6];
+
+  var h='<div class="zr-top"><span class="zr-sign">'+s.full+'</span>'
+    +'<span style="font-size:10.5px;font-weight:700;color:var(--ink-soft)">'+s.range+'</span>'
+    +'<span class="zr-score">食运 '+score+'</span></div>';
+  h+='<div class="zr-stars">';
+  for(var k=0;k<5;k++){ h+= k<stars ? starSvg : starOff; }
+  h+='</div>';
+  h+='<div class="zr-text">'+tip+'</div>';
+  h+='<div class="zr-line"><span class="k">今日宜</span><span class="v">'+lucky+'</span></div>';
+  h+='<div class="zr-line"><span class="k">今日忌</span><span class="v">'+avoid+'</span></div>';
+  h+='<div class="zr-line"><span class="k">说明</span><span style="font-size:10.5px;font-weight:600;color:var(--ink-soft)">娱乐向内容，非占星预测，不构成任何建议</span></div>';
+  $("#zodiacResult").innerHTML=h;
+}
+
+/* ==================== 天气 ==================== */
+var CITIES=[
+  {name:"南京", temp:19, feel:18, hum:68, wind:3, type:"cloudy", desc:"多云转阴"},
+  {name:"上海", temp:22, feel:23, hum:74, wind:2, type:"rain", desc:"小雨"},
+  {name:"北京", temp:11, feel:9, hum:41, wind:4, type:"cold", desc:"晴冷"}
+];
+
+var WX_TIPS={
+  cloudy:"阴天容易犯困。推荐里会多给一份热的，别只喝冰的。",
+  rain:"下雨天最适合吃热的。今天的搭配会自动往热饮和炸物偏。",
+  cold:"降温了。热量上限会略微放宽，今天不用太克制。",
+  hot:"闷热。推荐会往冰饮和清淡走，重油的东西容易腻。",
+  sunny:"天不错。适合到店吃，薯条刚出锅那三分钟最好。"
+};
+
+function wxIcon(type){
+  var c="var(--ink)";
+  if(type==="rain"){
+    return '<svg viewBox="0 0 64 64" fill="none" stroke="'+c+'" stroke-width="3" stroke-linecap="round">'
+      +'<path d="M18 38a10 10 0 0 1 1-19.9A14 14 0 0 1 46 22a9 9 0 0 1 1 16z" fill="var(--sky-soft)"/>'
+      +'<path d="M22 46l-3 8M33 46l-3 8M44 46l-3 8" stroke="var(--sky)"/></svg>';
+  }
+  if(type==="cold"){
+    return '<svg viewBox="0 0 64 64" fill="none" stroke="'+c+'" stroke-width="3" stroke-linecap="round">'
+      +'<circle cx="32" cy="32" r="12" fill="var(--yellow)"/>'
+      +'<path d="M32 8v6M32 50v6M8 32h6M50 32h6M15 15l4 4M45 45l4 4M49 15l-4 4M19 45l-4 4"/></svg>';
+  }
+  if(type==="hot"){
+    return '<svg viewBox="0 0 64 64" fill="none" stroke="'+c+'" stroke-width="3" stroke-linecap="round">'
+      +'<circle cx="32" cy="32" r="13" fill="var(--yellow)"/>'
+      +'<path d="M32 6v5M32 53v5M6 32h5M53 32h5M13 13l4 4M47 47l4 4M51 13l-4 4M17 47l-4 4"/></svg>';
+  }
+  return '<svg viewBox="0 0 64 64" fill="none" stroke="'+c+'" stroke-width="3" stroke-linecap="round">'
+    +'<path d="M18 40a10 10 0 0 1 1-19.9A14 14 0 0 1 46 24a9 9 0 0 1 1 16z" fill="var(--cream)"/></svg>';
+}
+
+var cityIdx=0;
+function renderWeather(){
+  var c=CITIES[cityIdx];
+  state.weather=c;
+  $("#wxCity").textContent=c.name;
+  $("#wxIcon").innerHTML=wxIcon(c.type);
+  $("#wxTemp").textContent=c.temp+"°";
+  $("#wxDesc").textContent=c.desc;
+  $("#wxFeel").textContent=c.feel+"°";
+  $("#wxHum").textContent=c.hum+"%";
+  $("#wxWind").textContent=c.wind+"级";
+  $("#wxTip").textContent=WX_TIPS[c.type]||WX_TIPS.cloudy;
+  $("#wxTime").textContent=nowHM();
+}
+
+$("#wxCity").addEventListener("click",function(){
+  cityIdx=(cityIdx+1)%CITIES.length;
+  renderWeather();
+  toast("已切换到 "+CITIES[cityIdx].name+"（演示数据）");
+});
+
+/* ==================== 麦门签 ==================== */
+var SLIP_POOL=[
+  {t:"今天的<em>第一口</em>要留给最想吃的那样，别先吃不重要的。", k:"吃法"},
+  {t:"如果犹豫超过三分钟，说明你其实两个都想吃。<em>点套餐</em>。", k:"决策"},
+  {t:"有人陪你吃就吃慢点。一个人的话，找个有窗的位置。", k:"场景"},
+  {t:"今天的<em>甜</em>不是奖励，是必需品。别省。", k:"安慰"},
+  {t:"吃完走十分钟。不是为了消耗，是为了把今天收个尾。", k:"收尾"},
+  {t:"别在饿的时候做决定，也别在难过的时候做决定。先吃。", k:"顺序"},
+  {t:"今天适合把手机放下，认真吃完一整个汉堡。", k:"专注"},
+  {t:"如果今天实在很差，那就先吃。<em>明天再差也明天说</em>。", k:"底线"}
+];
+
+function renderSlips(){
+  var seed=hash(todayKey());
+  var idxs=[], i=0;
+  while(idxs.length<3){
+    var n=(seed+i*7)%SLIP_POOL.length;
+    if(idxs.indexOf(n)<0) idxs.push(n);
+    i++;
+    if(i>30) break;
+  }
+  var h="";
+  idxs.forEach(function(n,k){
+    var s=SLIP_POOL[n];
+    h+='<div class="slip"><div class="slip-num">'+(k+1)+'</div>'
+      +'<div class="slip-txt"><b>'+s.k+'</b> · '+s.t+'</div></div>';
+  });
+  $("#slips").innerHTML=h;
+}
+
+/* ==================== MCP 面板 ==================== */
+var MCP_TOOLS=[
+  {code:"query-meals", cn:"查询门店餐品列表", tag:"配餐候选池",
+   req:{storeCode:"1990102", orderType:1, beType:1},
+   res:{success:true, code:200, data:{categories:[
+     {name:"鸡肉汉堡/卷", meals:[{code:"1440", tags:["招牌"]}]},
+     {name:"小食甜品/其他", meals:[{code:"4810"}]}
+   ], meals:{"1440":{name:"麦辣鸡腿汉堡", currentPrice:"22.5", canWithOrder:false},
+             "4810":{name:"中薯条", currentPrice:"14.5", canWithOrder:false},
+             "...":"共 111 项（code → 名称/挂牌价）"}}}},
+  {code:"query-meal-detail", cn:"查询餐品详情", tag:"取菜名",
+   req:{storeCode:"1990102", orderType:1, beType:1, code:"1406"},
+   res:{success:true, code:200, data:{code:"1406", name:"板烧鸡腿堡", supportModify:true,
+     rounds:[{id:1, name:"板烧鸡腿堡", quantity:1, choices:[{code:"1406", quantity:1}]}]}}},
+  {code:"list-nutrition-foods", cn:"餐品营养信息列表", tag:"热量报告数据源",
+   req:{},
+   res:{success:true, code:200, data:"[160]{productName,nutritionDescription,energyKj,energyKcal,protein,fat,carbohydrate,sodium,calcium}:\n  板烧鸡腿堡,null,1638,391,23,17,35,1041,0\n  中薯条,null,1210,289,4,12,38,165,0"}},
+  {code:"calculate-price", cn:"商品价格计算", tag:"应付金额（单位分）",
+   req:{storeCode:"1990102", orderType:1, beType:1, items:[{productCode:"1406", quantity:1},{productCode:"4810", quantity:1}]},
+   res:{success:true, code:200, data:{price:3800, productList:[
+     {productCode:"1406", productName:"板烧鸡腿堡", quantity:1, subtotal:2350},
+     {productCode:"4810", productName:"中薯条", quantity:1, subtotal:1450}
+   ]}}},
+  {code:"now-time-info", cn:"获取当前时间", tag:"时段判定",
+   req:{},
+   res:{success:true, code:200, data:{datetime:"2026-10-21T14:39:09.541", formatted:"2026-10-21 14:39:09",
+     dayOfWeek:"WEDNESDAY", timezone:"GMT+08:00"}}},
+  {code:"query-nearby-stores", cn:"查询附近门店", tag:"门店定位",
+   req:{beType:1, searchType:2, city:"南京", keyword:"仙林"},
+   res:{success:true, code:200, data:[
+     {storeCode:"1990102", storeName:"麦当劳南京仙林金鹰餐厅", distance:515, businessStartTime:"08:00", businessEndTime:"22:00"},
+     {storeCode:"1990068", storeName:"麦当劳南京仙林亚东城得来速餐厅", distance:1452, businessStartTime:"00:00", businessEndTime:"23:59"}
+   ]}},
+  {code:"campaign-calendar", cn:"活动日历查询", tag:"快乐报告彩蛋",
+   req:{},
+   res:{success:true, code:200, data:"(本页面未实际调用，保留接口位置)"}},
+  {code:"query-store-coupons", cn:"查询门店可用券", tag:"预算内用券",
+   req:{storeCode:"1990102"},
+   res:{success:true, code:200, data:"(本页面未实际调用，保留接口位置)"}}
+];
+
+function renderMcp(){
+  var h="";
+  MCP_TOOLS.forEach(function(t,i){
+    h+='<button class="mcp-tool" data-i="'+i+'" aria-pressed="false">'
+      +'<span class="mcp-code">'+t.code+'</span>'
+      +'<span class="mcp-cn">'+t.cn+'</span>'
+      +'<span class="mcp-tagline">'+t.tag+'</span></button>';
+  });
+  $("#mcpGrid").innerHTML=h;
+
+  $$(".mcp-tool").forEach(function(btn){
+    btn.addEventListener("click",function(){
+      $$(".mcp-tool").forEach(function(b){ b.setAttribute("aria-pressed","false"); });
+      btn.setAttribute("aria-pressed","true");
+      showMcp(parseInt(btn.getAttribute("data-i"),10));
+    });
+  });
+}
+
+function showMcp(i){
+  var t=MCP_TOOLS[i];
+  var out="";
+  out+='<span class="c">// tools/call · '+t.code+'</span>\n';
+  out+='<span class="k">→ request</span>\n';
+  out+=prettyJSON(t.req)+"\n\n";
+  out+='<span class="k">← response</span>  <span class="c">// 2026-10-21 真实返回，已裁剪</span>\n';
+  out+=prettyJSON(t.res);
+  $("#mcpOut").innerHTML=out;
+}
+
+function prettyJSON(obj){
+  var s=JSON.stringify(obj,null,2);
+  /* 简易着色 */
+  s=s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+  s=s.replace(/"([^"]+)":/g,'<span class="k">"$1"</span>:');
+  s=s.replace(/: "([^"]*)"/g,': <span class="s">"$1"</span>');
+  return s;
+}
+
+/* ==================== 初始化 ==================== */
+renderZodiac();
+renderWeather();
+renderSlips();
+renderMcp();
+
+/* 默认选中第一个工具，避免控制台开局空白 */
+showMcp(0);
+setTimeout(function(){ showZodiac(6); }, 300);
+
+/* 导航当前位置高亮 */
+var navLinks=$$(".nav-links a");
+function updateNav(){
+  var pos=window.scrollY+150, best=null;
+  navLinks.forEach(function(a){
+    var id=(a.getAttribute("href")||"").slice(1);
+    var el=document.getElementById(id);
+    if(!el) return;
+    var top=el.offsetTop;
+    if(top<=pos && (!best || top>best.top)) best={a:a, top:top};
+  });
+  navLinks.forEach(function(a){ a.classList.toggle("active", !!best && a===best.a); });
+}
+window.addEventListener("scroll", updateNav, {passive:true});
+window.addEventListener("resize", updateNav);
+updateNav();
+
+/* 时间显示刷新 */
+setInterval(function(){ $("#wxTime").textContent=nowHM(); }, 30000);
+
+/* 键盘：输入框 Ctrl/Cmd + Enter 直接生成 */
+$("#story").addEventListener("keydown",function(e){
+  if((e.metaKey||e.ctrlKey) && e.key==="Enter"){ run(); }
+});
+
+/* ==================== 实时数据同步（本地体验版） ==================== */
+/* 由 maimen-xinshi-demo/server.js 代理调用麦当劳 MCP，Token 只留在服务端。
+   用 file:// 直接打开时没有后端，会自动落回离线快照，不影响体验。 */
+var LIVE={stage:"pending"};
+function pad2(n){ return n<10 ? "0"+n : ""+n; }
+function liveClock(iso){
+  try{
+    var d=new Date(iso);
+    return pad2(d.getMonth()+1)+"-"+pad2(d.getDate())+" "+pad2(d.getHours())+":"+pad2(d.getMinutes());
+  }catch(e){ return ""; }
+}
+
+function paintLive(){
+  var bar=document.getElementById("liveBar");
+  var txt=document.getElementById("liveText");
+  var btn=document.getElementById("liveRefresh");
+  if(!bar||!txt||!btn) return;
+  bar.classList.remove("off","err");
+  if(LIVE.stage==="pending"){
+    bar.classList.add("off");
+    txt.textContent="正在连接门店实时菜单…";
+    btn.disabled=true;
+  }else if(LIVE.stage==="ok"){
+    txt.innerHTML="实时数据 <b>"+LIVE.ok+"/"+LIVE.total+"</b> 项 · 门店 "+LIVE.store+" · "+liveClock(LIVE.at)+(LIVE.cached?" · 缓存":"");
+    btn.disabled=false;
+  }else{
+    bar.classList.add("err");
+    txt.textContent="实时接口未连接（"+(LIVE.err||"未知")+"），当前为离线快照";
+    btn.disabled=false;
+  }
+}
+
+function syncLive(){
+  LIVE={stage:"pending"};
+  paintLive();
+  var codes=MEALS.map(function(m){ return m.code; });
+  return fetch("/api/live?codes="+codes.join(","),{cache:"no-store"})
+    .then(function(r){
+      return r.json().then(function(j){
+        if(!r.ok||!j.ok) throw new Error(j.error||("HTTP "+r.status));
+        return j;
+      });
+    })
+    .then(function(d){
+      var ok=0;
+      MEALS.forEach(function(m){
+        var it=d.items && d.items[m.code];
+        if(!it||it.absent) return;
+        if(it.name) m.name=it.name;
+        if(typeof it.price==="number") m.price=it.price;
+        if(typeof it.kcal==="number"){
+          m.kcal=it.kcal;
+          if(it.p!=null) m.p=it.p;
+          if(it.f!=null) m.f=it.f;
+          if(it.c!=null) m.c=it.c;
+          if(it.na!=null) m.na=it.na;
+        }
+        ok++;
+      });
+      LIVE={stage:"ok", at:d.at, store:d.store, ok:ok, total:MEALS.length, cached:!!d.cached, menu:d.totalMenuItems};
+      paintLive();
+      var note=document.getElementById("dataNote");
+      if(note){
+        note.textContent="菜名、挂牌价、营养为门店 "+d.store+" 的实时返回（抓取于 "+liveClock(d.at)+
+          "，全店在售 "+d.totalMenuItems+" 项，本页用到 "+ok+" 项）。价格与供应随门店和时段变化，实际下单以官方渠道为准。";
+      }
+      return true;
+    })
+    .catch(function(e){
+      LIVE={stage:"err", err:e.message||"fetch failed", ok:0, total:MEALS.length};
+      paintLive();
+      return false;
+    });
+}
+
+(function(){
+  var btn=document.getElementById("liveRefresh");
+  if(btn){
+    btn.addEventListener("click",function(){
+      syncLive().then(function(ok){ toast(ok?"已刷新为门店最新数据":"刷新失败，仍是离线快照"); });
+    });
+  }
+})();
+
+/* 演示模式：地址栏加 ?demo=1 自动填充并生成，便于现场演示直接进入结果态 */
+try{
+  var qs=new URLSearchParams(window.location.search);
+  if(qs.get("demo")==="1"){
+    $("#story").value="今天加班到十点半，方案被客户打回来第三次。走在路上看到麦当劳的灯还亮着，突然特别想吃点脆的。";
+    state.selected=["疲惫"];
+    syncChips();
+    syncLive().then(function(){ setTimeout(function(){ run(); }, 250); });
+  }else{
+    syncLive();
+  }
+}catch(e){ syncLive(); }
+
+/* ============================================================
+   想吃点什么 · 先过三个陌生人
+   ------------------------------------------------------------
+   一份菜单的生命周期：
+
+     PENDING ──(本人撤回)──────────────────────▶ WITHDRAWN
+        │
+        └─(三个陌生人审完)─┬─(两人以上不批)────▶ REJECTED
+                           ├─(菜单被扣空)──────▶ REJECTED
+                           └─(其余情形)────────▶ APPROVED  菜单定稿
+
+         PENDING ──(24 小时没凑够三个人)────────▶ EXPIRED   沉默不是默许
+
+   三个动作：加点 add / 扣点 cut / 不批 no。一人只能做一个，理由必填。
+   裁决只在 trJudge() 一处定义，界面、票型条、结论文案全部读它的返回值，
+   不会出现「印章说不批、文案说定稿」这种自相矛盾。
+   ============================================================ */
+var TR={
+  KEY:"maimen.trial.v2",
+  NEED:3,            /* 必须过的陌生人数 */
+  DAY:86400000,
+  MAX:5,             /* 一份菜单最多点几样 */
+  MIN:1,
+  fast:false,
+  cases:[],
+  form:[],           /* 表单里已选的菜品 code */
+  tab:"主食",
+  votingId:null, side:null, pick:null, timer:null
+};
+
+/* 当前时间刻度：真实模式 1 天 = 24h，演示模式 1 天 = 1s */
+function trUnit(){ return TR.fast ? 1000 : TR.DAY; }
+
+/* 只认 MEALS 里的真实菜品：code 查不到就返回 null，从源头堵住自填商品 */
+function trItem(code){
+  var hit=null;
+  MEALS.forEach(function(m){ if(m.code===code) hit=m; });
+  return hit? {code:hit.code,name:hit.name,price:hit.price,kcal:hit.kcal,cat:hit.cat} : null;
+}
+function trCost(list){ var s=0; list.forEach(function(m){ s+=m.price; }); return Math.round(s*10)/10; }
+function trKcal(list){ var s=0; list.forEach(function(m){ s+=m.kcal; }); return Math.round(s); }
+function trMoney(n){ return "¥"+(Math.round(n*10)/10).toFixed(n%1?1:0); }
+
+function trDur(ms){
+  if(ms<0) ms=0;
+  var s=Math.floor(ms/1000), h=Math.floor(s/3600), m=Math.floor(s%3600/60), ss=s%60;
+  if(h>0) return h+":"+pad2(m)+":"+pad2(ss);
+  return pad2(m)+":"+pad2(ss);
+}
+
+function trVotedBy(c, who){
+  for(var i=0;i<c.votes.length;i++){ if(c.votes[i].by===who) return true; }
+  return false;
+}
+
+/* ---------- 唯一的裁决函数 ---------- */
+function trJudge(c){
+  var add=[], cut=[], no=[], i, v;
+  for(i=0;i<c.votes.length;i++){
+    v=c.votes[i];
+    if(v.side==="add") add.push(v);
+    else if(v.side==="cut") cut.push(v);
+    else no.push(v);
+  }
+
+  /* 菜单演算：先划掉被扣的，再把加的补进来 */
+  var cutCodes={};
+  cut.forEach(function(x){ if(x.item) cutCodes[x.item.code]=1; });
+  var finalMenu=c.menu.filter(function(m){ return !cutCodes[m.code]; })
+    .map(function(m){ return {code:m.code,name:m.name,price:m.price,kcal:m.kcal,flag:""}; });
+  add.forEach(function(x){
+    if(!x.item) return;
+    if(finalMenu.some(function(m){ return m.code===x.item.code; })) return;
+    finalMenu.push({code:x.item.code,name:x.item.name,price:x.item.price,kcal:x.item.kcal,flag:"add"});
+  });
+
+  /* 展示用：原菜单逐项标出被谁扣掉、又加了什么 */
+  var display=c.menu.map(function(m){
+    return {code:m.code,name:m.name,price:m.price,kcal:m.kcal,flag:cutCodes[m.code]?"cut":""};
+  });
+  add.forEach(function(x){
+    if(!x.item) return;
+    if(display.some(function(m){ return m.code===x.item.code; })) return;
+    display.push({code:x.item.code,name:x.item.name,price:x.item.price,kcal:x.item.kcal,flag:"add"});
+  });
+
+  var total=c.votes.length, done=total>=TR.NEED, decision;
+  if(!done) decision="PENDING";
+  else if(no.length>=2) decision="REJECTED";
+  else if(finalMenu.length===0) decision="REJECTED";
+  else decision="APPROVED";
+
+  return {
+    add:add, cut:cut, no:no, addN:add.length, cutN:cut.length, noN:no.length,
+    total:total, done:done, decision:decision,
+    menu:finalMenu, display:display,
+    price:trCost(finalMenu), kcal:trKcal(finalMenu),
+    need:Math.max(0,TR.NEED-total)
+  };
+}
+
+/* 结算：三个人审完立刻定稿；24 小时没凑够人则过期，菜单不生效。 */
+function trSettle(c, now){
+  if(c.status!=="PENDING") return false;
+  var v=trJudge(c);
+  if(v.done){
+    c.status=(v.decision==="APPROVED")?"APPROVED":"REJECTED";
+    c.verdict={
+      at:now, addN:v.addN, cutN:v.cutN, noN:v.noN, total:v.total,
+      menu:v.menu, price:v.price, kcal:v.kcal,
+      why: v.decision==="REJECTED"
+        ? (v.noN>=2 ? "两位以上陌生人不批" : "菜单被扣到一样不剩")
+        : ""
+    };
+    return true;
+  }
+  if(now>=c.deadline){
+    c.status="EXPIRED";
+    c.verdict={at:now, addN:v.addN, cutN:v.cutN, noN:v.noN, total:v.total,
+      menu:[], price:0, kcal:0, why:"24 小时没凑够三个陌生人"};
+    return true;
+  }
+  return false;
+}
+
+function trSave(){
+  try{ localStorage.setItem(TR.KEY, JSON.stringify({v:2,cases:TR.cases})); }catch(e){}
+}
+function trLoad(){
+  try{
+    var raw=localStorage.getItem(TR.KEY);
+    if(!raw) return false;
+    var d=JSON.parse(raw);
+    if(!d || d.v!==2 || !d.cases || !d.cases.length) return false;
+    TR.cases=d.cases;
+    return true;
+  }catch(e){ return false; }
+}
+
+/* ---------- 种子数据：别人的三份待审 + 我的两份历史 ---------- */
+function trSeed(){
+  var now=Date.now(), u=TR.DAY, H=u/24;
+  var it=function(code){
+    var m=trItem(code);
+    return {code:m.code,name:m.name,price:m.price,kcal:m.kcal};
+  };
+  var vt=function(name,side,reason,at,code){
+    return {by:"bot",name:name,side:side,reason:reason,at:at,item:code?it(code):null};
+  };
+
+  TR.cases=[
+    /* 老周 4 样，已被扣一样、加一样，还差 1 个人 */
+    {id:"MJ-"+trYmd(now-3*H)+"-004",
+     story:"今天例会上方案被客户当着全组的面否了，回家路上一直在想是不是我不适合这行。",
+     menu:[it("1440"),it("4810"),it("1401"),it("515946")],
+     owner:"other", ownerName:"老周", unit:u, createdAt:now-3*H, deadline:now+21*H,
+     status:"PENDING",
+     votes:[
+       vt("小满","cut","「中薯条」划掉，四样已经够了，你不是饿，是不甘心。",now-2.4*H,"4810"),
+       vt("阿葵","add","给你加个「纯悦」，辣的配冰水，别再配甜的了。",now-1.2*H,"3757")
+     ]},
+
+    /* 小林 2 样，已被 1 个人不批 */
+    {id:"MJ-"+trYmd(now-15*H)+"-003",
+     story:"连加三天班，今天终于把季度报表交出去了，想奖励自己一下，就点了最大的那个。",
+     menu:[it("1100"),it("515837")],
+     owner:"other", ownerName:"小林", unit:u, createdAt:now-15*H, deadline:now+9*H,
+     status:"PENDING",
+     votes:[
+       vt("年年","no","上周你也是这么说的，奖励自己也得有个上限。",now-9*H)
+     ]},
+
+    /* 阿May：已有 2 票，你这一票是第 3 票，投完立刻定稿 */
+    {id:"MJ-"+trYmd(now-22*H)+"-002",
+     story:"跟男朋友吵了一架，一个人在外面坐到十点，还没吃饭，也不想回家。",
+     menu:[it("1406"),it("507394"),it("6102")],
+     owner:"other", ownerName:"阿May", unit:u,
+     createdAt:now-(24*H-150000), deadline:now+150000,
+     status:"PENDING",
+     votes:[
+       vt("小满","add","难过的时候加个「圆筒冰淇淋」，五块钱，不多。",now-4*H,"515837"),
+       vt("阿葵","no","吵架不该用吃解决，你先回去把话说完。",now-2*H)
+     ]},
+
+    /* 我的历史：被两个人不批 */
+    {id:"MJ-"+trYmd(now-29*H)+"-001",
+     story:"项目上线通宵到早上六点，照镜子眼睛都是肿的，想用一顿大的把自己捞回来。",
+     menu:[it("1100"),it("514782"),it("1440")],
+     owner:"me", ownerName:"我", unit:u, createdAt:now-29*H, deadline:now-5*H,
+     status:"REJECTED",
+     votes:[
+       vt("小满","cut","「脆脆薯条」划掉，两个主食已经过量了。",now-26*H,"514782"),
+       vt("阿葵","no","通宵之后吃这些，你下午只会更难受。",now-22*H),
+       vt("年年","no","这单我不同意，先睡四个小时再说。",now-18*H)
+     ],
+     verdict:{at:now-20*H, addN:0, cutN:1, noN:2, total:3, menu:[], price:0, kcal:0,
+       why:"两位以上陌生人不批"}},
+
+    /* 我的历史：被扣了一样、加了两样 */
+    {id:"MJ-"+trYmd(now-1.2*24*H)+"-005",
+     story:"降温了，一个人在出租屋，手脚都是凉的，就想吃点热的。",
+     menu:[it("1406"),it("507394")],
+     owner:"me", ownerName:"我", unit:u, createdAt:now-1.2*24*H, deadline:now-0.2*24*H,
+     status:"APPROVED",
+     votes:[
+       vt("小满","add","给你加个「锡兰红茶」，热的，捧着比喝着重要。",now-20*H,"3505"),
+       vt("阿葵","cut","「热牛奶中杯」划掉，汉堡配奶茶太撑了。",now-16*H,"507394"),
+       vt("年年","add","加个「苹果片」，这顿好歹有菜。",now-10*H,"6102")
+     ],
+     verdict:{at:now-0.2*24*H, addN:2, cutN:1, noN:0, total:3,
+       menu:[it("1406"),it("3505"),it("6102")], price:41, kcal:425, why:""}}
+  ];
+}
+
+function trYmd(ts){
+  var d=new Date(ts);
+  return String(d.getFullYear()).slice(2)+pad2(d.getMonth()+1)+pad2(d.getDate());
+}
+
+/* 编号 MJ-YYMMDD-NNN。种子编号写死，这里必须跳过已占用的号，
+   否则新单会和历史单撞号，按钮会指到另一张单上。 */
+function trNewId(){
+  var ymd=trYmd(Date.now()), n=1, id;
+  do{
+    id="MJ-"+ymd+"-"+("00"+n).slice(-3);
+    n++;
+  }while(TR.cases.some(function(c){ return c.id===id; }));
+  return id;
+}
+
+/* ---------- 模拟另外两个陌生人（真实上线应来自服务端分配） ---------- */
+var TR_BOT_FRAC=[0.18,0.42,0.66];
+var TR_BOT_NAMES=["阿葵","小满","年年"];
+var TR_ADD_WHY=[
+  "给你加个「{n}」，这一个不算过分。",
+  "「{n}」补上，你这顿缺个收尾。",
+  "加个「{n}」吧，心情差的时候需要点甜的。",
+  "忍了一天了，「{n}」就当是替自己说句话。"
+];
+var TR_CUT_WHY=[
+  "「{n}」划掉，{k} 样已经够了。",
+  "「{n}」可以省，你不是饿，是烦。",
+  "扣掉「{n}」，吃完这个你只会更撑。",
+  "「{n}」留着下次，今天不用一次补完。"
+];
+var TR_NO_WHY=[
+  "这顿先别吃，你今天需要的是睡觉，不是油炸。",
+  "心情差的时候点单最容易点多，先停一晚。",
+  "不是不让你吃，是这份菜单在替情绪买单。",
+  "先喝口水，半小时后还饿，再来点也不迟。"
+];
+
+/* 立场：菜单越长越容易被扣/不批，心事写得越具体越容易被同情 */
+function trBotAction(c,k){
+  var r=(hash(c.id+"-"+k)%1000)/1000, n=c.menu.length;
+  var pAdd=0.34, pCut=0.36, pNo=0.30;
+  if(n>=4){ pCut+=0.12; pNo+=0.06; pAdd-=0.10; }
+  if(n<=2){ pAdd+=0.08; pCut-=0.05; }
+  if(/加班|通宵|被否|吵架|难过|一个人|分手|哭|失眠|骂/.test(c.story)){ pAdd+=0.14; pNo-=0.08; }
+  if(/奖励|发工资|升职|赢了|开心/.test(c.story)){ pNo+=0.06; }
+  if(c.story.length>=40){ pAdd+=0.05; pNo-=0.03; }
+  if(pAdd<0.05) pAdd=0.05;
+  if(pCut<0.05) pCut=0.05;
+  if(pNo<0.05) pNo=0.05;
+  var sum=pAdd+pCut+pNo;
+  pAdd/=sum; pCut/=sum;
+  if(r<pAdd) return "add";
+  if(r<pAdd+pCut) return "cut";
+  return "no";
+}
+
+function trBotReason(c, side, item, k){
+  var name=item?item.name:"";
+  if(side==="add") return TR_ADD_WHY[hash(c.id+"ap"+k)%TR_ADD_WHY.length].replace("{n}",name);
+  if(side==="cut") return TR_CUT_WHY[hash(c.id+"cp"+k)%TR_CUT_WHY.length].replace("{n}",name).replace("{k}",c.menu.length);
+  return TR_NO_WHY[hash(c.id+"np"+k)%TR_NO_WHY.length];
+}
+
+function trBotVotes(c, now){
+  if(c.owner!=="me" || c.status!=="PENDING") return false;
+  var span=c.deadline-c.createdAt, added=false, i;
+  for(i=0;i<TR.NEED;i++){
+    var at=c.createdAt+span*TR_BOT_FRAC[i];
+    if(now<at) break;
+    var already=0;
+    c.votes.forEach(function(v){ if(v.by==="bot") already++; });
+    if(already>=i+1) continue;
+
+    var side=trBotAction(c,i), item=null;
+    if(side==="add"){
+      var used={};
+      c.menu.forEach(function(m){ used[m.code]=1; });
+      c.votes.forEach(function(v){ if(v.item) used[v.item.code]=1; });
+      var cand=MEALS.filter(function(m){ return !used[m.code]; });
+      if(!cand.length){ side="no"; }
+      else{ var pick=cand[hash(c.id+"ai"+i)%cand.length]; item=trItem(pick.code); }
+    }else if(side==="cut"){
+      var cut={};
+      c.votes.forEach(function(v){ if(v.side==="cut"&&v.item) cut[v.item.code]=1; });
+      var pool=c.menu.filter(function(m){ return !cut[m.code]; });
+      if(!pool.length){ side="no"; }
+      else{
+        pool=pool.slice().sort(function(a,b){ return b.price-a.price; });
+        var idx=hash(c.id+"ci"+i)%Math.min(2,pool.length);
+        item=trItem(pool[idx].code);
+      }
+    }
+    c.votes.push({by:"bot", name:TR_BOT_NAMES[i%3], side:side, item:item,
+      reason:trBotReason(c,side,item,i), at:now});
+    added=true;
+  }
+  return added;
+}
+
+/* ---------- 渲染：审议单 ---------- */
+function trSealHTML(c){
+  if(c.status==="PENDING"){
+    var v=trJudge(c);
+    return '<div class="tr-seal wait">'+v.total+'/3<small>已审</small></div>';
+  }
+  if(c.status==="APPROVED") return '<div class="tr-seal pass">定稿<small>APPROVED</small></div>';
+  if(c.status==="REJECTED") return '<div class="tr-seal reject">不批<small>REJECTED</small></div>';
+  if(c.status==="EXPIRED") return '<div class="tr-seal gray">没人审<small>EXPIRED</small></div>';
+  return '<div class="tr-seal gray">已撤回<small>WITHDRAWN</small></div>';
+}
+
+function trBarsHTML(v){
+  var t=v.total||1;
+  return '<div class="tr-bars"><span class="a" style="width:'+(v.addN/t*100)+'%"></span>'
+    +'<span class="c" style="width:'+(v.cutN/t*100)+'%"></span>'
+    +'<span class="n" style="width:'+(v.noN/t*100)+'%"></span></div>';
+}
+
+function trMenuRows(rows){
+  if(!rows.length) return '<div class="tr-menu-row"><span class="nm" style="color:#A2937F">一样不剩</span><span class="lead"></span></div>';
+  return rows.map(function(m){
+    var f=m.flag==="cut" ? '<span class="flag cut">扣掉</span>'
+      : (m.flag==="add" ? '<span class="flag add">加点</span>' : "");
+    return '<div class="tr-menu-row'+(m.flag==="cut"?" cut":"")+'">'
+      +'<span class="nm">'+escapeHTML(m.name)+'</span><span class="lead"></span>'+f
+      +'<span class="pr">'+trMoney(m.price)+'</span></div>';
+  }).join("");
+}
+
+function trSeatsHTML(c){
+  var h="";
+  for(var i=0;i<TR.NEED;i++){
+    var vote=c.votes[i];
+    if(!vote){
+      h+='<div class="tr-seat"><div class="who">第 '+(i+1)+' 位陌生人</div><div class="none">还没来</div></div>';
+    }else{
+      var map={add:["加点","add"],cut:["扣点","cut"],no:["不批","no"]};
+      var a=map[vote.side]||["已审",""];
+      h+='<div class="tr-seat filled"><div class="who">'+escapeHTML(vote.name)+'</div>'
+        +'<span class="act '+a[1]+'">'+a[0]+'</span>'
+        +(vote.item?'<div class="pi'+(vote.side==="cut"?" cut":"")+'">'+(vote.side==="cut"?"划掉 ":"加上 ")+escapeHTML(vote.item.name)+'</div>':'')
+        +'<div class="why">「'+escapeHTML(vote.reason)+'」</div></div>';
+    }
+  }
+  return '<div class="tr-seats">'+h+'</div>';
+}
+
+function trFootHTML(c){
+  var now=Date.now(), v=trJudge(c), h="";
+
+  if(c.status==="PENDING"){
+    h+='<div class="tr-clock-row"><span>等三个陌生人的时间</span>'
+      +'<span class="tr-clock" data-dl="'+c.deadline+'" data-warn="'+(0.15*24*c.unit)+'">'+trDur(c.deadline-now)+'</span></div>';
+    h+=trBarsHTML(v);
+    h+='<div class="tr-tally"><span class="a">加点 <i>'+v.addN+'</i></span>'
+      +'<span class="c">扣点 <i>'+v.cutN+'</i></span>'
+      +'<span class="n">不批 <i>'+v.noN+'</i></span>'
+      +'<span class="need">'+(v.need?"还差 "+v.need+" 位":"三个人齐了")+'</span></div>';
+    h+='<div class="tr-verdict wait">三个人审完就定稿，不用等满 24 小时。现在是 '+v.total+'/'+TR.NEED+' 位。</div>';
+    h+='<div class="tr-acts">'
+      +'<button class="tr-btn ghost sm" data-withdraw="'+c.id+'">撤回这份菜单</button>'
+      +'<button class="tr-btn ghost sm" data-copymenu="'+c.id+'">复制审议单</button></div>';
+    return '<div class="tr-foot">'+h+'</div>';
+  }
+
+  if(c.status==="APPROVED"){
+    h+='<div class="tr-verdict pass">菜单定稿：<b>'+v.menu.length+' 样 · '+trMoney(v.price)+' · '+v.kcal
+      +' kcal</b>。陌生人加了 '+v.addN+' 样、扣了 '+v.cutN+' 样'
+      +(v.noN?'，另有 '+v.noN+' 位觉得你不该吃':'')+'。就照这份点。</div>';
+    h+=trBarsHTML(v);
+    h+='<div class="tr-tally"><span class="a">加点 <i>'+v.addN+'</i></span>'
+      +'<span class="c">扣点 <i>'+v.cutN+'</i></span>'
+      +'<span class="n">不批 <i>'+v.noN+'</i></span>'
+      +'<span class="need">定稿于 '+new Date(c.verdict.at).toLocaleString("zh-CN",{hour12:false,month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit"})+'</span></div>';
+    h+='<div class="tr-acts"><button class="tr-btn ghost sm" data-copymenu="'+c.id+'">复制定稿菜单</button></div>';
+    return '<div class="tr-foot">'+h+'</div>';
+  }
+
+  if(c.status==="REJECTED"){
+    var why=(c.verdict&&c.verdict.why)?c.verdict.why:(v.noN>=2?"两位以上陌生人不批":"菜单被扣到一样不剩");
+    h+='<div class="tr-verdict reject">这顿没有了 · '+why+'。三个人的话都在上面，看完再决定要不要重提。</div>';
+    h+=trBarsHTML(v);
+    h+='<div class="tr-tally"><span class="a">加点 <i>'+v.addN+'</i></span>'
+      +'<span class="c">扣点 <i>'+v.cutN+'</i></span>'
+      +'<span class="n">不批 <i>'+v.noN+'</i></span>'
+      +'<span class="need">不生成菜单</span></div>';
+    h+='<div class="tr-acts"><button class="tr-btn ghost sm" data-copymenu="'+c.id+'">复制三个人的话</button></div>';
+    return '<div class="tr-foot">'+h+'</div>';
+  }
+
+  if(c.status==="EXPIRED"){
+    h+='<div class="tr-verdict reject">没凑够三个陌生人 · 24 小时只来了 '+v.total
+      +' 位。沉默不是默许，这份菜单不生效。</div>';
+    h+=trBarsHTML(v);
+    h+='<div class="tr-acts"><button class="tr-btn ghost sm" data-copymenu="'+c.id+'">复制结果</button></div>';
+    return '<div class="tr-foot">'+h+'</div>';
+  }
+
+  h+='<div class="tr-verdict wait">已撤回 · 你自己先把菜单收回去了，不计通过率。</div>';
+  return '<div class="tr-foot">'+h+'</div>';
+}
+
+function trCaseHTML(c){
+  var v=trJudge(c), totalLine;
+  if(c.status==="APPROVED"){
+    totalLine='共 '+v.menu.length+' 样 · '+v.kcal+' kcal<b>'+trMoney(v.price)+'</b>';
+  }else if(c.status==="REJECTED"){
+    totalLine='这单没通过，不生成菜单<b>¥0</b>';
+  }else if(c.status==="EXPIRED"){
+    totalLine='没人审完，菜单不生效<b>¥0</b>';
+  }else{
+    totalLine='共 '+c.menu.length+' 样 · '+trKcal(c.menu)+' kcal<b>'+trMoney(trCost(c.menu))+'</b>';
+  }
+
+  var h='<div class="tr-case'+(c.status!=="PENDING"?" done":"")+'">';
+  h+='<div class="tr-case-top"><span>菜单审议单</span><span class="no">'+c.id+'</span></div>';
+  h+='<div class="tr-case-body">';
+  h+=trSealHTML(c);
+  h+='<div class="tr-story"><b>今天发生了什么</b>'+escapeHTML(c.story)+'</div>';
+  h+='<div class="tr-menu">'+trMenuRows(v.display)
+    +'<div class="tr-menu-total"><span>'+totalLine.split("<b>")[0]+'</span><b>'+totalLine.split("<b>")[1]+'</b></div></div>';
+  h+=trSeatsHTML(c);
+  h+=trFootHTML(c);
+  h+='</div></div>';
+  return h;
+}
+
+function trRenderMine(){
+  var box=$("#trMine"); if(!box) return;
+  var mine=TR.cases.filter(function(c){ return c.owner==="me"; })
+    .sort(function(a,b){ return b.createdAt-a.createdAt; });
+  if(!mine.length){
+    box.innerHTML='<div class="tr-empty">还没有提交过菜单。左边写完心事、点好菜，就能收到一张审议单。</div>';
+    return;
+  }
+  box.innerHTML=mine.map(trCaseHTML).join("");
+}
+
+function trPips(n){
+  var h='<div class="tr-pips">';
+  for(var i=0;i<TR.NEED;i++) h+='<span'+(i<n?' class="on"':'')+'></span>';
+  return h+'</div>';
+}
+
+function trRenderPool(){
+  var box=$("#trPool"); if(!box) return;
+  var now=Date.now();
+  var all=TR.cases.filter(function(c){ return c.owner!=="me" && c.status==="PENDING"; })
+    .sort(function(a,b){ return a.deadline-b.deadline; });
+  var todo=all.filter(function(c){ return !trVotedBy(c,"me") && c.votes.length<TR.NEED; });
+  var count=$("#trPoolCount");
+  if(count) count.textContent=todo.length?todo.length+" 份待你审":"都审过了";
+
+  if(!all.length){
+    box.innerHTML='<div class="tr-empty">没有待审的菜单。等别的麦友提交，或者先看看自己那张审议单。</div>';
+    return;
+  }
+  box.innerHTML=all.map(function(c){
+    var v=trJudge(c), left=c.deadline-now, mine=trVotedBy(c,"me");
+    var color=["var(--sky-soft)","var(--pink-soft)","var(--mint-soft)","var(--yellow-soft)"][hash(c.ownerName)%4];
+    var names=c.menu.map(function(m){ return m.name; }).join("、");
+    var can=mine||c.votes.length>=TR.NEED;
+    return '<div class="tr-pool-item'+(can?" voted":"")+'">'
+      +'<div class="tr-ava" style="background:'+color+'">'+escapeHTML(c.ownerName.slice(-1))+'</div>'
+      +'<div class="tr-pool-main">'
+      +'<div class="t">'+escapeHTML(names)+'</div>'
+      +'<div class="m">'+c.menu.length+' 样 · '+trMoney(trCost(c.menu))+' · '+trKcal(c.menu)+' kcal · 剩 '+trDur(left)+'</div>'
+      +'<div class="why">「'+escapeHTML(c.story)+'」</div>'
+      +'<div class="who">'+escapeHTML(c.ownerName)+' 点的 · '+c.id+'</div>'
+      +'</div>'
+      +'<div class="tr-pool-right">'+trPips(v.total)
+      +'<span class="tr-mini">'+(mine?"你已审":v.total+"/3 已审")+'</span>'
+      +(can?'<span class="tr-mini">等定稿</span>'
+        :'<button type="button" class="tr-btn sm" data-vote="'+c.id+'">去审</button>')
+      +'</div></div>';
+  }).join("");
+}
+
+/* 我审过、已有结果的菜单：让人看到自己那一审到底起了什么作用 */
+function trRenderJudged(){
+  var wrap=$("#trJudgedWrap"), box=$("#trJudged");
+  if(!wrap||!box) return;
+  var list=TR.cases.filter(function(c){
+    return c.owner!=="me" && c.status!=="PENDING" && trVotedBy(c,"me");
+  }).sort(function(a,b){ return (b.verdict?b.verdict.at:0)-(a.verdict?a.verdict.at:0); });
+
+  if(!list.length){ wrap.style.display="none"; return; }
+  wrap.style.display="block";
+  var cnt=$("#trJudgedCount");
+  if(cnt) cnt.textContent=list.length+" 份已定稿";
+
+  box.innerHTML=list.slice(0,4).map(function(c){
+    var v=trJudge(c), my=null;
+    c.votes.forEach(function(x){ if(x.by==="me") my=x; });
+    var agree=(my && ((my.side==="no" && c.status==="REJECTED") || (my.side!=="no" && c.status==="APPROVED")));
+    var tag=c.status==="APPROVED"?"定稿":(c.status==="REJECTED"?"不批":"没人审");
+    /* 定稿的显示加扣之后的菜单，否则显示原菜单 */
+    var rows=(c.status==="APPROVED" && c.verdict && c.verdict.menu.length) ? c.verdict.menu : c.menu;
+    var names=rows.map(function(m){ return m.name; }).join("、");
+    return '<div class="tr-pool-item voted" style="opacity:1">'
+      +'<div class="tr-ava" style="background:'+(c.status==="APPROVED"?"var(--mint-soft)":"#FFE3DF")+'">'+escapeHTML(c.ownerName.slice(-1))+'</div>'
+      +'<div class="tr-pool-main">'
+      +'<div class="t">'+escapeHTML(names)+'</div>'
+      +'<div class="m">'+(c.status==="APPROVED" && c.verdict
+          ? trMoney(c.verdict.price)+' · '+c.verdict.kcal+' kcal · '+c.verdict.menu.length+' 样 · '
+          : '')
+        +'加点 '+v.addN+' / 扣点 '+v.cutN+' / 不批 '+v.noN+' · 结果「'+tag+'」</div>'
+      +'<div class="who">'+(agree?"你那一审和结果一致":"你那一审和结果相反")+' · '+c.id+'</div>'
+      +'</div>'
+      +'<div class="tr-pool-right"><span class="tr-mini" style="color:'+(c.status==="APPROVED"?"#1E7A63":"var(--red)")+'">'+tag+'</span></div>'
+      +'</div>';
+  }).join("");
+}
+
+function trRenderWall(){
+  var box=$("#trWall"); if(!box) return;
+  var items=[];
+  TR.cases.forEach(function(c){
+    c.votes.forEach(function(v){ items.push({v:v, c:c}); });
+  });
+  items.sort(function(a,b){ return b.v.at-a.v.at; });
+  items=items.slice(0,12);
+  var cnt=$("#trWallCount");
+  if(cnt) cnt.textContent=items.length?"最近 "+items.length+" 条":"暂无";
+  if(!items.length){
+    box.innerHTML='<div class="tr-empty">还没有陌生人开口。理由是这个产品里最值钱的数据。</div>';
+    return;
+  }
+  box.innerHTML=items.map(function(it){
+    var v=it.v, mine=(v.by==="me");
+    var label=v.side==="add"?"加点":(v.side==="cut"?"扣点":"不批");
+    var cls=mine?"mine":(v.side==="add"?"pass":(v.side==="cut"?"cut":"reject"));
+    return '<div class="tr-note-card '+cls+'">'
+      +'<div class="q">「'+escapeHTML(v.reason)+'」</div>'
+      +'<div class="meta"><span>'+(mine?"我":escapeHTML(v.name))+'</span>'
+      +'<span>'+(v.item?escapeHTML(v.item.name):"整单")+'</span>'
+      +'<span class="tag">'+label+'</span></div></div>';
+  }).join("");
+}
+
+function trRenderStats(){
+  var box=$("#trStats"); if(!box) return;
+  var mine=TR.cases.filter(function(c){ return c.owner==="me"; });
+  var appr=0, rej=0, pend=0, addN=0, cutN=0, keptKcal=0;
+  mine.forEach(function(c){
+    if(c.verdict){ addN+=c.verdict.addN||0; cutN+=c.verdict.cutN||0; }
+    if(c.status==="APPROVED"){ appr++; keptKcal+=c.verdict?c.verdict.kcal:0; }
+    else if(c.status==="REJECTED"||c.status==="EXPIRED") rej++;
+    else if(c.status==="PENDING") pend++;
+  });
+  var cast=0;
+  TR.cases.forEach(function(c){ c.votes.forEach(function(v){ if(v.by==="me") cast++; }); });
+
+  var cells=[
+    {k:"我提交的菜单", v:mine.length, u:"份"},
+    {k:"已定稿", v:appr, u:"份"},
+    {k:"这顿没了", v:rej, u:"份"},
+    {k:"还在等人审", v:pend, u:"份"},
+    {k:"被加进来", v:addN, u:"样", hl:true},
+    {k:"被扣掉", v:cutN, u:"样"},
+    {k:"我审过", v:cast, u:"份"},
+    {k:"定稿热量", v:keptKcal, u:"kcal"}
+  ];
+  box.innerHTML=cells.map(function(c){
+    return '<div class="tr-stat'+(c.hl?" hl":"")+'"><div class="k">'+c.k+'</div>'
+      +'<div class="v">'+c.v+'<small>'+c.u+'</small></div></div>';
+  }).join("");
+
+  var t=document.getElementById("trNote");
+  if(t) t.textContent="统计含 2 份演示用的历史菜单（1 份定稿 / 1 份被否），其余为你本次操作产生。数据存在本机 localStorage，键 "+TR.KEY+"。";
+}
+
+function trRenderSteps(){
+  var box=$("#trSteps"); if(!box) return;
+  var mine=TR.cases.filter(function(c){ return c.owner==="me"; })
+    .sort(function(a,b){ return b.createdAt-a.createdAt; })[0];
+  var stage=0, last="菜单定稿";
+  if(mine){
+    if(mine.status==="PENDING") stage=3;
+    else{
+      stage=5;
+      last="菜单定稿 · "+(mine.status==="APPROVED"?"可以吃":(mine.status==="REJECTED"?"这顿没了":"没人审"));
+    }
+  }
+  var labels=["写下心事","点菜（只能麦当劳）","交给三个陌生人","三个人给出结论"+(stage===3?" · "+mine.votes.length+"/3":""),last];
+  box.innerHTML=labels.map(function(t,i){
+    var cls=i<stage?"done":(i===stage?"on":"");
+    return '<div class="tr-step '+cls+'"><span class="n">'+(i<stage?"✓":(i+1))+'</span>'+t+'</div>';
+  }).join("");
+}
+
+function trRenderAll(){
+  trRenderSteps();
+  trRenderMine();
+  trRenderPool();
+  trRenderJudged();
+  trRenderWall();
+  trRenderStats();
+}
+
+/* ---------- 表单：菜单选择器（只能点 MEALS 里的东西） ---------- */
+function trRenderTabs(){
+  var box=$("#trTabs"); if(!box) return;
+  box.innerHTML=["主食","配餐","饮品"].map(function(c){
+    return '<button type="button" class="tr-tab'+(TR.tab===c?" on":"")+'" data-tab="'+c+'" role="tab" aria-selected="'+(TR.tab===c)+'">'+c+'</button>';
+  }).join("");
+}
+
+function trRenderPick(){
+  var box=$("#trPick"); if(!box) return;
+  box.innerHTML=MEALS.filter(function(m){ return m.cat===TR.tab; }).map(function(m){
+    var on=TR.form.indexOf(m.code)>=0;
+    var full=!on && TR.form.length>=TR.MAX;
+    return '<button type="button" class="tr-mchip" data-pickchip="'+m.code+'" aria-pressed="'+(on?"true":"false")+'"'
+      +(full?' disabled title="最多 '+TR.MAX+' 样"':'')+'>'+escapeHTML(m.name)+'<small>'+trMoney(m.price)+'</small></button>';
+  }).join("");
+}
+
+function trRenderSel(){
+  var box=$("#trSel");
+  var list=TR.form.map(function(code){ return trItem(code); }).filter(Boolean);
+  if(box){
+    box.innerHTML=list.map(function(m){
+      return '<div class="tr-sel-row"><span>'+escapeHTML(m.name)+'</span><b>'+trMoney(m.price)+'</b>'
+        +'<button type="button" data-drop="'+m.code+'" aria-label="移除'+escapeHTML(m.name)+'">×</button></div>';
+    }).join("");
+  }
+  var sum=$("#trSum");
+  if(sum) sum.innerHTML='已选 <b>'+list.length+'</b> 样 · '+trMoney(trCost(list))+' · '+trKcal(list)+' kcal';
+  var c=$("#cMenu"); if(c) c.textContent=list.length+"/"+TR.MAX;
+}
+
+function trPickToggle(code){
+  if(!trItem(code)) return;                 /* 不认识的编码直接丢弃 */
+  var i=TR.form.indexOf(code);
+  if(i>=0) TR.form.splice(i,1);
+  else{
+    if(TR.form.length>=TR.MAX){ toast("最多点 "+TR.MAX+" 样，留点余量让陌生人扣"); return; }
+    TR.form.push(code);
+  }
+  trBad("fMenu", false);
+  trRenderPick(); trRenderSel();
+}
+
+/* ---------- 提交 ---------- */
+function trBad(id, bad){
+  var f=document.getElementById(id);
+  if(f) f.classList.toggle("bad", !!bad);
+}
+
+function trValidate(){
+  var story=$("#trStory").value.trim();
+  var ok=true, firstBad=null;
+
+  var storyOk=story.length>=12;
+  trBad("fStory",!storyOk); if(!storyOk){ ok=false; firstBad=firstBad||"#trStory"; }
+
+  var menu=TR.form.map(function(code){ return trItem(code); }).filter(Boolean);
+  var menuOk=TR.form.length>=TR.MIN && TR.form.length<=TR.MAX && menu.length===TR.form.length;
+  trBad("fMenu",!menuOk); if(!menuOk){ ok=false; firstBad=firstBad||"#trPick"; }
+
+  if(!ok){ if(firstBad){ var el=$(firstBad); if(el&&el.focus) el.focus(); } return null; }
+  return {story:story, menu:menu};
+}
+
+function trSubmit(){
+  var d=trValidate();
+  if(!d) return;
+
+  var pend=TR.cases.filter(function(c){ return c.owner==="me" && c.status==="PENDING"; });
+  if(pend.length){
+    toast("还有一份菜单在审（"+pend[0].id+"），等三个陌生人说完再点新的");
+    return;
+  }
+
+  var now=Date.now(), u=trUnit();
+  var c={
+    id:trNewId(), story:d.story, menu:d.menu,
+    owner:"me", ownerName:"我", unit:u,
+    createdAt:now, deadline:now+24*u,
+    status:"PENDING", votes:[], verdict:null
+  };
+  TR.cases.unshift(c);
+  trSave();
+
+  TR.form=[]; TR.tab="主食";
+  $("#trStory").value="";
+  trRenderTabs(); trRenderPick(); trRenderSel(); syncTrCounters();
+  trBad("fStory",false); trBad("fMenu",false);
+  trRenderAll();
+
+  var el=$("#trMine");
+  if(el && el.scrollIntoView) el.scrollIntoView({behavior:"smooth", block:"center"});
+  toast(TR.fast
+    ? "已受理 "+c.id+"，演示加速：24 秒内三个陌生人会陆续开口"
+    : "已受理 "+c.id+"，等三位陌生人来看你的心事和菜单");
+}
+
+/* ---------- 审议 ---------- */
+var TR_QUICK={
+  add:["加个热的吧","这份太干了","缺个收尾","心情差，加个甜的"],
+  cut:["已经够多了","这个可以省","你不是饿，是烦","吃完只会更撑"],
+  no:["先睡觉，别吃","这是在替情绪买单","半小时后还饿再说","今天到此为止"]
+};
+
+function trOpenVote(id){
+  var c=TR.cases.filter(function(x){ return x.id===id; })[0];
+  if(!c || c.status!=="PENDING" || trVotedBy(c,"me") || c.votes.length>=TR.NEED) return;
+  TR.votingId=id; TR.side=null; TR.pick=null;
+
+  $("#trModalTitle").textContent="审这份菜单 · 必须给个理由";
+  var names=c.menu.map(function(m){ return '<span>'+escapeHTML(m.name)+'</span>'; }).join("");
+  $("#trDialogBody").innerHTML=
+    '<div class="tr-dialog-case">'
+      +'<div class="st"><b>今天发生了什么</b>'+escapeHTML(c.story)+'</div>'
+      +'<div class="mn">'+names+'</div>'
+      +'<div class="sm">'+c.menu.length+' 样 · '+trMoney(trCost(c.menu))+' · '+trKcal(c.menu)
+        +' kcal · '+escapeHTML(c.ownerName)+' 点的 · 剩 '+trDur(c.deadline-Date.now())+'</div>'
+    +'</div>'
+    +'<div class="tr-choice">'
+      +'<button type="button" class="tr-opt" data-side="add" aria-pressed="false">加点<span class="s">给他加一样</span></button>'
+      +'<button type="button" class="tr-opt" data-side="cut" aria-pressed="false">扣点<span class="s">划掉一样</span></button>'
+      +'<button type="button" class="tr-opt" data-side="no" aria-pressed="false">不批<span class="s">这顿别吃</span></button>'
+    +'</div>'
+    +'<div class="tr-pickbox" id="trPickBox"><div class="none">先选一个动作：加点、扣点，或者干脆不批。</div></div>'
+    +'<div class="tr-quick" id="trQuick"><span class="tip">选完动作，这里会出现一键可用的理由</span></div>'
+    +'<div class="tr-field" id="fVote">'
+      +'<label for="trVoteReason"><em>你的理由</em><i id="cVote">0/6</i></label>'
+      +'<textarea id="trVoteReason" maxlength="80" placeholder="理由会公开在陌生人墙，也是对方这顿吃不吃得成的关键。"></textarea>'
+      +'<div class="tr-err" id="trVoteErr">至少 6 个字</div>'
+    +'</div>'
+    +'<button type="button" class="btn btn-red btn-block" id="trVoteSubmit" disabled><span>提交这一审</span></button>';
+
+  $("#trModal").classList.add("on");
+  document.body.style.overflow="hidden";
+  $("#trVoteReason").addEventListener("input", trSyncVote);
+  $("#trVoteSubmit").addEventListener("click", trCastVote);
+  setTimeout(function(){ var r=$("#trVoteReason"); if(r) r.focus(); },120);
+}
+
+function trCloseVote(){
+  $("#trModal").classList.remove("on");
+  document.body.style.overflow="";
+  TR.votingId=null; TR.side=null; TR.pick=null;
+}
+
+function trPickSide(side){
+  TR.side=side; TR.pick=null;
+  $$("#trDialogBody [data-side]").forEach(function(b){
+    b.setAttribute("aria-pressed", b.getAttribute("data-side")===side?"true":"false");
+  });
+
+  var c=TR.cases.filter(function(x){ return x.id===TR.votingId; })[0];
+  var box=$("#trPickBox"), h="";
+  if(side==="add"){
+    var used={};
+    c.menu.forEach(function(m){ used[m.code]=1; });
+    var cand=MEALS.filter(function(m){ return !used[m.code]; });
+    h='<div class="h">给他加一样（只能从麦当劳菜单里挑）</div><div class="tr-pick" id="trVotePick">'
+      +cand.map(function(m){
+        return '<button type="button" class="tr-mchip" data-vpick="'+m.code+'" aria-pressed="false">'
+          +escapeHTML(m.name)+'<small>'+trMoney(m.price)+'</small></button>';
+      }).join("")+'</div>';
+  }else if(side==="cut"){
+    h='<div class="h">划掉哪一样</div><div class="tr-pick" id="trVotePick">'
+      +c.menu.map(function(m){
+        return '<button type="button" class="tr-mchip" data-vpick="'+m.code+'" aria-pressed="false">'
+          +escapeHTML(m.name)+'<small>'+trMoney(m.price)+'</small></button>';
+      }).join("")+'</div>';
+  }else{
+    h='<div class="none">不批就是整单不同意：这一顿不成立，也不生成菜单。理由要写清为什么。</div>';
+  }
+  if(box) box.innerHTML=h;
+
+  var q=$("#trQuick");
+  if(q){
+    q.innerHTML=TR_QUICK[side].map(function(s,i){
+      return '<button type="button" data-quick="'+i+'">'+s+'</button>';
+    }).join("");
+    q.querySelectorAll("[data-quick]").forEach(function(b){
+      b.addEventListener("click",function(){
+        var ta=$("#trVoteReason");
+        var txt=TR_QUICK[side][+b.getAttribute("data-quick")];
+        ta.value= ta.value.trim() ? (ta.value.replace(/[。，,\s]+$/,"")+"。"+txt) : txt;
+        b.classList.add("on");
+        trSyncVote();
+        ta.focus();
+      });
+    });
+  }
+  trBad("fVote",false);
+  trSyncVote();
+}
+
+function trPickItem(code){
+  if(!trItem(code)) return;
+  TR.pick=code;
+  $$("#trVotePick [data-vpick]").forEach(function(b){
+    b.setAttribute("aria-pressed", b.getAttribute("data-vpick")===code?"true":"false");
+  });
+  trSyncVote();
+}
+
+function trSyncVote(){
+  var ta=$("#trVoteReason"); if(!ta) return;
+  var n=ta.value.trim().length;
+  var cnt=$("#cVote"); if(cnt) cnt.textContent=n+"/6";
+  var btn=$("#trVoteSubmit"); if(!btn) return;
+  var sideOk=!!TR.side;
+  var pickOk=(TR.side==="no") || (!!TR.pick);
+  btn.disabled=!(sideOk && pickOk && n>=6);
+}
+
+/* 理由与动作必须一致 */
+function trContradict(side, text){
+  if(side==="no" && /(可以吃|批准|通过|没问题|去吃吧)/.test(text)) return "你选了不批，理由却在放行，改一下";
+  if(side!=="no" && /(别吃|不该吃|不批|驳回|取消这顿)/.test(text)) return "你选的是加点或扣点，理由却在否单，改一下";
+  if(side==="cut" && /(加个|再加|多来一样)/.test(text)) return "你选了扣点，理由却在加菜，改一下";
+  return "";
+}
+
+function trCastVote(){
+  var c=TR.cases.filter(function(x){ return x.id===TR.votingId; })[0];
+  if(!c) return;
+  var ta=$("#trVoteReason");
+  var txt=ta?ta.value.trim():"";
+  var err="";
+  if(!TR.side) err="先选一个动作：加点、扣点或不批";
+  else if(TR.side!=="no" && !TR.pick) err=(TR.side==="add")?"选一样要加进去的":"选一样要划掉的";
+  else if(txt.length<6) err="理由至少 6 个字，这是硬性要求";
+  else if(!/[\u4e00-\u9fa5A-Za-z0-9]/.test(txt)) err="理由不能只有标点";
+  else err=trContradict(TR.side, txt);
+
+  if(err){
+    $("#trVoteErr").textContent=err;
+    $("#fVote").classList.add("bad");
+    if(ta) ta.focus();
+    return;
+  }
+
+  var item=(TR.side==="no")?null:trItem(TR.pick);
+  c.votes.push({by:"me", name:"我", side:TR.side, item:item, reason:txt, at:Date.now()});
+  trCloseVote();
+
+  /* 三票到齐就地定稿，不必等满 24 小时 */
+  var settled=trSettle(c, Date.now());
+  trSave();
+  trRenderAll();
+
+  if(settled){
+    toast(c.status==="APPROVED" ? "三个人审完了，菜单定稿——这份就是他能点的"
+      : "三个人审完了，这顿没有了");
+  }else{
+    var left=TR.NEED-c.votes.length;
+    toast(left>0 ? "已记录。还差 "+left+" 位陌生人才定稿" : "已记录");
+  }
+}
+
+/* ---------- 心跳：倒计时 / 模拟陌生人 / 到期结算 ---------- */
+function trTick(){
+  var now=Date.now(), changed=false;
+  TR.cases.forEach(function(c){
+    if(c.status!=="PENDING") return;
+    if(trBotVotes(c, now)) changed=true;
+    if(trSettle(c, now)) changed=true;
+  });
+  if(changed){ trSave(); trRenderAll(); }
+
+  $$("[data-dl]").forEach(function(el){
+    var left=(+el.getAttribute("data-dl"))-now;
+    var warn=+el.getAttribute("data-warn")||0;
+    el.textContent=trDur(left);
+    el.classList.toggle("warn", left>0 && warn>0 && left<warn);
+  });
+}
+
+function syncTrCounters(){
+  var s=$("#trStory");
+  if(s) $("#cStory").textContent=s.value.trim().length+"/12";
+  trRenderSel();
+}
+
+/* ---------- 初始化 ---------- */
+(function trInit(){
+  if(!document.getElementById("trSubmit")) return;
+  if(!trLoad()) trSeed();
+
+  /* 首次加载就把该结算的单子处理掉，避免「看着在审其实早该定稿」 */
+  var now=Date.now();
+  TR.cases.forEach(function(c){
+    if(c.status==="PENDING"){
+      trBotVotes(c, now);
+      trSettle(c, now);
+    }
+  });
+
+  trRenderTabs(); trRenderPick(); trRenderSel(); syncTrCounters();
+
+  $("#trSubmit").addEventListener("click", trSubmit);
+  $("#trStory").addEventListener("input", syncTrCounters);
+
+  $("#trFast").addEventListener("change", function(){
+    TR.fast=this.checked;
+    toast(TR.fast ? "演示加速已开：之后提交的菜单，24 小时 = 24 秒" : "已恢复真实节奏：24 小时");
+  });
+
+  document.addEventListener("click", function(e){
+    var t=e.target;
+    if(!t || !t.closest) return;
+    var b=t.closest("[data-tab],[data-pickchip],[data-drop],[data-side],[data-vpick],[data-quick],[data-vote],[data-withdraw],[data-copymenu],[data-close],[data-reset]");
+    if(!b) return;
+
+    if(b.hasAttribute("data-close")){ trCloseVote(); return; }
+
+    if(b.hasAttribute("data-reset")){
+      try{ localStorage.removeItem(TR.KEY); localStorage.removeItem("maimen.trial.v1"); }catch(err){}
+      TR.cases=[]; TR.form=[]; trSeed(); trRenderAll();
+      toast("演示数据已重置");
+      return;
+    }
+
+    if(b.hasAttribute("data-tab")){
+      /* 只切类名，不重建整条 tab 栏：重建会让焦点丢失，键盘用户连点两下就跳回页首 */
+      TR.tab=b.getAttribute("data-tab");
+      $$("#trTabs [data-tab]").forEach(function(x){
+        var on=x.getAttribute("data-tab")===TR.tab;
+        x.classList.toggle("on", on);
+        x.setAttribute("aria-selected", on?"true":"false");
+      });
+      trRenderPick();
+      return;
+    }
+    if(b.hasAttribute("data-pickchip")){ trPickToggle(b.getAttribute("data-pickchip")); return; }
+    if(b.hasAttribute("data-drop")){
+      var i=TR.form.indexOf(b.getAttribute("data-drop"));
+      if(i>=0){ TR.form.splice(i,1); trRenderPick(); trRenderSel(); }
+      return;
+    }
+    if(b.hasAttribute("data-side")){ trPickSide(b.getAttribute("data-side")); return; }
+    if(b.hasAttribute("data-vpick")){ trPickItem(b.getAttribute("data-vpick")); return; }
+    if(b.hasAttribute("data-vote")){ trOpenVote(b.getAttribute("data-vote")); return; }
+
+    if(b.hasAttribute("data-withdraw")){
+      var cw=TR.cases.filter(function(x){ return x.id===b.getAttribute("data-withdraw"); })[0];
+      if(cw && cw.status==="PENDING"){
+        cw.status="WITHDRAWN"; cw.verdict={at:Date.now(), addN:0, cutN:0, noN:0, total:cw.votes.length, menu:[], price:0, kcal:0};
+        trSave(); trRenderAll(); toast("已撤回。撤回不算被否，也不计入任何统计的失败");
+      }
+      return;
+    }
+
+    if(b.hasAttribute("data-copymenu")){
+      var c=TR.cases.filter(function(x){ return x.id===b.getAttribute("data-copymenu"); })[0];
+      if(!c) return;
+      var v=trJudge(c);
+      var rows=(c.status==="APPROVED" && c.verdict && c.verdict.menu.length) ? c.verdict.menu : c.menu;
+      var tag=c.status==="APPROVED" ? "定稿，可以吃" : (c.status==="REJECTED" ? "没通过，这顿没有了" : (c.status==="EXPIRED" ? "没人审完，不生效" : "还在等三个陌生人"));
+      var text="【菜单审议单 "+c.id+"】"+tag+"\n"
+        +"心事："+c.story+"\n"
+        +"菜单："+rows.map(function(m){ return m.name; }).join("、")+"\n"
+        +(c.status==="APPROVED" ? "定稿合计："+trMoney(v.price)+" · "+v.kcal+" kcal\n" : "")
+        +"三个陌生人："+(c.votes.length?c.votes.map(function(x){
+            return x.name+"（"+(x.side==="add"?"加点":(x.side==="cut"?"扣点":"不批"))+"）"+x.reason;
+          }).join(" / "):"还没人来");
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(text).then(function(){ toast("已复制"); },
+          function(){ toast("复制失败，请手动选择文本"); });
+      }else{
+        toast("当前环境不支持自动复制");
+      }
+      return;
+    }
+  });
+
+  document.addEventListener("keydown", function(e){
+    if(e.key==="Escape" && $("#trModal").classList.contains("on")) trCloseVote();
+  });
+
+  trRenderAll();
+  if(!TR.timer) TR.timer=setInterval(trTick, 250);
+})();
+
+})();
+</script>
+</body>
+</html>

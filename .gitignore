@@ -1,0 +1,24 @@
+# 依赖与构建产物
+node_modules/
+dist/
+build/
+
+# 本地环境与密钥（切勿提交）
+.env
+.env.*
+*.token
+mcp.json
+mcp.local.json
+
+# 系统与编辑器
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+*.swp
+
+# 日志与临时文件
+*.log
+_*.png
+_tmp/

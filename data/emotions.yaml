@@ -1,0 +1,116 @@
+# 情绪 → 口味/质感偏好映射
+# 供 SKILL.md 第二步配餐与第三步快乐报告使用
+# 说明：本表为启发式规则，非营养学依据，仅用于生成搭配理由与评分权重
+
+version: 1.0
+updated: 2026-10-21
+
+# 质感关键词 → 餐品特征标签
+texture_map:
+  脆:
+    match_tags: ["炸", "脆", "薯条", "鸡块", "鸡翅", "派"]
+    reason_template: "咬下去要有声音，这是今晚最重要的事"
+  烫:
+    match_tags: ["热饮", "汤", "汉堡", "粥", "咖啡", "茶"]
+    reason_template: "热的才叫吃，凉的只是填"
+  甜:
+    match_tags: ["派", "冰淇淋", "圣代", "甜", "糖", "汽水"]
+    reason_template: "甜是今天唯一不用解释的东西"
+  辣:
+    match_tags: ["辣", "麦辣", "香辣", "椒"]
+    reason_template: "辣一下，比忍着好"
+  软:
+    match_tags: ["粥", "糊", "冰淇淋", "圣代", "蛋"]
+    reason_template: "今天嚼不动，软的就行"
+  冰:
+    match_tags: ["冰", "冷饮", "汽水", "冰淇淋", "圣代"]
+    reason_template: "冰的东西能让脑子停两秒"
+
+# 情绪 → 配餐约束
+emotions:
+  疲惫:
+    energy: 低
+    macro_bias: { carbs: +0.25, protein: 0, fat: +0.15 }
+    forbid_tags: ["沙拉", "轻食"]
+    must_include_one_of: ["炸", "热饮", "汤"]
+    happiness_weight: { comfort: 0.45, satisfaction: 0.35, guilt: 0.20 }
+  挫败:
+    energy: 低
+    macro_bias: { carbs: +0.20, protein: 0, fat: +0.20 }
+    forbid_tags: ["沙拉", "轻食"]
+    must_include_one_of: ["炸", "甜"]
+    happiness_weight: { comfort: 0.50, satisfaction: 0.30, guilt: 0.20 }
+  焦虑:
+    energy: 中
+    macro_bias: { carbs: 0, protein: +0.15, fat: -0.10 }
+    forbid_tags: ["咖啡", "浓缩", "高咖啡因"]
+    must_include_one_of: ["热饮", "汤"]
+    happiness_weight: { comfort: 0.40, satisfaction: 0.25, guilt: 0.35 }
+  孤独:
+    energy: 低
+    macro_bias: { carbs: +0.15, protein: 0, fat: +0.10 }
+    forbid_tags: []
+    must_include_one_of: ["热饮", "甜", "汤"]
+    happiness_weight: { comfort: 0.50, satisfaction: 0.30, guilt: 0.20 }
+  兴奋:
+    energy: 高
+    macro_bias: { carbs: 0, protein: +0.20, fat: 0 }
+    forbid_tags: []
+    must_include_one_of: ["炸", "冷饮"]
+    happiness_weight: { comfort: 0.20, satisfaction: 0.55, guilt: 0.25 }
+  平静:
+    energy: 中
+    macro_bias: { carbs: 0, protein: +0.10, fat: 0 }
+    forbid_tags: []
+    must_include_one_of: []
+    happiness_weight: { comfort: 0.30, satisfaction: 0.45, guilt: 0.25 }
+  委屈:
+    energy: 低
+    macro_bias: { carbs: +0.25, protein: 0, fat: +0.20 }
+    forbid_tags: ["沙拉", "轻食"]
+    must_include_one_of: ["炸", "甜", "热饮"]
+    happiness_weight: { comfort: 0.55, satisfaction: 0.30, guilt: 0.15 }
+  奖励自己:
+    energy: 中
+    macro_bias: { carbs: +0.10, protein: +0.10, fat: +0.15 }
+    forbid_tags: []
+    must_include_one_of: ["甜"]
+    happiness_weight: { comfort: 0.25, satisfaction: 0.50, guilt: 0.25 }
+
+# 时段适配
+time_slot:
+  早餐:  # 05:00 - 10:30
+    allowed_categories: ["早餐", "咖啡", "小食"]
+    forbid_category: ["正餐套餐"]
+    calorie_ceiling: 650
+  午市:  # 10:30 - 14:00
+    allowed_categories: ["正餐套餐", "小食", "饮品"]
+    forbid_category: []
+    calorie_ceiling: 1100
+  下午茶:  # 14:00 - 17:00
+    allowed_categories: ["小食", "饮品", "甜品"]
+    forbid_category: ["正餐套餐"]
+    calorie_ceiling: 600
+  晚市:  # 17:00 - 22:00
+    allowed_categories: ["正餐套餐", "小食", "饮品"]
+    forbid_category: []
+    calorie_ceiling: 1050
+  深夜:  # 22:00 - 05:00
+    allowed_categories: ["正餐套餐", "小食", "饮品"]
+    forbid_category: ["大份套餐", "分享装"]
+    calorie_ceiling: 850
+
+# 每日参考摄入（用于热量报告占比，成人通用参考值）
+daily_reference:
+  kcal: 2000
+  protein_g: 60
+  fat_g: 65
+  carb_g: 300
+  sodium_mg: 2000
+  note: "参考值取自通用成人膳食参考量，仅用于占比提示，不构成营养建议"
+  slot_share:
+    早餐: 0.25
+    午市: 0.40
+    下午茶: 0.12
+    晚市: 0.35
+    深夜: 0.20

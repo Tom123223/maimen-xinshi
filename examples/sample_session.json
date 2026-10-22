@@ -1,0 +1,11 @@
+{
+  "summary": "方案被退回第三次",
+  "meal": ["麦辣鸡腿堡", "中薯条", "可口可乐(中)"],
+  "kcal": 1004,
+  "happiness": 82,
+  "verdict": "准吃但改一处",
+  "visible_minutes": 20,
+  "meta": {
+    "note": "示例文件名用于脚本联调；kcal 需与营养报告一致，由 scripts/nutrition.py 计算得出"
+  }
+}

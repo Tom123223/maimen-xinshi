@@ -1,0 +1,89 @@
+{
+  "city": "南京",
+  "keyword": "仙林",
+  "steps": [
+    {
+      "tool": "now-time-info",
+      "ok": true,
+      "datetime": "2026-10-21T14:53:10.869"
+    },
+    {
+      "tool": "query-nearby-stores",
+      "ok": true,
+      "store": "麦当劳南京仙林金鹰餐厅",
+      "storeCode": "1990102"
+    },
+    {
+      "tool": "query-meals",
+      "ok": true,
+      "categories": 14,
+      "meals": 111
+    },
+    {
+      "tool": "query-meal-detail",
+      "ok": true,
+      "sample": [
+        {
+          "code": "521903",
+          "name": "三文鱼双虾至尊月堡"
+        },
+        {
+          "code": "511781",
+          "name": "培根安格斯厚牛堡"
+        },
+        {
+          "code": "6352",
+          "name": "阳光橙麦炫酷"
+        }
+      ]
+    },
+    {
+      "tool": "calculate-price",
+      "ok": true,
+      "prices": [
+        {
+          "code": "521903",
+          "name": "三文鱼双虾至尊月堡",
+          "price": 31.0,
+          "error": null
+        },
+        {
+          "code": "511781",
+          "name": "培根安格斯厚牛堡",
+          "price": 34.5,
+          "error": null
+        },
+        {
+          "code": "6352",
+          "name": "阳光橙麦炫酷",
+          "price": 13.5,
+          "error": null
+        },
+        {
+          "code": "511782",
+          "name": "芝士安格斯厚牛堡",
+          "price": 31.5,
+          "error": null
+        },
+        {
+          "code": "920280",
+          "name": "麦乐鸡泡泡机（小红帽款）",
+          "price": 28.9,
+          "error": null
+        },
+        {
+          "code": "2430",
+          "name": "【美汁源】“黄金橙橙”",
+          "price": 13.0,
+          "error": null
+        }
+      ],
+      "consistent": 6
+    },
+    {
+      "tool": "list-nutrition-foods",
+      "ok": true,
+      "rows": 160
+    }
+  ]
+}
