@@ -164,7 +164,7 @@ python -m http.server 8765
 
 保存后回到【自定义连接器】把 `mcd-mcp` 设为【启用】。
 
-仓库根目录另附 `mcp-config.example.json`，内容与上面一致，可直接复制粘贴或按客户端要求导入。该文件只含 `${MCD_MCP_TOKEN}` 这一个环境变量占位符，不含任何真实 Token。
+仓库根目录另附 `mcp-config.example.json`，内容与上面一致，可直接复制粘贴，也可按客户端要求导入。
 
 **3. 装载 Skill**：把本仓库放进 `~/.workbuddy/skills/maimen-xinshi/`，重开会话即可；或直接说“用麦门心事帮我配一餐”。
 
