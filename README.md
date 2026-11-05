@@ -164,6 +164,8 @@ python -m http.server 8765
 
 保存后回到【自定义连接器】把 `mcd-mcp` 设为【启用】。
 
+仓库根目录另附 `mcp-config.example.json`，内容与上面一致，可直接复制粘贴或按客户端要求导入。该文件只含 `${MCD_MCP_TOKEN}` 这一个环境变量占位符，不含任何真实 Token。
+
 **3. 装载 Skill**：把本仓库放进 `~/.workbuddy/skills/maimen-xinshi/`，重开会话即可；或直接说“用麦门心事帮我配一餐”。
 
 > 不要把真实 Token 写进仓库（参赛声明第三章明确要求）。仓库内所有示例一律用 `${MCD_MCP_TOKEN}` 占位。
@@ -262,6 +264,7 @@ maimen-xinshi/
 ├── SKILL.md                  # Skill 主指令（WorkBuddy / Claude Skill 格式）
 ├── CONTEST_DECLARATION.md    # 官方参赛声明，原文未改动
 ├── MCP_INTEGRATION.md        # MCP 接入说明：Server / Tool / 调用流程 / 业务价值
+├── mcp-config.example.json   # 脱敏 MCP 配置示例（仅环境变量占位符，可直接导入）
 ├── workbuddy.md              # 使用 WorkBuddy 开发的对话上下文
 │
 ├── index.html                # 演示前端：HTML + CSS + JS 单文件（零依赖）
