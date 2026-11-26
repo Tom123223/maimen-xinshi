@@ -1,5 +1,9 @@
 # 麦门心事 · Maimen Xinshi
 
+<!-- yarkr:badges:start -->
+[![Indexed on Yarkr](https://api.yarkr.com/functions/v1/api/api/v1/badges/repos/Tom123223/maimen-xinshi/version.svg)](https://yarkr.com/arks/tom123223/maimen-xinshi)
+<!-- yarkr:badges:end -->
+
 **把一句心事读成一顿麦当劳，再让三个陌生人决定这顿吃不吃。**
 
 ![status](https://img.shields.io/badge/status-demo%20ready-2f9e44?style=flat-square)
@@ -418,3 +422,35 @@ A：`python -m http.server` 起服务后，手机访问 `http://<电脑内网IP>
 ## 声明
 
 本项目为麦当劳程序员节创意开发大赛参赛作品的演示前端，由参赛者独立开发，非麦当劳官方产品，与麦当劳中国无隶属或合作关系。餐品、价格、营养数据取自麦当劳中国 MCP 的真实返回（2026-10-21 时点），可能随门店与时段变化，实际以麦当劳官方渠道实时结果为准。页面内的天气、星座、麦门签为趣味内容，不构成营养、医疗、心理或任何专业建议。
+
+<!-- yarkr:install:start -->
+## Install with Yarkr
+
+This repo is indexed on [Yarkr](https://yarkr.com/arks/tom123223/maimen-xinshi) as the ark [tom123223/maimen-xinshi](https://yarkr.com/arks/tom123223/maimen-xinshi), so its skills install into Claude Code, Codex, Cursor and other agent harnesses with one command.
+
+### CLI
+
+Install the whole ark, which Yarkr keeps equal to this repo:
+
+```bash
+npx yarkr-cli sync tom123223/maimen-xinshi
+```
+
+Or add individual skills:
+
+```bash
+npx yarkr-cli add skill:tom123223/maimen-xinshi/maimen-xinshi
+```
+
+No Node.js? `curl -fsSL https://yarkr.com/install.sh | sh` (macOS, Linux) or `irm https://yarkr.com/install.ps1 | iex` (Windows PowerShell) installs `yarkr` as a standalone binary; then type `yarkr` in place of `npx yarkr-cli`.
+
+### MCP
+
+Connect your agent to the ark over MCP:
+
+```bash
+npx yarkr-cli mcp add tom123223/maimen-xinshi
+```
+
+Or point any MCP client at `https://api.yarkr.com/functions/v1/api/mcp/o/tom123223/maimen-xinshi`.
+<!-- yarkr:install:end -->
